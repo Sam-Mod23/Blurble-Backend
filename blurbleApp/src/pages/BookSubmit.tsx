@@ -6,6 +6,7 @@ import {
   IonTitle,
 } from "@ionic/react";
 import React from "react";
+import GoogleBookList from "../components/GoogleBookList";
 
 const BookSubmit: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const BookSubmit: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <h1>BookSubmit</h1>
+        <GoogleBookList />
       </IonContent>
     </IonPage>
   );
