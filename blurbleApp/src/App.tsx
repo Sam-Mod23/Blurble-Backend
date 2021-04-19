@@ -1,21 +1,11 @@
-import { Link, Route } from "react-router-dom";
-import {
-  IonApp,
-  IonRouterOutlet,
-  IonMenu,
-  IonMenuButton,
-  IonToolbar,
-  IonTitle,
-  IonList,
-  IonItem,
-  IonContent,
-  IonHeader,
-  IonLabel,
-} from "@ionic/react";
+import { Route } from "react-router-dom";
+import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import Home from "./pages/Home";
-import BookSubmit from "./pages/BookSubmit";
+
+import Header from "./components/Header";
 import React from "react";
+import Menu from "./components/Menu";
+import Home from "./pages/Home";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -35,48 +25,22 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import BookSubmit from "./pages/BookSubmit";
 
 const App: React.FC = () => (
-  <IonReactRouter>
-    <IonApp>
-      <IonHeader>
-        <IonToolbar color="dark">
-          <IonTitle>Blurble</IonTitle>
-          <IonMenuButton
-            color="primary"
-            slot="secondary"
-            className="MenuButton"
-          ></IonMenuButton>
-        </IonToolbar>
-      </IonHeader>
-      <IonMenu side="start" contentId="main">
-        <IonHeader>
-          <IonToolbar color="dark">
-            <IonTitle>Menu</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+  <IonApp>
+    <Header />
+    <Menu />
 
-        <IonContent id="main">
-          <IonItem routerLink="/bookSubmit"> click on me</IonItem>
-          <IonList>
-            <IonItem routerLink="/bookSubmit">
-              <IonLabel>Book Submit</IonLabel>
-            </IonItem>
-            <IonItem>
-              <Link to="/booksubmit">me</Link>
-            </IonItem>
-            <IonItem>List Item</IonItem>
-            <IonItem>List Item</IonItem>
-          </IonList>
-        </IonContent>
-      </IonMenu>
-
+    <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/home" component={Home} />
+        <Route exact path="/Profile" />
+        <Route exact path="/Browse" />
         <Route exact path="/BookSubmit" component={BookSubmit} />
       </IonRouterOutlet>
-    </IonApp>
-  </IonReactRouter>
+    </IonReactRouter>
+  </IonApp>
 );
 
 export default App;

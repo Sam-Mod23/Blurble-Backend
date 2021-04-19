@@ -17,7 +17,10 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen></IonContent>
+      <IonContent fullscreen>
+        <h1>Hello</h1>
+        <a href="/booksubmit">google</a>
+      </IonContent>
     </IonPage>
   );
 };
