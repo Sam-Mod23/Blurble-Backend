@@ -1,35 +1,45 @@
-const mongoose = require('mongoose');
-const UserSchema = require('./schema/users-schema');
-// const autoIncrement = require('mongoose-auto-increment');
+const mongoose = require("mongoose");
+const UserSchema = require("./schema/users-schema");
+const ClubSchema = require("./schema/clubs-schema");
 
-const MongoClient = require('mongodb').MongoClient;
-
-mongoose.connect('mongodb://localhost:27017/blurble', {
+mongoose.connect("mongodb://localhost:27017/blurble", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;
 
-// autoIncrement.initialize(db);
+const User = mongoose.model("User", UserSchema);
+const Club = mongoose.model("Club", ClubSchema);
 
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', () => {
-  console.log('connected');
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", () => {
+  mongoose.connection.db.listCollections().toArray((err, data) => {
+    console.log(data);
+  });
   User.insertMany(
-    [
-      { username: 'user9', isOver18: true, email: 'email9' },
-      { username: 'user10', isOver18: false, email: 'email10' }
-    ],
+    [{ username: "user15", name: "Sam", isOver18: false, email: "email15" }],
     (err, data) => {
-      console.log(data);
+      console.log(err);
     }
   );
+  Club.insertMany(
+    [
+      {
+        clubName: "Blurble Club3",
+        description: "test",
+        currentBook: { book: "test" },
+        memberIds: [1],
+        adminIds: [1],
+      },
+    ],
+    (err, data) => {}
+  );
+
+  User.find(function (err, user) {
+    if (err) return console.error(err);
+    console.log(user);
+  });
 });
 
-// UserSchema.plugin(autoIncrement.plugin, 'User');
-const User = mongoose.model('User', UserSchema);
-
-// mongoose.set('useNewUrlParser', true);
-// mongoose.set('useFindAndModify', false);
-// mongoose.set('useCreateIndex', true);
+mongoose.set("useCreateIndex", true);
