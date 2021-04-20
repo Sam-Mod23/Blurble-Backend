@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const ClubSchema = new Schema(
@@ -11,9 +11,10 @@ const ClubSchema = new Schema(
     adminIds: { type: Array, required: true },
     thumbnail: String,
     comments: Array,
+    archivedBooks: Array
     //location - possibly
   },
-  { timestamps: { createdAt: "created_at" } }
+  { timestamps: { createdAt: 'created_at' } }
 );
 
 module.exports = ClubSchema;
