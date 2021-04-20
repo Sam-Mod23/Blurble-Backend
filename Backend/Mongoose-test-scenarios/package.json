@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate-up": "./node_modules/.bin/migrate up create-clubs-collection -d mongodb://localhost:27017/blurble",
     "db-start-linux": "mongod",
     "db-start-mac": "brew services start mongodb-community@4.4",
     "db-stop-mac": "brew services stop mongodb-community@4.4",
@@ -12,12 +13,13 @@
     "app-connect": "node app.js",
     "seed": "node seed.js",
     "query": "node utils/db-query.js",
-    "start": "npm run db-start-linux & (sleep 5 && npm run app-connect & (sleep 5 && npm run seed))",
+    "start": "npm run db-start-linux & (sleep 5 && npm run app-connect & (sleep 5 && npm run migrate-up & (sleep 5 && npm run seed)))",
     "start-mac": "npm run db-start-mac & (sleep 5 && npm run app-connect & (sleep 5 && npm run seed))"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "migrate-mongoose": "^4.0.0",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.4",
     "mongoose-auto-increment": "^5.0.1",
