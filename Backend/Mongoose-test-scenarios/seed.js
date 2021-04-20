@@ -1,26 +1,39 @@
-const mongoose = require('mongoose');
-const db = require('./app');
-const UserSchema = require('./schema/users-schema');
-const ClubSchema = require('./schema/clubs-schema');
+const { db, User, Club, Comment } = require('./app');
+
 const { userData, commentData, clubData } = require('./data/index');
 
 process.env.NODE_ENV = 'test';
 
-const User = mongoose.model('User', UserSchema);
-const Club = mongoose.model('Club', ClubSchema);
-
 const seedDb = () => {
-  User.insertMany(userData, (err, data) => {
-    console.log(err, data);
+  db.dropDatabase().then(() => {
+    User.insertMany(userData).then((data) => {
+      console.log('insert many');
+    });
+    Club.insertMany(clubData, (err, data) => {
+      if (err) console.log(err);
+      console.log('insert many');
+    });
+    Comment.insertMany(commentData, (err, data) => {
+      if (err) console.log(err);
+      console.log('insert many');
+    });
   });
-
-  Club.insertMany(clubData, (err, data) => {
-    console.log(err, data);
-  });
-
-  //   mongoose.connection.db.listCollections().toArray((err, data) => {
-  //     console.log(data);
+  // .then(() => {
+  //   User.find({}, function (err, users) {
+  //     if (err) return console.error(err);
+  //     console.log(users, '---find');
   //   });
+  //   Club.find({}, function (err, clubs) {
+  //     if (err) return console.error(err);
+  //     console.log(clubs, '---find');
+  //   });
+  //   Comment.find({}, function (err, comments) {
+  //     if (err) return console.error(err);
+  //     console.log(comments, '---find');
+  //   });
+  // });
 };
 
-module.exports = seedDb;
+seedDb();
+
+module.exports = { User, Club, Comment };
