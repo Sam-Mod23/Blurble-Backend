@@ -9,9 +9,9 @@
     "db-start-mac": "brew services start mongodb-community@4.4",
     "db-stop-mac": "brew services stop mongodb-community@4.4",
     "drop-db": "node ./utils/drop-db.js",
-    "seed": "node app.js",
-    "start": "npm run db-start-linux && npm run seed",
-    "start-mac": "npm run db-start-mac && npm run seed"
+    "app-connect": "node app.js",
+    "start": "npm run db-start-linux && npm run app-connect",
+    "start-mac": "npm run db-start-mac && npm run app-connect"
   },
   "author": "",
   "license": "ISC",
