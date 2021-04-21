@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema(
@@ -10,11 +10,11 @@ const UserSchema = new Schema(
     blurbles: Number,
     badge: Array,
     avatar: String,
-    clubs: [{ clubName: String, club_Id: String, progress: Number }],
+    clubs: [{ clubName: String, club_Id: String, progress: Number }]
 
     //location - possibly
   },
-  { timestamps: { createdAt: "created_at" } }
+  { timestamps: { createdAt: 'created_at' } }
 );
 
 module.exports = UserSchema;
