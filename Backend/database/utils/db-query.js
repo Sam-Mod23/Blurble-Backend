@@ -1,4 +1,4 @@
-const { db, User, Club, Comment } = require('../app');
+const { db, User, Club, Comment } = require('../db-connection.js');
 
 User.find({}, function (err, users) {
   if (err) return console.error(err);

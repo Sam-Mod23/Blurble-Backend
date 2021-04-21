@@ -1,4 +1,4 @@
-const db = require('../app');
+const db = require('../db-connection.js');
 
 // db.once("open", () => {
 //   db.dropDatabase().then((err) => {

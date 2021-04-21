@@ -10,7 +10,7 @@
     "db-stop-mac": "brew services stop mongodb-community@4.4",
     "app-connect": "node ./database/db_connection.js",
     "seed": "node ./database/seed.js",
-    "query": "node ./database/utils/db-query.js",
+    "query": "node ./database/utils/db-query.js > output.txt",
     "start": "npm run db-start-linux & (sleep 5 && npm run app-connect & (sleep 5 && npm run seed))",
     "start-mac": "npm run db-start-mac & (sleep 5 && npm run app-connect & (sleep 5 && npm run seed))"
   },
