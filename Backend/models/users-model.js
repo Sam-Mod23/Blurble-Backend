@@ -6,3 +6,7 @@ exports.fetchUserById = (user_id) => {
     return user;
   });
 };
+
+// exports.amendUserById = (user_id, blurbleInc) => {
+//   return User.findByIdAndUpdate(user_id, {blurbles:  )
+// }
