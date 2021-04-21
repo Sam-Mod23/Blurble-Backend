@@ -7,7 +7,7 @@ const UserSchema = new Schema(
     name: { type: String, required: true },
     isOver18: Boolean,
     email: { type: String, required: true, unique: true },
-    blurbles: Number,
+    blurbles: { type: Number, default: 0 },
     badge: Array,
     avatar: String,
     clubs: [{ clubName: String, club_Id: String, progress: Number }]
