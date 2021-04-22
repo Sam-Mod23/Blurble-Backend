@@ -1,26 +1,23 @@
-const { db, User, Club, Comment } = require("./db-connection.js");
+const seedFunction = async () => {
+  const { db, User, Club, Comment } = require('./db-connection.js');
 
-const { userData, commentData, clubData } = require("./data/index");
+  const { userData, commentData, clubData } = require('./data/index');
 
-process.env.NODE_ENV = "test";
+  process.env.NODE_ENV = 'test';
 
-const seedDb = () => {
-  db.dropDatabase().then(() => {
-    console.log("db dropped");
-    User.insertMany(userData).then((data) => {
-      console.log("inserted users");
+  const seedDb = () => {
+    console.log('in seedDb');
+    return db.dropDatabase().then(() => {
+      console.log('db dropped');
+      return Promise.all([
+        User.insertMany(userData),
+        Club.insertMany(clubData),
+        Comment.insertMany(commentData)
+      ]);
     });
-    Club.insertMany(clubData, (err, data) => {
-      if (err) console.log(err);
-      console.log("inserted clubs");
-    });
-    Comment.insertMany(commentData, (err, data) => {
-      if (err) console.log(err);
-      console.log("inserted comments");
-    });
-  });
+  };
+
+  return seedDb();
 };
 
-seedDb();
-
-module.exports = { User, Club, Comment, seedDb };
+module.exports = { seedFunction };
