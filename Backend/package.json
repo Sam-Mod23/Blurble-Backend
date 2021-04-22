@@ -5,7 +5,7 @@
   "scripts": {
     "endpoint-tests-mac": "NODE_ENV=test && npm run db-start-mac && npm run app-connect",
     "endpoint-tests-linux": "NODE_ENV=test npm run db-start-linux & (sleep 5 && npm run app-connect & (sleep 5 && jest))",
-    "test": "jest --detectOpenHandles",
+    "test": "jest",
     "migrate-up": "migrate up create-clubs-collection -d mongodb://localhost:27017/blurble",
     "db-start-linux": "mongod",
     "db-start-mac": "brew services start mongodb-community@4.4",
