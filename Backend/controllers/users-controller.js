@@ -1,4 +1,18 @@
-const { fetchUserById, amendUserById } = require('../models/users-model');
+const {
+  fetchUsers,
+  fetchUserById,
+  amendUserById,
+} = require("../models/users-model");
+
+exports.getUsers = (req, res, next) => {
+  fetchUsers()
+    .then((users) => {
+      res.status(200).send(users);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 exports.getUserById = (req, res, next) => {
   const { user_id } = req.params;
