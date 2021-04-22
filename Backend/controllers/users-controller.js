@@ -1,6 +1,6 @@
 const {
   fetchUsers,
-  fetchUserById,
+  fetchUser,
   amendUserById,
 } = require("../models/users-model");
 
@@ -14,15 +14,14 @@ exports.getUsers = (req, res, next) => {
     });
 };
 
-exports.getUserById = (req, res, next) => {
-  const { user_id } = req.params;
-
-  fetchUserById(user_id)
-    .then((user) => {
+exports.getUser = (req, res, next) => {
+  fetchUser(req.params)
+    .then(([user]) => {
       res.status(200).send(user);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(({ status, msg }) => {
+      console.log(status, msg);
+      res.status(status).send(msg);
     });
 };
 

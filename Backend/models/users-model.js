@@ -7,10 +7,17 @@ exports.fetchUsers = () => {
   });
 };
 
-exports.fetchUserById = (user_id) => {
-  return User.findById(user_id, (err, user) => {
-    if (err) return console.log(err);
-    return user;
+exports.fetchUser = ({ _id, username }) => {
+  let searchObject = {};
+  if (_id) searchObject = { _id };
+  if (username) searchObject = { username };
+
+  return User.find(searchObject).then((user) => {
+    if (!Object.keys(user).length) {
+      return Promise.reject({ status: 404, msg: "Not found" });
+    } else {
+      return user;
+    }
   });
 };
 

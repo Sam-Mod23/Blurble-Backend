@@ -8,7 +8,6 @@ const { seedFunction } = require("../database/seed");
 const { beforeEach, expect } = require("@jest/globals");
 
 beforeEach((done) => {
-  console.log(process.env.NODE_ENV);
   seedFunction().then(() => {
     done();
   });
@@ -71,10 +70,40 @@ describe("users", () => {
         });
     });
   });
-  describe("GET api/users/:user_id", () => {
+  describe("GET api/users/user_id=:user_id", () => {
     test("should return user 1 when given parameter of 1", () => {
       return request(app)
-        .get("/api/users/1")
+        .get("/api/users/_id=1")
+        .expect(200)
+        .then(({ body }) => {
+          expect(body).toMatchObject({
+            blurbles: 0,
+            badge: [],
+            _id: 1,
+            username: "username 1",
+            name: "user 1",
+            isOver18: false,
+            email: "email 1",
+            clubs: [],
+            __v: 0,
+            created_at: expect.any(String),
+            updatedAt: expect.any(String),
+          });
+        });
+    });
+    test("should return 404 when given valid but non-existent _id", () => {
+      return request(app)
+        .get("/api/users/_id=6")
+        .expect(404)
+        .then((res) => {
+          console.log(res.body);
+        });
+    });
+  });
+  describe("GET api/users/username=:username", () => {
+    test("should return user 1 when given parameter of user 1", () => {
+      return request(app)
+        .get("/api/users/username=username%201")
         .expect(200)
         .then(({ body }) => {
           expect(body).toMatchObject({
