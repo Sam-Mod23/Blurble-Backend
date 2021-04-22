@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const CommentSchema = new Schema(
@@ -9,10 +9,10 @@ const CommentSchema = new Schema(
     group_id: String,
     group_name: String,
     current_book_ISBN: Number,
-    progress: Number
+    progress: Number,
     // photo: {data: Buffer, contentType: String}
   },
-  { timestamps: { createdAt: 'created_at' } }
+  { timestamps: { createdAt: "created_at" } }
 );
 
 module.exports = CommentSchema;

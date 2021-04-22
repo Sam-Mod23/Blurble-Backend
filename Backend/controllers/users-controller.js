@@ -1,4 +1,4 @@
-const { fetchUserById } = require('../models/users-model');
+const { fetchUserById, amendUserById } = require("../models/users-model");
 
 exports.getUserById = (req, res, next) => {
   const { user_id } = req.params;

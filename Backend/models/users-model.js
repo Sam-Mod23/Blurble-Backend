@@ -1,4 +1,4 @@
-const { User } = require('../database/db-connection');
+const { User } = require("../database/db-connection");
 
 exports.fetchUserById = (user_id) => {
   return User.findById(user_id, (err, user) => {
@@ -7,6 +7,8 @@ exports.fetchUserById = (user_id) => {
   });
 };
 
-// exports.amendUserById = (user_id, blurbleInc) => {
-//   return User.findByIdAndUpdate(user_id, {blurbles:  )
-// }
+exports.amendUserById = (user_id, blurbleInc) => {
+  return User.findById(user_id, (err, doc) => {
+    doc.blurbles = doc.blurbles + blurbleInc;
+  });
+};
