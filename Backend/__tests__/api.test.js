@@ -36,7 +36,7 @@ describe("users", () => {
           body.forEach((user) => {
             expect(user).toMatchObject({
               blurbles: expect.any(Number),
-              badge: expect.any(Array),
+              badges: expect.any(Array),
               _id: expect.any(Number),
               username: expect.any(String),
               name: expect.any(String),
@@ -57,13 +57,13 @@ describe("users", () => {
         .then(({ body }) => {
           expect(body[0]).toMatchObject({
             blurbles: 0,
-            badge: [],
+            badges: [],
             _id: 1,
             username: "username 1",
             name: "user 1",
             isOver18: false,
             email: "email 1",
-            clubs: [{ club_id: 0, progress: 0 }],
+            clubs: [{ club_id: 1, progress: 0 }],
             __v: 0,
             created_at: expect.any(String),
             updatedAt: expect.any(String)
@@ -79,13 +79,13 @@ describe("users", () => {
         .then(({ body }) => {
           expect(body).toMatchObject({
             blurbles: 0,
-            badge: [],
+            badges: [],
             _id: 1,
             username: "username 1",
             name: "user 1",
             isOver18: false,
             email: "email 1",
-            clubs: [{ club_id: 0, progress: 0 }],
+            clubs: [{ club_id: 1, progress: 0 }],
             __v: 0,
             created_at: expect.any(String),
             updatedAt: expect.any(String)
@@ -101,7 +101,7 @@ describe("users", () => {
         });
     });
   });
-  describe.only("PATCH api/users/_id=:_id", () => {
+  describe("PATCH api/users/_id=:_id", () => {
     test("should return 201 when PATCH successful and increment blurbles", () => {
       return request(app)
         .patch("/api/users/_id=1")
@@ -118,7 +118,7 @@ describe("users", () => {
         .expect(201)
         .then(({ body }) => {
           expect(body.clubs).toEqual([
-            { club_id: 0, progress: 0, hasNominated: false },
+            { club_id: 1, progress: 0, hasNominated: false },
             { club_id: 2, progress: 0, hasNominated: false }
           ]);
         });
@@ -126,22 +126,22 @@ describe("users", () => {
     test("should return 201 when PATCH successful and update user's progress of specific club_id", () => {
       return request(app)
         .patch("/api/users/_id=1")
-        .send({ club_id: 0, progress: 100 })
+        .send({ club_id: 1, progress: 100 })
         .expect(201)
         .then(({ body }) => {
           expect(body.clubs).toEqual([
-            { club_id: 0, progress: 100, hasNominated: false }
+            { club_id: 1, progress: 100, hasNominated: false }
           ]);
         });
     });
     test("should return 201 when PATCH successful and update the hasNominated Boolean in a users clubs", () => {
       return request(app)
         .patch("/api/users/_id=1")
-        .send({ club_id: 0, hasNominated: true })
+        .send({ club_id: 1, hasNominated: true })
         .expect(201)
         .then(({ body }) => {
           expect(body.clubs).toEqual([
-            { club_id: 0, progress: 0, hasNominated: true }
+            { club_id: 1, progress: 0, hasNominated: true }
           ]);
         });
     });
@@ -152,10 +152,19 @@ describe("users", () => {
         .expect(201)
         .then(({ body }) => {
           expect(body.badges).toEqual(["badge name example"]);
+        });
+    });
+    test("should return 201 when PATCH successful and club removed from users club array", () => {
+      return request(app)
+        .patch("/api/users/_id=1")
+        .send({ clubToRemove: 1 })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.clubs).toEqual([]);
         });
     });
   });
-  describe.only("PATCH api/users/username=:username", () => {
+  describe("PATCH api/users/username=:username", () => {
     test("should return 201 when PATCH successful and increment blurbles", () => {
       return request(app)
         .patch("/api/users/username=username%201")
@@ -172,7 +181,7 @@ describe("users", () => {
         .expect(201)
         .then(({ body }) => {
           expect(body.clubs).toEqual([
-            { club_id: 0, progress: 0, hasNominated: false },
+            { club_id: 1, progress: 0, hasNominated: false },
             { club_id: 2, progress: 0, hasNominated: false }
           ]);
         });
@@ -180,22 +189,22 @@ describe("users", () => {
     test("should return 201 when PATCH successful and update user's progress of specific club_id", () => {
       return request(app)
         .patch("/api/users/username=username%201")
-        .send({ club_id: 0, progress: 100 })
+        .send({ club_id: 1, progress: 100 })
         .expect(201)
         .then(({ body }) => {
           expect(body.clubs).toEqual([
-            { club_id: 0, progress: 100, hasNominated: false }
+            { club_id: 1, progress: 100, hasNominated: false }
           ]);
         });
     });
     test("should return 201 when PATCH successful and update the hasNominated Boolean in a users clubs", () => {
       return request(app)
         .patch("/api/users/username=username%201")
-        .send({ club_id: 0, hasNominated: true })
+        .send({ club_id: 1, hasNominated: true })
         .expect(201)
         .then(({ body }) => {
           expect(body.clubs).toEqual([
-            { club_id: 0, progress: 0, hasNominated: true }
+            { club_id: 1, progress: 0, hasNominated: true }
           ]);
         });
     });
@@ -206,6 +215,15 @@ describe("users", () => {
         .expect(201)
         .then(({ body }) => {
           expect(body.badges).toEqual(["badge name example"]);
+        });
+    });
+    test("should return 201 when PATCH successful and club removed from users club array", () => {
+      return request(app)
+        .patch("/api/users/username=username%201")
+        .send({ clubToRemove: 1 })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.clubs).toEqual([]);
         });
     });
   });
@@ -217,17 +235,45 @@ describe("users", () => {
         .then(({ body }) => {
           expect(body).toMatchObject({
             blurbles: 0,
-            badge: [],
+            badges: [],
             _id: 1,
             username: "username 1",
             name: "user 1",
             isOver18: false,
             email: "email 1",
-            clubs: [{ club_id: 0, progress: 0 }],
+            clubs: [{ club_id: 1, progress: 0 }],
             __v: 0,
             created_at: expect.any(String),
             updatedAt: expect.any(String)
           });
+        });
+    });
+  });
+  describe.only("DELETE api/users/username=:username or api/users/_id=:_id", () => {
+    test("should return 204 for successful deletion of user for username", () => {
+      return request(app)
+        .delete("/api/users/username=username%201")
+        .expect(204)
+        .then(() => {
+          return request(app)
+            .get("/api/users")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.length).toEqual(4);
+            });
+        });
+    });
+    test("should return 204 for successful deletion of user for _id", () => {
+      return request(app)
+        .delete("/api/users/_id=1")
+        .expect(204)
+        .then(() => {
+          return request(app)
+            .get("/api/users")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.length).toEqual(4);
+            });
         });
     });
   });

@@ -1,8 +1,9 @@
 const {
   fetchUsers,
   fetchUser,
-  amendUserById,
-  amendUserClubsById
+  amendUserByDetails,
+  amendUserClubsByDetails,
+  removeUserByDetails
 } = require("../models/users-model");
 
 exports.getUsers = (req, res, next) => {
@@ -26,11 +27,11 @@ exports.getUser = (req, res, next) => {
     });
 };
 
-exports.patchUserById = (req, res, next) => {
+exports.patchUserByDetails = (req, res, next) => {
   const { _id, username } = req.params;
-  const { blurblesInc, club_id, progress, hasNominated } = req.body;
-  if (progress || hasNominated) {
-    amendUserClubsById(req.params, req.body)
+  const { club_id, progress, hasNominated, clubToRemove } = req.body;
+  if (progress || hasNominated || clubToRemove) {
+    amendUserClubsByDetails(req.params, req.body)
       .then((clubs) => {
         res.status(201).send(clubs);
       })
@@ -38,7 +39,7 @@ exports.patchUserById = (req, res, next) => {
         console.log(err);
       });
   } else {
-    amendUserById(req.params, req.body)
+    amendUserByDetails(req.params, req.body)
       .then((user) => {
         res.status(201).send(user);
       })
@@ -48,11 +49,11 @@ exports.patchUserById = (req, res, next) => {
   }
 };
 
-exports.deleteUserById = (req, res, next) => {
-  const { _id } = req.params;
-  removeUserById()
-    .then((clubs) => {
-      res.status(204);
+exports.deleteUserByDetails = (req, res, next) => {
+  const { _id, username } = req.params;
+  removeUserByDetails(req.params)
+    .then(() => {
+      res.sendStatus(204);
     })
     .catch((err) => {
       console.log(err);

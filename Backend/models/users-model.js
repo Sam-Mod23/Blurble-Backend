@@ -21,7 +21,7 @@ exports.fetchUser = ({ _id, username }) => {
   });
 };
 
-exports.amendUserById = (
+exports.amendUserByDetails = (
   { _id, username },
   { blurblesInc, club_id, newBadge }
 ) => {
@@ -44,20 +44,27 @@ exports.amendUserById = (
   );
 };
 
-exports.amendUserClubsById = (
+exports.amendUserClubsByDetails = (
   { _id, username },
-  { club_id, progress, hasNominated }
+  { club_id, progress, hasNominated, clubToRemove }
 ) => {
   if (_id) searchObject = { _id };
   if (username) searchObject = { username };
+
   return this.fetchUser(searchObject).then((userInfo) => {
-    const updatedClubs = userInfo.clubs.map((club) => {
-      if (club_id === club.club_id) {
-        if (progress) club.progress = progress;
-        if (hasNominated) club.hasNominated = hasNominated;
-      }
-      return club;
-    });
+    let updatedClubs;
+    if (clubToRemove) {
+      updatedClubs = userInfo.clubs.filter((club) => {
+        return club.club_id !== clubToRemove;
+      });
+    } else {
+      updatedClubs = userInfo.clubs.map((club) => {
+        if (club_id === club.club_id) {
+          if (progress) club.progress = progress;
+          if (hasNominated) club.hasNominated = hasNominated;
+        }
+      });
+    }
     return User.findOneAndUpdate(
       searchObject,
       { clubs: updatedClubs },
@@ -65,5 +72,14 @@ exports.amendUserClubsById = (
     ).then((doc) => {
       return doc;
     });
+  });
+};
+
+exports.removeUserByDetails = ({ _id, username }) => {
+  if (_id) searchObject = { _id };
+  if (username) searchObject = { username };
+  return User.deleteOne(searchObject, (err) => {
+    console.log(err);
+    return;
   });
 };
