@@ -1,7 +1,7 @@
 const {
   fetchUsers,
   fetchUser,
-  amendUserById,
+  amendUserById
 } = require("../models/users-model");
 
 exports.getUsers = (req, res, next) => {
@@ -20,16 +20,15 @@ exports.getUser = (req, res, next) => {
       res.status(200).send(user);
     })
     .catch(({ status, msg }) => {
-      console.log(status, msg);
+      console.log(status, msg, "getUser error");
       res.status(status).send(msg);
     });
 };
 
 exports.patchUserById = (req, res, next) => {
-  const { user_id } = req.params;
-  const { blurbleInc, club_id, progress } = req.body;
-
-  amendUserById(user_id, blurbleInc)
+  const { _id } = req.params;
+  const { blurblesInc, club_id, progress } = req.body;
+  amendUserById(_id, req.body)
     .then((user) => {
       res.status(201).send(user);
     })

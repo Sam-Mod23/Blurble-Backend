@@ -21,8 +21,14 @@ exports.fetchUser = ({ _id, username }) => {
   });
 };
 
-exports.amendUserById = (user_id, blurbleInc) => {
-  return User.findById(user_id, (err, doc) => {
-    doc.blurbles = doc.blurbles + blurbleInc;
-  });
+exports.amendUserById = (_id, { blurblesInc, club_id, progress }) => {
+  let updateObj;
+  if (blurblesInc) updateObj = { $inc: { blurbles: blurblesInc } };
+  // if (club_id) updateObj = { $push: { clubs: {club_id, progress: 0 } };
+
+  return User.findOneAndUpdate({ _id }, updateObj, { new: true }).then(
+    (doc) => {
+      return doc;
+    }
+  );
 };
