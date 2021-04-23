@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-// const ENV = process.env.NODE_ENV || "development";
-const ENV = "test";
+const ENV = process.env.NODE_ENV || "development";
 
 const UserSchema = {
   test: new Schema(
@@ -13,7 +12,7 @@ const UserSchema = {
       blurbles: { type: Number, default: 0 },
       badge: Array,
       avatar: String,
-      clubs: [{ clubName: String, club_Id: String, progress: Number }],
+      clubs: [{ club_Id: String, progress: Number }],
       _id: Number
     },
     { timestamps: { createdAt: "created_at" } }
@@ -27,7 +26,7 @@ const UserSchema = {
       blurbles: { type: Number, default: 0 },
       badge: Array,
       avatar: String,
-      clubs: [{ clubName: String, club_Id: String, progress: Number }]
+      clubs: [{ club_Id: String, progress: Number }]
     },
     { timestamps: { createdAt: "created_at" } }
   )
