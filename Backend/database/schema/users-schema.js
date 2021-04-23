@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const ENV = process.env.NODE_ENV || "development";
+// const ENV = process.env.NODE_ENV || "development";
+const ENV = "test";
 
 const UserSchema = {
   test: new Schema(
@@ -13,7 +14,7 @@ const UserSchema = {
       badge: Array,
       avatar: String,
       clubs: [{ clubName: String, club_Id: String, progress: Number }],
-      _id: Number,
+      _id: Number
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -26,10 +27,10 @@ const UserSchema = {
       blurbles: { type: Number, default: 0 },
       badge: Array,
       avatar: String,
-      clubs: [{ clubName: String, club_Id: String, progress: Number }],
+      clubs: [{ clubName: String, club_Id: String, progress: Number }]
     },
     { timestamps: { createdAt: "created_at" } }
-  ),
+  )
 };
 
 module.exports = UserSchema[ENV];
