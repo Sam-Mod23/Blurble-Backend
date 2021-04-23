@@ -2,7 +2,7 @@ const {
   fetchUsers,
   fetchUser,
   amendUserById,
-  amendUserClubsById,
+  amendUserClubsById
 } = require("../models/users-model");
 
 exports.getUsers = (req, res, next) => {
@@ -27,10 +27,10 @@ exports.getUser = (req, res, next) => {
 };
 
 exports.patchUserById = (req, res, next) => {
-  const { _id } = req.params;
+  const { _id, username } = req.params;
   const { blurblesInc, club_id, progress, hasNominated } = req.body;
   if (progress || hasNominated) {
-    amendUserClubsById(_id, req.body)
+    amendUserClubsById(req.params, req.body)
       .then((clubs) => {
         res.status(201).send(clubs);
       })
@@ -38,7 +38,7 @@ exports.patchUserById = (req, res, next) => {
         console.log(err);
       });
   } else {
-    amendUserById(_id, req.body)
+    amendUserById(req.params, req.body)
       .then((user) => {
         res.status(201).send(user);
       })
@@ -46,4 +46,15 @@ exports.patchUserById = (req, res, next) => {
         console.log(err);
       });
   }
+};
+
+exports.deleteUserById = (req, res, next) => {
+  const { _id } = req.params;
+  removeUserById()
+    .then((clubs) => {
+      res.status(204);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

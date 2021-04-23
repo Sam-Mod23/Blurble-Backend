@@ -21,24 +21,36 @@ exports.fetchUser = ({ _id, username }) => {
   });
 };
 
-exports.amendUserById = (_id, { blurblesInc, club_id, newBadge }) => {
+exports.amendUserById = (
+  { _id, username },
+  { blurblesInc, club_id, newBadge }
+) => {
+  if (_id) searchObject = { _id };
+  if (username) searchObject = { username };
+
   let updateObj;
   if (blurblesInc) updateObj = { $inc: { blurbles: blurblesInc } };
-  if (club_id)
+  if (club_id) {
     updateObj = {
-      $push: { clubs: { club_id, progress: 0, hasNominated: false } },
+      $push: { clubs: { club_id, progress: 0, hasNominated: false } }
     };
+  }
   if (newBadge) updateObj = { $push: { badges: newBadge } };
 
-  return User.findOneAndUpdate({ _id }, updateObj, { new: true }).then(
+  return User.findOneAndUpdate(searchObject, updateObj, { new: true }).then(
     (doc) => {
       return doc;
     }
   );
 };
 
-exports.amendUserClubsById = (_id, { club_id, progress, hasNominated }) => {
-  return this.fetchUser({ _id }).then((userInfo) => {
+exports.amendUserClubsById = (
+  { _id, username },
+  { club_id, progress, hasNominated }
+) => {
+  if (_id) searchObject = { _id };
+  if (username) searchObject = { username };
+  return this.fetchUser(searchObject).then((userInfo) => {
     const updatedClubs = userInfo.clubs.map((club) => {
       if (club_id === club.club_id) {
         if (progress) club.progress = progress;
@@ -47,7 +59,7 @@ exports.amendUserClubsById = (_id, { club_id, progress, hasNominated }) => {
       return club;
     });
     return User.findOneAndUpdate(
-      { _id },
+      searchObject,
       { clubs: updatedClubs },
       { new: true }
     ).then((doc) => {
