@@ -10,10 +10,13 @@ const UserSchema = {
       isOver18: Boolean,
       email: { type: String, required: true, unique: true },
       blurbles: { type: Number, default: 0 },
-      badge: Array,
+      badges: Array,
       avatar: String,
-      clubs: [{ club_Id: String, progress: Number }],
-      _id: Number
+      clubs: {
+        type: Array,
+        default: [{ club_id: 0, progress: 0, hasNominated: false }],
+      },
+      _id: Number,
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -24,12 +27,15 @@ const UserSchema = {
       isOver18: Boolean,
       email: { type: String, required: true, unique: true },
       blurbles: { type: Number, default: 0 },
-      badge: Array,
+      badges: Array,
       avatar: String,
-      clubs: [{ club_Id: String, progress: Number }]
+      clubs: {
+        type: Array,
+        default: [{ club_id: 0, progress: 0, hasNominated: false }],
+      },
     },
     { timestamps: { createdAt: "created_at" } }
-  )
+  ),
 };
 
 module.exports = UserSchema[ENV];
