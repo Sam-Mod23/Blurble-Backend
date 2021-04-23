@@ -1,7 +1,8 @@
 const {
   fetchUsers,
   fetchUser,
-  amendUserById
+  amendUserById,
+  amendUserClubsById,
 } = require("../models/users-model");
 
 exports.getUsers = (req, res, next) => {
@@ -16,7 +17,7 @@ exports.getUsers = (req, res, next) => {
 
 exports.getUser = (req, res, next) => {
   fetchUser(req.params)
-    .then(([user]) => {
+    .then((user) => {
       res.status(200).send(user);
     })
     .catch(({ status, msg }) => {
@@ -27,12 +28,22 @@ exports.getUser = (req, res, next) => {
 
 exports.patchUserById = (req, res, next) => {
   const { _id } = req.params;
-  const { blurblesInc, club_id, progress } = req.body;
-  amendUserById(_id, req.body)
-    .then((user) => {
-      res.status(201).send(user);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  const { blurblesInc, club_id, progress, hasNominated } = req.body;
+  if (progress || hasNominated) {
+    amendUserClubsById(_id, req.body)
+      .then((clubs) => {
+        res.status(201).send(clubs);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    amendUserById(_id, req.body)
+      .then((user) => {
+        res.status(201).send(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 };

@@ -45,7 +45,7 @@ describe("users", () => {
               clubs: expect.any(Array),
               __v: expect.any(Number),
               created_at: expect.any(String),
-              updatedAt: expect.any(String)
+              updatedAt: expect.any(String),
             });
           });
         });
@@ -63,10 +63,10 @@ describe("users", () => {
             name: "user 1",
             isOver18: false,
             email: "email 1",
-            clubs: [],
+            clubs: [{ club_id: 0, progress: 0 }],
             __v: 0,
             created_at: expect.any(String),
-            updatedAt: expect.any(String)
+            updatedAt: expect.any(String),
           });
         });
     });
@@ -85,10 +85,10 @@ describe("users", () => {
             name: "user 1",
             isOver18: false,
             email: "email 1",
-            clubs: [],
+            clubs: [{ club_id: 0, progress: 0 }],
             __v: 0,
             created_at: expect.any(String),
-            updatedAt: expect.any(String)
+            updatedAt: expect.any(String),
           });
         });
     });
@@ -102,13 +102,56 @@ describe("users", () => {
     });
   });
   describe("PATCH api/users/_id=:_id", () => {
-    test("should return 201 when PATCH successful", () => {
+    test("should return 201 when PATCH successful and increment blurbles", () => {
       return request(app)
         .patch("/api/users/_id=1")
         .send({ blurblesInc: 10 })
         .expect(201)
         .then(({ body }) => {
           expect(body.blurbles).toBe(10);
+        });
+    });
+    test("should return 201 when PATCH successful and add new club to user's club array", () => {
+      return request(app)
+        .patch("/api/users/_id=1")
+        .send({ club_id: 2 })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.clubs).toEqual([
+            { club_id: 0, progress: 0, hasNominated: false },
+            { club_id: 2, progress: 0, hasNominated: false },
+          ]);
+        });
+    });
+    test("should return 201 when PATCH successful and update user's progress of specific club_id", () => {
+      return request(app)
+        .patch("/api/users/_id=1")
+        .send({ club_id: 0, progress: 100 })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.clubs).toEqual([
+            { club_id: 0, progress: 100, hasNominated: false },
+          ]);
+        });
+    });
+    test("should return 201 when PATCH successful and update the hasNominated Boolean in a users clubs", () => {
+      return request(app)
+        .patch("/api/users/_id=1")
+        .send({ club_id: 0, hasNominated: true })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.clubs).toEqual([
+            { club_id: 0, progress: 0, hasNominated: true },
+          ]);
+        });
+    });
+    test.only("should return 201 when PATCH successful and add additional badges to users badge array", () => {
+      return request(app)
+        .patch("/api/users/_id=1")
+        .send({ newBadge: "badge name example" })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.badges).toEqual(["badge name example"]);
         });
     });
   });
@@ -126,10 +169,10 @@ describe("users", () => {
             name: "user 1",
             isOver18: false,
             email: "email 1",
-            clubs: [],
+            clubs: [{ club_id: 0, progress: 0 }],
             __v: 0,
             created_at: expect.any(String),
-            updatedAt: expect.any(String)
+            updatedAt: expect.any(String),
           });
         });
     });
