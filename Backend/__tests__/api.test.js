@@ -24,6 +24,7 @@ describe("users", () => {
         .get("/api/users")
         .expect(200)
         .then((res) => {
+          console.log(res.body);
           expect(res.body.length).toEqual(5);
         });
     });
@@ -44,7 +45,7 @@ describe("users", () => {
               clubs: expect.any(Array),
               __v: expect.any(Number),
               created_at: expect.any(String),
-              updatedAt: expect.any(String),
+              updatedAt: expect.any(String)
             });
           });
         });
@@ -65,12 +66,12 @@ describe("users", () => {
             clubs: [],
             __v: 0,
             created_at: expect.any(String),
-            updatedAt: expect.any(String),
+            updatedAt: expect.any(String)
           });
         });
     });
   });
-  describe("GET api/users/user_id=:user_id", () => {
+  describe("GET api/users/_id=:_id", () => {
     test("should return user 1 when given parameter of 1", () => {
       return request(app)
         .get("/api/users/_id=1")
@@ -87,7 +88,7 @@ describe("users", () => {
             clubs: [],
             __v: 0,
             created_at: expect.any(String),
-            updatedAt: expect.any(String),
+            updatedAt: expect.any(String)
           });
         });
     });
@@ -97,6 +98,17 @@ describe("users", () => {
         .expect(404)
         .then((res) => {
           console.log(res.body);
+        });
+    });
+  });
+  describe("PATCH api/users/_id=:_id", () => {
+    test("should return 201 when PATCH successful", () => {
+      return request(app)
+        .patch("/api/users/_id=1")
+        .send({ blurblesInc: 10 })
+        .expect(201)
+        .then(({ body }) => {
+          expect(body.blurbles).toBe(10);
         });
     });
   });
@@ -117,7 +129,7 @@ describe("users", () => {
             clubs: [],
             __v: 0,
             created_at: expect.any(String),
-            updatedAt: expect.any(String),
+            updatedAt: expect.any(String)
           });
         });
     });
