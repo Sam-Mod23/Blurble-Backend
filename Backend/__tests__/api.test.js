@@ -139,12 +139,89 @@ describe("/api", () => {
               username: "username 5",
               name: "user 5",
               isOver18: false,
-              email: "email 5",
+              email: "email new",
+              _id: 6
+            })
+            .expect(409)
+            .then((res) => {
+              expect(res.body.msg).toEqual("User already exists");
+            });
+        });
+        test("should reject a new user with a duplicate _id", () => {
+          return request(app)
+            .post("/api/users")
+            .send({
+              username: "username new",
+              name: "user 5",
+              isOver18: false,
+              email: "email new",
               _id: 5
             })
             .expect(409)
             .then((res) => {
               expect(res.body.msg).toEqual("User already exists");
+            });
+        });
+        test("should reject a new user with a duplicate email", () => {
+          return request(app)
+            .post("/api/users")
+            .send({
+              username: "username new",
+              name: "user 5",
+              isOver18: false,
+              email: "email 5",
+              _id: 6
+            })
+            .expect(409)
+            .then((res) => {
+              expect(res.body.msg).toEqual("User already exists");
+            });
+        });
+        test("should only include valid props in new user", () => {
+          return request(app)
+            .post("/api/users")
+            .send({
+              username: "username 6",
+              name: "user 6",
+              isOver18: false,
+              email: "email 6",
+              _id: 6,
+              invalid_prop: "This is invalid"
+            })
+            .expect(201)
+            .then((res) => {
+              expect(res.body).toEqual({
+                blurbles: 0,
+                badges: [],
+                clubs: [{ club_id: 1, progress: 0, hasNominated: false }],
+                username: "username 6",
+                name: "user 6",
+                isOver18: false,
+                email: "email 6",
+                _id: 6,
+                created_at: expect.any(String),
+                updatedAt: expect.any(String),
+                __v: 0
+              });
+            });
+        });
+        test("status: 400 - POST request does not contain required keys", () => {
+          return request(app)
+            .post("/api/users")
+            .send({ username: "username 6" })
+            .expect(400)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Required information not provided");
+            });
+        });
+      });
+      describe("Invalid methods", () => {
+        test("status 405 - Method not allowed for invalid methods", () => {
+          return request(app)
+            .delete("/api/users")
+            .expect(405)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Method not allowed");
             });
         });
       });
@@ -180,7 +257,7 @@ describe("/api", () => {
             });
         });
       });
-      describe.only("PATCH api/users/_id=:_id", () => {
+      describe("PATCH api/users/_id=:_id", () => {
         test("should return 201 when PATCH successful and increment blurbles", () => {
           return request(app)
             .patch("/api/users/_id=1")
@@ -270,7 +347,37 @@ describe("/api", () => {
       });
     });
     describe("api/users/username=:username", () => {
-      describe.only("PATCH api/users/username=:username", () => {
+      describe("GET api/users/username=:username", () => {
+        test("should return user 1 when given parameter of user 1", () => {
+          return request(app)
+            .get("/api/users/username=username%201")
+            .expect(200)
+            .then(({ body }) => {
+              expect(body.user).toMatchObject({
+                blurbles: 0,
+                badges: [],
+                _id: 1,
+                username: "username 1",
+                name: "user 1",
+                isOver18: false,
+                email: "email 1",
+                clubs: [{ club_id: 1, progress: 0 }],
+                __v: 0,
+                created_at: expect.any(String),
+                updatedAt: expect.any(String)
+              });
+            });
+        });
+        test("should return 404 when given valid but non-existent username", () => {
+          return request(app)
+            .get("/api/users/username=6")
+            .expect(404)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Not found");
+            });
+        });
+      });
+      describe("PATCH api/users/username=:username", () => {
         test("should return 201 when PATCH successful and increment blurbles", () => {
           return request(app)
             .patch("/api/users/username=username%201")
@@ -298,7 +405,6 @@ describe("/api", () => {
             .send({ club_id: 1, progress: 100 })
             .expect(201)
             .then(({ body }) => {
-              console.log(body);
               expect(body.user.clubs).toEqual([
                 { club_id: 1, progress: 100, hasNominated: false }
               ]);
@@ -334,28 +440,6 @@ describe("/api", () => {
             });
         });
       });
-      describe("GET api/users/username=:username", () => {
-        test("should return user 1 when given parameter of user 1", () => {
-          return request(app)
-            .get("/api/users/username=username%201")
-            .expect(200)
-            .then(({ body }) => {
-              expect(body.user).toMatchObject({
-                blurbles: 0,
-                badges: [],
-                _id: 1,
-                username: "username 1",
-                name: "user 1",
-                isOver18: false,
-                email: "email 1",
-                clubs: [{ club_id: 1, progress: 0 }],
-                __v: 0,
-                created_at: expect.any(String),
-                updatedAt: expect.any(String)
-              });
-            });
-        });
-      });
       describe("DELETE api/users/username=:username", () => {
         test("should return 204 for successful deletion of user for username", () => {
           return request(app)
@@ -368,6 +452,16 @@ describe("/api", () => {
                 .then((res) => {
                   expect(res.body.users.length).toEqual(4);
                 });
+            });
+        });
+      });
+      describe("Invalid methods", () => {
+        test("status 405 - Method not allowed for invalid methods", () => {
+          return request(app)
+            .put("/api/users/_id=6")
+            .expect(405)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Method not allowed");
             });
         });
       });
