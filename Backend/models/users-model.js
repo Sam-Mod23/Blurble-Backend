@@ -1,4 +1,5 @@
 const { User } = require("../database/db-connection");
+const usersRouter = require("../routers/usersRouter");
 
 exports.fetchUsers = () => {
   return User.find({}, (err, users) => {
@@ -63,6 +64,7 @@ exports.amendUserClubsByDetails = (
           if (progress) club.progress = progress;
           if (hasNominated) club.hasNominated = hasNominated;
         }
+        return club;
       });
     }
     return User.findOneAndUpdate(
@@ -79,7 +81,12 @@ exports.removeUserByDetails = ({ _id, username }) => {
   if (_id) searchObject = { _id };
   if (username) searchObject = { username };
   return User.deleteOne(searchObject, (err) => {
-    console.log(err);
     return;
+  });
+};
+
+exports.addUser = (newUser) => {
+  return User.create(newUser).then((user) => {
+    return user;
   });
 };
