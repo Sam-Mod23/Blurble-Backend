@@ -1,0 +1,142 @@
+{
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "GET /api/users": {
+    "description": "serves an object with users key linked to an array of all users",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "blurbles": 10,
+          "badges": [],
+          "_id": 1,
+          "username": "username 1",
+          "name": "user 1",
+          "isOver18": false,
+          "email": "email 1",
+          "clubs": [],
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.864Z",
+          "updatedAt": "2021-04-23T09:19:09.024Z"
+        },
+        {
+          "blurbles": 0,
+          "badges": [],
+          "_id": 1,
+          "username": "username 2",
+          "name": "user 2",
+          "isOver18": false,
+          "email": "email 2",
+          "clubs": [],
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.864Z",
+          "updatedAt": "2021-04-23T09:19:08.864Z"
+        }
+      ]
+    }
+  },
+  "GET /api/users/_id=:_id": {
+    "description": "serves an object with key of article and value of user object matching id",
+    "exampleResponse": {
+      "user": {
+        "blurbles": 10,
+        "badges": [],
+        "_id": 1,
+        "username": "username 1",
+        "name": "user 1",
+        "isOver18": false,
+        "email": "email 1",
+        "clubs": [],
+        "__v": 0,
+        "created_at": "2021-04-23T09:19:08.864Z",
+        "updatedAt": "2021-04-23T09:19:09.024Z"
+      }
+    }
+  },
+  "PATCH /api/users/_id=:_id club details": {
+    "description": "updates users book progress, nomination status, adds or removes club from users club memberships, updates blurbles or badges and serves updated user back",
+    "exampleBody1": { "club_id": 1, "progress": 100 },
+    "exampleResponse1": {
+      "user": {
+        "blurbles": 10,
+        "badges": [],
+        "_id": 1,
+        "username": "username 1",
+        "name": "user 1",
+        "isOver18": false,
+        "email": "email 1",
+        "clubs": [{ "club_id": 1, "progress": 100, "hasNominated": false }],
+        "__v": 0,
+        "created_at": "2021-04-23T09:19:08.864Z",
+        "updatedAt": "2021-04-23T09:19:09.024Z"
+      }
+    },
+
+    "exampleBody2": { "club_id": 1, "hasNominated": true },
+    "exampleResponse2": {
+      "user": {
+        "blurbles": 10,
+        "badges": [],
+        "_id": 1,
+        "username": "username 1",
+        "name": "user 1",
+        "isOver18": false,
+        "email": "email 1",
+        "clubs": [{ "club_id": 1, "progress": 0, "hasNominated": true }],
+        "__v": 0,
+        "created_at": "2021-04-23T09:19:08.864Z",
+        "updatedAt": "2021-04-23T09:19:09.024Z"
+      }
+    },
+    "exampleBody3": { "clubToRemove": 1 },
+    "exampleResponse3": {
+      "user": {
+        "blurbles": 10,
+        "badges": [],
+        "_id": 1,
+        "username": "username 1",
+        "name": "user 1",
+        "isOver18": false,
+        "email": "email 1",
+        "clubs": [],
+        "__v": 0,
+        "created_at": "2021-04-23T09:19:08.864Z",
+        "updatedAt": "2021-04-23T09:19:09.024Z"
+      }
+    },
+    "exampleBody4": { "blurblesInc": 10 },
+    "exampleResponse4": {
+      "user": {
+        "blurbles": 10,
+        "badges": [],
+        "_id": 1,
+        "username": "username 1",
+        "name": "user 1",
+        "isOver18": false,
+        "email": "email 1",
+        "clubs": [{ "club_id": 1, "progress": 0, "hasNominated": true }],
+        "__v": 0,
+        "created_at": "2021-04-23T09:19:08.864Z",
+        "updatedAt": "2021-04-23T09:19:09.024Z"
+      }
+    },
+
+    "exampleBody5": { "newBadge": "badge name example" },
+    "exampleResponse5": {
+      "user": {
+        "blurbles": 10,
+        "badges": ["badge name example"],
+        "_id": 1,
+        "username": "username 1",
+        "name": "user 1",
+        "isOver18": false,
+        "email": "email 1",
+        "clubs": [{ "club_id": 1, "progress": 0, "hasNominated": true }],
+        "__v": 0,
+        "created_at": "2021-04-23T09:19:08.864Z",
+        "updatedAt": "2021-04-23T09:19:09.024Z"
+      }
+    }
+  }
+}
