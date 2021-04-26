@@ -24,7 +24,7 @@ const commentData = [
     club_id: 1,
     club_name: "Test 1",
     book: "book",
-    progress: 3,
+    progress: 7,
   },
   {
     username: "Test 4",
@@ -51,7 +51,7 @@ const commentData = [
     club_id: 3,
     club_name: "Test 3",
     book: "book",
-    progress: 3,
+    progress: 7,
   },
   {
     username: "Test 7",
