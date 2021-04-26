@@ -10,7 +10,9 @@ exports.fetchComments = ({ club_id, clubname }) => {
     if (!Object.keys(comments).length) {
       return Promise.reject({ status: 404, msg: "Not found" });
     } else {
-      return comments;
+      return comments.sort((a, b) => {
+        return a.progress - b.progress;
+      });
     }
   });
 };
