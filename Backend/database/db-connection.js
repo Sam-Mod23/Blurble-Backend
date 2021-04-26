@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 const UserSchema = require("./schema/users-schema");
 const ClubSchema = require("./schema/clubs-schema");
 const CommentSchema = require("./schema/comments-schema");
-const { atlasPassword } = require("./atlasPassword");
+
 const { seedFunction } = require("./seed");
 
-const dbConnectionUrl = `mongodb+srv://james:${atlasPassword}@cluster0.tl0ym.mongodb.net/blurble?retryWrites=true&w=majority`;
+const dbConnectionUrl = `mongodb+srv://james:JGSJN@cluster0.tl0ym.mongodb.net/blurble?retryWrites=true&w=majority`;
 
 const localConnection = "mongodb://localhost:27017/blurble";
 
@@ -27,9 +27,6 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
   console.log("Connected to db");
-  if (connection === dbConnectionUrl) {
-    seedFunction();
-  }
 });
 
 mongoose.set("useCreateIndex", true);

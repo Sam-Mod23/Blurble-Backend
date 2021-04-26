@@ -1,4 +1,3 @@
-// process.env.NODE_ENV = "test";
 const mongoose = require("mongoose");
 
 const app = require("../app");
