@@ -1,6 +1,7 @@
 // error first error handling functions
 
-exports.error400 = (err, req, res, next) => {
+exports.errorBespoke = (err, req, res, next) => {
+  console.log(err);
   if (err.status) {
     res.status(err.status).send({ msg: err.msg });
   } else {
