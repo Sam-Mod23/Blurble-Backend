@@ -19,3 +19,13 @@ exports.getClub = (req, res, next) => {
       next(err);
     });
 };
+
+exports.postClub = (req, res, next) => {
+  addClub(req.body)
+    .then((club) => {
+      res.status(200).send({ club });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
