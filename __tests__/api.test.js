@@ -466,4 +466,28 @@ describe("/api", () => {
       });
     });
   });
+  describe.only("Comments", () => {
+    describe("api/comments/club_id=:club_id", () => {
+      describe("GET api/comments/club_id=:club_id", () => {
+        test("should return 4 comments belonging to club_id 1", () => {
+          return request(app)
+            .get("/api/comments/club_id=1")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments.length).toBe(4);
+            });
+        });
+      });
+      describe("GET api/comments/club_name=:club_name", () => {
+        test("should return 4 comments belonging to club_name 'Blurble Club'", () => {
+          return request(app)
+            .get("/api/comments/club_name=Blurble%20Club")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments.length).toBe(4);
+            });
+        });
+      });
+    });
+  });
 });

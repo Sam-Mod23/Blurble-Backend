@@ -3,6 +3,7 @@ const { error405 } = require("../errors");
 const { getAllEndpoints } = require("../controllers/api-controller");
 const usersRouter = require("./usersRouter");
 // const clubsRouter = require('./clubsRouter');
+const commentsRouter = require("./commentsRouter");
 
 apiRouter.route("/").get(getAllEndpoints).all(error405);
 
