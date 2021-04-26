@@ -8,6 +8,7 @@ const clubData = [
     nominatedBooks: [1, 2, 3],
     archivedBooks: [],
     comments: [],
+    _id: 1
   },
   {
     clubName: "Blurble Club 2",
@@ -18,6 +19,7 @@ const clubData = [
     nominatedBooks: [4, 5, 6],
     archivedBooks: [],
     comments: [],
+    _id: 2
   },
   {
     clubName: "Blurble Club 3",
@@ -28,6 +30,7 @@ const clubData = [
     nominatedBooks: [7, 8, 9],
     archivedBooks: [],
     comments: [],
+    _id: 3
   },
   {
     clubName: "Blurble Club 4",
@@ -38,7 +41,8 @@ const clubData = [
     nominatedBooks: [10, 11, 12],
     archivedBooks: [],
     comments: [],
-  },
+    _id: 4
+  }
 ];
 
 module.exports = clubData;
