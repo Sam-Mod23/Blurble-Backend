@@ -5,3 +5,6 @@
 # outputs
 output.txt
 output-test.txt
+
+#security
+/database/atlasPassword.js

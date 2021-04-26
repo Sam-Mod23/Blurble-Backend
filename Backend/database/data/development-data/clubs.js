@@ -44,7 +44,6 @@ const clubData = [
       },
     ],
     comments: [],
-    _id: 1,
   },
   {
     clubName: "Northcoders Book Club",
@@ -64,7 +63,6 @@ const clubData = [
     ],
     archivedBooks: ["https://www.googleapis.com/books/v1/volumes/ffYZDQAAQBAJ"],
     comments: [],
-    _id: 2,
   },
   {
     clubName: "Science Fiction Book Club",
@@ -88,7 +86,6 @@ const clubData = [
     ],
     archivedBooks: ["https://www.googleapis.com/books/v1/volumes/V5s14nks9I8C"],
     comments: [],
-    _id: 2,
   },
   {
     clubName: "Mystery Book Club",
