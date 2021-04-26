@@ -36,8 +36,8 @@
       ]
     }
   },
-  "GET /api/users/_id=:_id": {
-    "description": "serves an object with key of article and value of user object matching id",
+  "GET /api/users/_id=:_id & GET /api/users/username=:username": {
+    "description": "serves an object with key of article and value of user object matching id or username",
     "exampleResponse": {
       "user": {
         "blurbles": 10,
@@ -54,7 +54,7 @@
       }
     }
   },
-  "PATCH /api/users/_id=:_id club details": {
+  "PATCH /api/users/_id=:_id & PATCH api/users/username=:username": {
     "description": "updates users book progress, nomination status, adds or removes club from users club memberships, updates blurbles or badges and serves updated user back",
     "exampleBody1": { "club_id": 1, "progress": 100 },
     "exampleResponse1": {
@@ -138,5 +138,8 @@
         "updatedAt": "2021-04-23T09:19:09.024Z"
       }
     }
+  },
+  "DELETE /api/users/_id=:_id & GET /api/users/username=:username": {
+    "description": "deletes user matching _id or username provided, returns a 204 status"
   }
 }
