@@ -1,6 +1,3 @@
-module.exports = {
-  topicData: require("./topics"),
-  articleData: require("./articles"),
-  userData: require("./users"),
-  commentData: require("./comments"),
-};
+exports.userData = require('./users');
+exports.commentData = require('./comments');
+exports.clubData = require('./clubs');

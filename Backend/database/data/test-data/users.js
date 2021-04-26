@@ -1,23 +1,9 @@
-module.exports = [
-  {
-    username: 'butter_bridge',
-    name: 'jonny',
-    avatar_url: 'https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg',
-  },
-  {
-    username: 'icellusedkars',
-    name: 'sam',
-    avatar_url: 'https://avatars2.githubusercontent.com/u/24604688?s=460&v=4',
-  },
-  {
-    username: 'rogersop',
-    name: 'paul',
-    avatar_url: 'https://avatars2.githubusercontent.com/u/24394918?s=400&v=4',
-  },
-  {
-    username: 'lurker',
-    name: 'do_nothing',
-    avatar_url:
-      'https://www.golenbock.com/wp-content/uploads/2015/01/placeholder-user.png',
-  },
+const userData = [
+  { username: 'username 1', name: 'user 1', isOver18: false, email: 'email 1' },
+  { username: 'username 2', name: 'user 2', isOver18: false, email: 'email 2' },
+  { username: 'username 3', name: 'user 3', isOver18: false, email: 'email 3' },
+  { username: 'username 4', name: 'user 4', isOver18: false, email: 'email 4' },
+  { username: 'username 5', name: 'user 5', isOver18: false, email: 'email 5' }
 ];
+
+module.exports = userData;

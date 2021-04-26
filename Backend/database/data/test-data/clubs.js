@@ -1,48 +1,44 @@
 const clubData = [
   {
-    clubName: "Blurble Club 1",
-    description: "test",
-    currentBook: { book: "test 1" },
+    clubName: 'Blurble Club',
+    description: 'test',
+    currentBook: { book: 'test' },
     memberIds: [1],
     adminIds: [1],
     nominatedBooks: [1, 2, 3],
     archivedBooks: [],
-    comments: [],
-    _id: 1,
+    comments: []
   },
   {
-    clubName: "Blurble Club 2",
-    description: "test",
-    currentBook: { book: "test 2" },
+    clubName: 'Blurble Club 2',
+    description: 'test',
+    currentBook: { book: 'test 2' },
     memberIds: [2],
     adminIds: [2],
     nominatedBooks: [4, 5, 6],
     archivedBooks: [],
-    comments: [],
-    _id: 2,
+    comments: []
   },
   {
-    clubName: "Blurble Club 3",
-    description: "test",
-    currentBook: { book: "test 3" },
+    clubName: 'Blurble Club 3',
+    description: 'test',
+    currentBook: { book: 'test' },
     memberIds: [3],
     adminIds: [3],
     nominatedBooks: [7, 8, 9],
     archivedBooks: [],
-    comments: [],
-    _id: 3,
+    comments: []
   },
   {
-    clubName: "Blurble Club 4",
-    description: "test",
-    currentBook: { book: "test 4" },
+    clubName: 'Blurble Club 4',
+    description: 'test',
+    currentBook: { book: 'test' },
     memberIds: [4],
     adminIds: [4],
     nominatedBooks: [10, 11, 12],
     archivedBooks: [],
-    comments: [],
-    _id: 4,
-  },
+    comments: []
+  }
 ];
 
 module.exports = clubData;
