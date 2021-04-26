@@ -468,7 +468,7 @@ describe("/api", () => {
       });
     });
   });
-  describe.only("Clubs", () => {
+  describe("Clubs", () => {
     describe("GET api/clubs", () => {
       test("Status: 200 - should return all clubs", () => {
         return request(app)
@@ -528,6 +528,36 @@ describe("/api", () => {
           .expect(405)
           .then((res) => {
             expect(res.body.msg).toEqual("Method not allowed");
+          });
+      });
+    });
+    describe("POST api/clubs", () => {
+      test.only("Status: 201 - successful post returns new club", () => {
+        return request(app)
+          .post("/api/clubs")
+          .send({
+            clubName: "New Club",
+            description: "Test",
+            currentBook: "www.newClubsBook.com",
+            memberIds: [1],
+            adminIds: [1],
+            _id: 5
+          })
+          .expect(201)
+          .then((res) => {
+            expect(res.body).toMatchObject({
+              clubName: "New Club",
+              description: "Test",
+              currentBook: "www.newClubsBook.com",
+              memberIds: [1],
+              adminIds: [1],
+              _id: 5,
+              comments: [],
+              archivedBooks: [],
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+              __v: 0
+            });
           });
       });
     });
