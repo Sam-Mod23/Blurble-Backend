@@ -8,7 +8,7 @@ apiRouter.route("/").get(getAllEndpoints).all(error405);
 
 apiRouter.use("/users", usersRouter);
 // apiRouter.use('/clubs', clubsRouter);
-// apiRouter.use('/books', booksRouter);
+apiRouter.use("/comments", commentsRouter);
 
 module.exports = apiRouter;
 
