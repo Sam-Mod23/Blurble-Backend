@@ -5,7 +5,7 @@ const commentData = [
     body: "Test Comment",
     club_id: 1,
     club_name: "Test 1",
-    current_book_ISBN: 1,
+    book: "book",
     progress: 1,
   },
   {
@@ -14,7 +14,7 @@ const commentData = [
     body: "Test Comment",
     club_id: 1,
     club_name: "Test 1",
-    current_book_ISBN: 1,
+    book: "book",
     progress: 2,
   },
   {
@@ -23,7 +23,7 @@ const commentData = [
     body: "Test Comment",
     club_id: 1,
     club_name: "Test 1",
-    current_book_ISBN: 1,
+    book: "book",
     progress: 3,
   },
   {
@@ -32,7 +32,7 @@ const commentData = [
     body: "Test Comment",
     club_id: 1,
     club_name: "Test 1",
-    current_book_ISBN: 1,
+    book: "book",
     progress: 4,
   },
   {
@@ -41,7 +41,7 @@ const commentData = [
     body: "Test Comment",
     club_id: 2,
     club_name: "Test 2",
-    current_book_ISBN: 2,
+    book: "book",
     progress: 2,
   },
   {
@@ -50,7 +50,7 @@ const commentData = [
     body: "Test Comment",
     club_id: 3,
     club_name: "Test 3",
-    current_book_ISBN: 3,
+    book: "book",
     progress: 3,
   },
   {
@@ -59,7 +59,7 @@ const commentData = [
     body: "Test Comment",
     club_id: 4,
     club_name: "Test 4",
-    current_book_ISBN: 4,
+    book: "book",
     progress: 4,
   },
 ];
