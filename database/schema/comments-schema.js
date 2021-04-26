@@ -10,9 +10,8 @@ const CommentSchema = {
       body: String,
       club_id: String,
       club_name: String,
-      current_book_ISBN: Number,
+      book: String,
       progress: Number,
-      _id: Number,
       // photo: {data: Buffer, contentType: String}
     },
     { timestamps: { createdAt: "created_at" } }
@@ -24,7 +23,7 @@ const CommentSchema = {
       body: String,
       club_id: String,
       club_name: String,
-      current_book_ISBN: Number,
+      book: String,
       progress: Number,
       // photo: {data: Buffer, contentType: String}
     },
@@ -37,7 +36,7 @@ const CommentSchema = {
       body: String,
       club_id: String,
       club_name: String,
-      current_book_ISBN: Number,
+      book: String,
       progress: Number,
       // photo: {data: Buffer, contentType: String}
     },
