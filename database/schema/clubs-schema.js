@@ -7,14 +7,14 @@ const ClubSchema = {
     {
       clubName: { type: String, required: true, unique: true },
       description: { type: String, required: true },
-      currentBook: { type: Object, required: true },
+      currentBook: { type: String, required: true },
       nominatedBooks: Array,
       memberIds: { type: Array, required: true },
       adminIds: { type: Array, required: true },
       thumbnail: String,
       comments: Array,
       archivedBooks: Array,
-      _id: Number,
+      _id: Number
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -22,13 +22,13 @@ const ClubSchema = {
     {
       clubName: { type: String, required: true, unique: true },
       description: { type: String, required: true },
-      currentBook: { type: Object, required: true },
+      currentBook: { type: String, required: true },
       nominatedBooks: Array,
       memberIds: { type: Array, required: true },
       adminIds: { type: Array, required: true },
       thumbnail: String,
       comments: Array,
-      archivedBooks: Array,
+      archivedBooks: Array
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -36,15 +36,15 @@ const ClubSchema = {
     {
       clubName: { type: String, required: true, unique: true },
       description: { type: String, required: true },
-      currentBook: { type: Object, required: true },
+      currentBook: { type: String, required: true },
       nominatedBooks: Array,
       memberIds: { type: Array, required: true },
       adminIds: { type: Array, required: true },
       thumbnail: String,
       comments: Array,
-      archivedBooks: Array,
+      archivedBooks: Array
     },
     { timestamps: { createdAt: "created_at" } }
-  ),
+  )
 };
 module.exports = ClubSchema[ENV];
