@@ -1,7 +1,7 @@
 # dependencies
 /node_modules
-.DS_store
-../.DS_store
+.DS_Store
+../.DS_Store
 
 # outputs
 output.txt
