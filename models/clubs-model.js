@@ -38,14 +38,14 @@ exports.removeClub = ({ _id, clubName }) => {
 
 exports.amendClub = (
   { _id, clubName },
-  { currentBook, selfLink, addMember, addAdmin }
+  { selfLink, addMember, addAdmin, bookToArchive, newBook }
 ) => {
   let searchObject;
   if (_id) searchObject = { _id };
   if (clubName) searchObject = { username };
   let updateObj;
 
-  if (currentBook) updateObj = { currentBook };
+  if (newBook) updateObj = { currentBook: newBook };
   if (selfLink) {
     updateObj = { $push: { nominatedBooks: { selfLink, votes: 0 } } };
   }
@@ -54,6 +54,9 @@ exports.amendClub = (
   }
   if (addAdmin) {
     updateObj = { $push: { adminIds: addAdmin } };
+  }
+  if (bookToArchive) {
+    updateObj = { $push: { archivedBooks: bookToArchive } };
   }
   return Club.findOneAndUpdate(searchObject, updateObj, { new: true }).then(
     (doc) => {
@@ -116,10 +119,16 @@ exports.amendClubMembersAndAdmins = (
   });
 };
 
-exports.archiveBook = ({}) => {};
+exports.archiveBook = ({ _id, clubName }, { newBook }) => {
+  return this.fetchClub({ _id, clubName }).then((club) => {
+    let bookToArchive = club.currentBook;
 
-// take (clubName, archive: true, newBook)
-// invoke fetchClub with clubName
-// .then((club) => amendClub(club.currentBook) to update archivedBooks
-// invoke amendClub with newBook
-// .then return club
+    return this.amendClub({ _id, clubName }, { bookToArchive })
+      .then(() => {
+        return this.amendClub({ _id, clubName }, { newBook });
+      })
+      .then((club) => {
+        return club;
+      });
+  });
+};
