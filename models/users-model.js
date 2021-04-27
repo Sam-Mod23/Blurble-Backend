@@ -1,4 +1,4 @@
-const { User } = require("../database/db-connection");
+const { User, mongoose } = require("../database/db-connection");
 
 exports.fetchUsers = () => {
   return User.find({}, (err, users) => {
@@ -85,6 +85,7 @@ exports.removeUserByDetails = ({ _id, username }) => {
 };
 
 exports.addUser = (newUser) => {
+  if (!newUser._id) newUser._id = mongoose.Types.ObjectId();
   return User.create(newUser).then((user) => {
     return user;
   });
