@@ -12,7 +12,7 @@ exports.errorBespoke = (err, req, res, next) => {
 exports.errorMongo = (err, req, res, next) => {
   if (err.code === 11000) {
     res.status(409).send({ msg: "User already exists" });
-  } else if (err._message === "User validation failed") {
+  } else if (/(validation failed)/g.test(err._message)) {
     res.status(400).send({ msg: "Required information not provided" });
   } else {
     next(err);
