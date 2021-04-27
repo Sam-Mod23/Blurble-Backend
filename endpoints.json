@@ -286,8 +286,8 @@
   },
   "PATCH /api/club/_id=:_id & PATCH /api/users/clubName=:clubName": {
     "description": "updates club currentBook, nominatedBooks, memberIds, adminIds, comments, archived books and serves back updated club",
-    "example_CurrentBook_POST": { "currentBook": "www.newBook.com" },
-    "example_CurrentBook_RESPONSE": {
+    "example_NewCurrentBook_PATCH": { "newBook": "www.newBook.com" },
+    "example_NewCurrentBook_RESPONSE": {
       "club": {
         "clubName": "New Club",
         "description": "Test",
@@ -303,7 +303,7 @@
         "__v": 0
       }
     },
-    "example_NominatedBook_POST": { "selfLink": "www.nominatedBook.com" },
+    "example_NominatedBook_PATCH": { "selfLink": "www.nominatedBook.com" },
     "example_NominiatedBook_RESPONSE": {
       "club": {
         "clubName": "New Club",
@@ -320,7 +320,7 @@
         "__v": 0
       }
     },
-    "example_AddMemberToMemberIds_POST": { "addMember": "user 1" },
+    "example_AddMemberToMemberIds_PATCH": { "addMember": "user 1" },
     "example_AddMemberToMemberIds_RESPONSE": {
       "club": {
         "clubName": "New Club",
@@ -337,7 +337,7 @@
         "__v": 0
       }
     },
-    "example_AddAdminToAdminIds_POST": { "addAdmin": "user 1" },
+    "example_AddAdminToAdminIds_PATCH": { "addAdmin": "user 1" },
     "example_AddAdminToAdminIds_RESPONSE": {
       "club": {
         "clubName": "New Club",
@@ -354,7 +354,7 @@
         "__v": 0
       }
     },
-    "example_RemoveMemberFromMemberIds_POST": { "removeMember": "user 1" },
+    "example_RemoveMemberFromMemberIds_PATCH": { "removeMember": "user 1" },
     "example_RemoveMemberFromMemberIds_RESPONSE": {
       "club": {
         "clubName": "New Club",
@@ -371,7 +371,7 @@
         "__v": 0
       }
     },
-    "example_RemoveAdminFromAdminIds_POST": { "removeAdmin": "user 1" },
+    "example_RemoveAdminFromAdminIds_PATCH": { "removeAdmin": "user 1" },
     "example_RemoveAdminFromAdminIds_RESPONSE": {
       "club": {
         "clubName": "New Club",
@@ -383,6 +383,26 @@
         "_id": "5",
         "comments": [],
         "archivedBooks": [],
+        "created_at": "2021-04-26T20:09:29.983Z",
+        "updatedAt": "2021-04-26T20:09:29.983Z",
+        "__v": 0
+      }
+    },
+    "example_ReplaceCurrentBookAndArchive_PATCH": {
+      "archive": true,
+      "newBook": "www.newBook2.com"
+    },
+    "example_ReplaceCurrentBookAndArchive_RESPONSE": {
+      "club": {
+        "clubName": "New Club",
+        "description": "Test",
+        "currentBook": "www.newBook2.com",
+        "nominatedBooks": [],
+        "memberIds": ["user"],
+        "adminIds": ["user"],
+        "_id": "5",
+        "comments": [],
+        "archivedBooks": ["www.newBook.com"],
         "created_at": "2021-04-26T20:09:29.983Z",
         "updatedAt": "2021-04-26T20:09:29.983Z",
         "__v": 0
