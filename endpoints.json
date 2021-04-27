@@ -141,5 +141,21 @@
   },
   "DELETE /api/users/_id=:_id & GET /api/users/username=:username": {
     "description": "deletes user matching _id or username provided, returns a 204 status"
+  },
+  "GET /api/comments/club_id=:_id & GET /api/users/club_name=:club_name": {
+    "description": "serves an object with the key of comments and comment objects belonging to the group",
+    "example response": {
+      "comments": {
+        "username": "'madolfm'",
+        "body": "Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
+        "club_name": "Northcoders Book Club",
+        "club_id": 2,
+        "book": "https://www.googleapis.com/books/v1/volumes/iptCAwAAQBAJ",
+        "progress": 29,
+        "__v": 0,
+        "created_at": "2021-04-26T20:09:29.958+00:00",
+        "updatedAt": "2021-04-26T20:09:29.958+00:00"
+      }
+    }
   }
 }
