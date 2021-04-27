@@ -469,11 +469,7 @@ describe("/api", () => {
     });
   });
 
-
-
   describe("Comments", () => {
-
-
     describe("api/comments/club_id=:club_id", () => {
       describe("GET api/comments/club_id=:club_id", () => {
         test("should return 4 comments belonging to club_id 1, all matching the schema and sorted by progress", () => {
@@ -491,7 +487,7 @@ describe("/api", () => {
                   user_id: expect.any(String),
                   body: expect.any(String),
                   club_id: expect.any(String),
-                  club_name: expect.any(String),
+                  clubName: expect.any(String),
                   book: expect.any(String),
                   progress: expect.any(Number),
                   _id: expect.any(String),
@@ -509,11 +505,11 @@ describe("/api", () => {
         });
       });
     });
-    describe("api/comments/club_name=:club_name", () => {
-      describe("GET api/comments/club_name=:club_name", () => {
+    describe("api/comments/clubName=:clubName", () => {
+      describe("GET api/comments/clubName=:clubName", () => {
         test("should return 4 comments belonging to Blurble Club, all matching the schema and sorted by progress", () => {
           return request(app)
-            .get("/api/comments/club_name=Test%201")
+            .get("/api/comments/clubName=Test%201")
             .expect(200)
             .then((res) => {
               expect(res.body.comments.length).toBe(4);
@@ -526,7 +522,7 @@ describe("/api", () => {
                   user_id: expect.any(String),
                   body: expect.any(String),
                   club_id: expect.any(String),
-                  club_name: expect.any(String),
+                  clubName: expect.any(String),
                   book: expect.any(String),
                   progress: expect.any(Number),
                   _id: expect.any(String),
@@ -535,19 +531,14 @@ describe("/api", () => {
             });
         });
 
-
-        test("should return 404 when given a valid but non-existent club_name", () => {
-
+        test("should return 404 when given a valid but non-existent clubName", () => {
           return request(app)
-            .get("/api/comments/club_name=not_a_club")
+            .get("/api/comments/clubName=not_a_club")
             .expect(404)
             .then((res) => {
-
               expect(res.body.msg).toEqual("Not found");
-
             });
         });
-
       });
     });
     describe("api/comments/_id=:_id", () => {
@@ -561,7 +552,7 @@ describe("/api", () => {
               user_id: "1",
               body: "Test Comment",
               club_id: "1",
-              club_name: "Test 1",
+              clubName: "Test 1",
               book: "book",
               progress: 1,
               _id: "1",
@@ -634,7 +625,6 @@ describe("/api", () => {
               created_at: expect.any(String),
 
               updatedAt: expect.any(String),
-
             });
           });
       });
@@ -666,7 +656,7 @@ describe("/api", () => {
               currentBook: "test",
               __v: expect.any(Number),
               created_at: expect.any(String),
-              updatedAt: expect.any(String)
+              updatedAt: expect.any(String),
             });
           });
       });
@@ -697,7 +687,7 @@ describe("/api", () => {
               currentBook: "test",
               __v: expect.any(Number),
               created_at: expect.any(String),
-              updatedAt: expect.any(String)
+              updatedAt: expect.any(String),
             });
           });
       });
@@ -711,7 +701,6 @@ describe("/api", () => {
       });
     });
     describe("POST api/clubs", () => {
-
       test("Status: 201 - successful post returns new club", () => {
         return request(app)
           .post("/api/clubs")
@@ -722,12 +711,11 @@ describe("/api", () => {
             memberIds: [1],
             adminIds: [1],
 
-            _id: 5
+            _id: 5,
           })
           .expect(201)
           .then((res) => {
             expect(res.body.club).toMatchObject({
-
               clubName: "New Club",
               description: "Test",
               currentBook: "www.newClubsBook.com",
@@ -742,8 +730,7 @@ describe("/api", () => {
               created_at: expect.any(String),
               updatedAt: expect.any(String),
 
-              __v: 0
-
+              __v: 0,
             });
           });
       });
@@ -758,7 +745,7 @@ describe("/api", () => {
             memberIds: [1],
             adminIds: [1],
             _id: 5,
-            invalid_prop: "This is invalid"
+            invalid_prop: "This is invalid",
           })
           .expect(201)
           .then((res) => {
@@ -774,7 +761,7 @@ describe("/api", () => {
               archivedBooks: [],
               created_at: expect.any(String),
               updatedAt: expect.any(String),
-              __v: 0
+              __v: 0,
             });
           });
       });
@@ -810,11 +797,9 @@ describe("/api", () => {
               .expect(200)
               .then((res) => {
                 expect(res.body.clubs.length).toEqual(3);
-
               });
           });
       });
-
     });
     describe("DELETE api/clubs/clubName=:clubName", () => {
       test("should return 204 for successful deletion of club for clubName", () => {
@@ -827,9 +812,7 @@ describe("/api", () => {
               .expect(200)
               .then((res) => {
                 expect(res.body.clubs.length).toEqual(3);
-
               });
-
           });
       });
     });

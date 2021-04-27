@@ -31,16 +31,19 @@ const clubData = [
       25,
     ],
     adminIds: [],
-    nominatedBooks: [1, 2, 3],
-    archivedBooks: [
-      {
-        selfLink: "https://www.googleapis.com/books/v1/volumes/EPbnxXJC8toC",
-      },
+    nominatedBooks: [
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/5QRZ4z6A1WwC",
+        votes: 5,
       },
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/kotPYEqx7kMC",
+        votes: 4,
+      },
+    ],
+    archivedBooks: [
+      {
+        selfLink: "https://www.googleapis.com/books/v1/volumes/EPbnxXJC8toC",
       },
     ],
     comments: [],

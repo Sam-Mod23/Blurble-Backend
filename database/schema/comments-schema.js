@@ -9,12 +9,12 @@ const CommentSchema = {
       user_id: String,
       body: String,
       club_id: String,
-      club_name: String,
+      clubName: String,
       book: String,
       progress: Number,
       // photo: {data: Buffer, contentType: String}
       _id: String,
-      votes: { type: Number, default: 0 }
+      votes: { type: Number, default: 0 },
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -24,12 +24,12 @@ const CommentSchema = {
       user_id: String,
       body: String,
       club_id: String,
-      club_name: String,
+      clubName: String,
       book: String,
       progress: Number,
       // photo: {data: Buffer, contentType: String}
       _id: String,
-      votes: { type: Number, default: 0 }
+      votes: { type: Number, default: 0 },
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -39,14 +39,14 @@ const CommentSchema = {
       user_id: String,
       body: String,
       club_id: String,
-      club_name: String,
+      clubName: String,
       book: String,
       progress: Number,
       // photo: {data: Buffer, contentType: String}
       _id: String,
-      votes: { type: Number, default: 0 }
+      votes: { type: Number, default: 0 },
     },
     { timestamps: { createdAt: "created_at" } }
-  )
+  ),
 };
 module.exports = CommentSchema[ENV];
