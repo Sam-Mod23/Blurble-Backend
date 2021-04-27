@@ -139,9 +139,6 @@
       }
     }
   },
-  "DELETE /api/users/_id=:_id & GET /api/users/username=:username": {
-    "description": "deletes user matching _id or username provided, returns a 204 status"
-  },
   "POST /api/users": {
     "description": "posts new user and returns 201, {User: new user} with additional preset props, including default membership of global club (club_id: 1)",
     "examplePostWithMinumumRequirements": {
@@ -151,7 +148,7 @@
       "email": "email 6"
     },
     "exampleResponse": {
-      "User": {
+      "user": {
         "blurbles": 0,
         "badges": [],
         "_id": "6",
@@ -165,6 +162,9 @@
         "updatedAt": "2021-04-26T20:09:29.983Z"
       }
     }
+  },
+  "DELETE /api/users/_id=:_id & DELETE /api/users/username=:username": {
+    "description": "deletes user matching _id or username provided, returns a 204 status"
   },
   "GET /api/clubs": {
     "description": "serves an object with clubs key linked to an array of all clubs",
@@ -225,5 +225,54 @@
         }
       ]
     }
+  },
+  "POST /api/clubs": {
+    "description": "posts new club and returns 201, {club: new club} with additional preset props",
+    "examplePostWithMinumumRequirements": {
+      "clubName": "New Club",
+      "description": "Test",
+      "currentBook": "www.newClubsBook.com",
+      "memberIds": [1],
+      "adminIds": [1]
+    },
+    "exampleResponse": {
+      "club": {
+        "clubName": "New Club",
+        "description": "Test",
+        "currentBook": "www.newClubsBook.com",
+        "nominatedBooks": [],
+        "memberIds": [1],
+        "adminIds": [1],
+        "_id": "5",
+        "comments": [],
+        "archivedBooks": [],
+        "created_at": "2021-04-26T20:09:29.983Z",
+        "updatedAt": "2021-04-26T20:09:29.983Z",
+        "__v": 0
+      }
+    }
+  },
+  "PATCH /api/club/_id=:_id & PATCH /api/users/clubName=:clubName": {
+    "description": "updates club currentBook, nominated books, memberIds, adminIds, comments, archived books and serves back updated club",
+    "exampleCurrentBookPost": { "currentBook": "www.newBook.com" },
+    "exampleCurrentBookResponse": {
+      "club": {
+        "clubName": "New Club",
+        "description": "Test",
+        "currentBook": "www.newBook.com",
+        "nominatedBooks": [],
+        "memberIds": [1],
+        "adminIds": [1],
+        "_id": "5",
+        "comments": [],
+        "archivedBooks": [],
+        "created_at": "2021-04-26T20:09:29.983Z",
+        "updatedAt": "2021-04-26T20:09:29.983Z",
+        "__v": 0
+      }
+    }
+  },
+  "DELETE /api/club/_id=:_id & DELETE /api/users/clubName=:clubName": {
+    "description": "deletes club matching _id or username provided, returns a 204 status"
   }
 }

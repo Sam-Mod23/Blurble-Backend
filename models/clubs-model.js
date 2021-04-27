@@ -27,4 +27,24 @@ exports.addClub = (newClub) => {
   });
 };
 
-exports.amendClub = () => {};
+exports.removeClub = ({ _id, clubName }) => {
+  if (_id) searchObject = { _id };
+  if (clubName) searchObject = { clubName };
+  return Club.deleteOne(searchObject, (err) => {
+    if (err) return Promise.reject(err);
+    return;
+  });
+};
+
+exports.amendClub = ({ _id, clubName }, { currentBook }) => {
+  let searchObject;
+  if (_id) searchObject = { _id };
+  if (clubName) searchObject = { username };
+  let updateObj;
+  if (currentBook) updateObj = { currentBook };
+  return Club.findOneAndUpdate(searchObject, updateObj, { new: true }).then(
+    (doc) => {
+      return doc;
+    }
+  );
+};
