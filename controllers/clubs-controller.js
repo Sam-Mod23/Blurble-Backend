@@ -1,4 +1,4 @@
-const { fetchClub, fetchClubs } = require("../models/clubs-model");
+const { fetchClub, fetchClubs, amendClub } = require("../models/clubs-model");
 
 exports.getClubs = (req, res, next) => {
   fetchClubs()
@@ -28,4 +28,8 @@ exports.postClub = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+};
+
+exports.patchClub = (req, res, next) => {
+  amendClub();
 };

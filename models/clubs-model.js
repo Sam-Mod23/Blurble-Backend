@@ -19,3 +19,5 @@ exports.fetchClub = ({ _id, clubName }) => {
     }
   });
 };
+
+exports.amendClub = () => {};
