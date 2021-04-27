@@ -21,6 +21,7 @@ db.once("open", () => {
 });
 
 mongoose.set("useCreateIndex", true);
+mongoose.set("useFindAndModify", false);
 
 const User = mongoose.model("User", UserSchema);
 const Club = mongoose.model("Club", ClubSchema);
