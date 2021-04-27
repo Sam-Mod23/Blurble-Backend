@@ -34,16 +34,14 @@ exports.amendComment = ({ _id }, { voteInc }) => {
 
 exports.addComment = ({ club_id, clubName }, newComment) => {
   let searchObject = {};
-  newComment._id = mongoose.Types.ObjectId();
-  if (club_id) searchObject = { club_id };
+  if (club_id) searchObject = { _id: club_id };
   if (clubName) searchObject = { clubName };
-  console.log(club_id, clubName);
+  newComment._id = mongoose.Types.ObjectId();
+
   return fetchClub(searchObject)
     .then((res) => {
-      console.log(res);
       newComment.clubName = res.clubName;
       newComment.club_id = res._id;
-
       return newComment;
     })
     .then((newComment) => {
