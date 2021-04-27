@@ -498,7 +498,7 @@ describe("/api", () => {
     });
     describe("api/comments/club_name=:club_name", () => {
       describe("GET api/comments/club_name=:club_name", () => {
-        test("should return 4 comments belonging to Blurble Club, all matching the schema and sorted by progress", () => {
+        test.only("should return 4 comments belonging to Blurble Club, all matching the schema and sorted by progress", () => {
           return request(app)
             .get("/api/comments/club_name=Test%201")
             .expect(200)
