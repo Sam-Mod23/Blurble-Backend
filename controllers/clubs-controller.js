@@ -3,7 +3,10 @@ const {
   fetchClubs,
   amendClub,
   addClub,
-  removeClub
+  removeClub,
+  amendNestedClubInfo,
+  amendClubMembersAndAdmins,
+  archiveBook
 } = require("../models/clubs-model");
 
 exports.getClubs = (req, res, next) => {
@@ -48,11 +51,34 @@ exports.deleteClub = (req, res, next) => {
 };
 
 exports.patchClub = (req, res, next) => {
-  amendClub(req.params, req.body)
-    .then((club) => {
-      res.status(201).send({ club });
-    })
-    .catch((err) => {
-      next(err);
-    });
+  const { incVotes, selfLink, removeAdmin, removeMember } = req.body;
+  if (removeAdmin || removeMember) {
+    amendClubMembersAndAdmins(req.params, req.body)
+      .then((club) => {
+        res.status(201).send({ club });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  } else if (incVotes) {
+    amendNestedClubInfo(req.params, req.body)
+      .then((club) => {
+        res.status(201).send({ club });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  } else {
+    amendClub(req.params, req.body)
+      .then((club) => {
+        res.status(201).send({ club });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
+};
+
+exports.moveCurrentBookToArchive = (req, res, next) => {
+  archiveBook();
 };
