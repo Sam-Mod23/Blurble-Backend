@@ -470,132 +470,6 @@ describe("/api", () => {
   });
 
   describe("Comments", () => {
-    describe("api/comments/club_id=:club_id", () => {
-      describe("GET api/comments/club_id=:club_id", () => {
-        test("should return 4 comments belonging to club_id 1, all matching the schema and sorted by progress", () => {
-          return request(app)
-            .get("/api/comments/club_id=1")
-            .expect(200)
-            .then((res) => {
-              expect(res.body.comments.length).toBe(4);
-              expect(res.body.comments).toBeSortedBy("progress", {
-                ascending: true,
-              });
-              res.body.comments.forEach((comment) => {
-                expect(comment).toMatchObject({
-                  username: expect.any(String),
-                  body: expect.any(String),
-                  club_id: expect.any(String),
-                  clubName: expect.any(String),
-                  book: expect.any(String),
-                  progress: expect.any(Number),
-                  _id: expect.any(String),
-                });
-              });
-            });
-        });
-        test("should return 404 when given a valid but non-existent club_id", () => {
-          return request(app)
-            .get("/api/comments/club_id=30")
-            .expect(404)
-            .then((res) => {
-              expect(res.body.msg).toEqual("Not found");
-            });
-        });
-      });
-      describe("POST api/comments/_id=:_id", () => {
-        test("should be able to POST a comment to club_id endpoint", () => {
-          return request(app)
-            .post("/api/comments/club_id=1")
-            .send({
-              username: "testUser",
-              body: "testBody",
-              book: "testBook",
-              progress: 100,
-            })
-            .expect(201)
-            .then((res) => {
-              expect(res.body.comment).toMatchObject({
-                username: "testUser",
-                body: "testBody",
-                club_id: "1",
-                clubName: "Blurble Club",
-                book: "testBook",
-                progress: 100,
-                votes: 0,
-                __v: 0,
-                created_at: expect.any(String),
-                updatedAt: expect.any(String),
-                _id: expect.any(String),
-              });
-            });
-        });
-      });
-      describe("POST api/comments/clubName=:clubName", () => {
-        test("should be able to POST a comment to clubName endpoint", () => {
-          return request(app)
-            .post("/api/comments/clubName=Blurble%20Club")
-            .send({
-              username: "testUser",
-              body: "testBody",
-              book: "testBook",
-              progress: 100,
-            })
-            .expect(201)
-            .then((res) => {
-              expect(res.body.comment).toMatchObject({
-                username: "testUser",
-                body: "testBody",
-                club_id: "1",
-                clubName: "Blurble Club",
-                book: "testBook",
-                progress: 100,
-                votes: 0,
-                __v: 0,
-                created_at: expect.any(String),
-                updatedAt: expect.any(String),
-                _id: expect.any(String),
-              });
-            });
-        });
-      });
-    });
-    describe("api/comments/clubName=:clubName", () => {
-      describe("GET api/comments/clubName=:clubName", () => {
-        test("should return 4 comments belonging to Test 1, all matching the schema and sorted by progress", () => {
-          return request(app)
-            .get("/api/comments/clubName=Test%201")
-            .expect(200)
-            .then((res) => {
-              expect(res.body.comments.length).toBe(4);
-              expect(res.body.comments).toBeSortedBy("progress", {
-                ascending: true,
-              });
-              res.body.comments.forEach((comment) => {
-                expect(comment).toMatchObject({
-                  username: expect.any(String),
-
-                  body: expect.any(String),
-                  club_id: expect.any(String),
-                  clubName: expect.any(String),
-                  book: expect.any(String),
-                  progress: expect.any(Number),
-                  _id: expect.any(String),
-                });
-              });
-            });
-        });
-
-        test("should return 404 when given a valid but non-existent clubName", () => {
-          return request(app)
-            .get("/api/comments/clubName=not_a_club")
-            .expect(404)
-            .then((res) => {
-              expect(res.body.msg).toEqual("Not found");
-            });
-        });
-      });
-    });
     describe("api/comments/_id=:_id", () => {
       describe("GET api/comments/_id=:_id", () => {
         test("should return expected comment when called with _id=1", () => {
@@ -644,8 +518,147 @@ describe("/api", () => {
             });
         });
       });
+      describe("DELETE api/comments/_id=:id", () => {
+        test("should return 204 for successful deletion of comment", () => {
+          return request(app)
+            .delete("/api/comments/_id=1")
+            .expect(204)
+            .then(() => {
+              return request(app)
+                .get("/api/comments/club_id=1")
+                .then((res) => expect(res.body.comments.length).toBe(3));
+            });
+        });
+      });
     });
   });
+  describe("api/comments/club_id=:club_id", () => {
+    describe("GET api/comments/club_id=:club_id", () => {
+      test("should return 4 comments belonging to club_id 1, all matching the schema and sorted by progress", () => {
+        return request(app)
+          .get("/api/comments/club_id=1")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.comments.length).toBe(4);
+            expect(res.body.comments).toBeSortedBy("progress", {
+              ascending: true,
+            });
+            res.body.comments.forEach((comment) => {
+              expect(comment).toMatchObject({
+                username: expect.any(String),
+                body: expect.any(String),
+                club_id: expect.any(String),
+                clubName: expect.any(String),
+                book: expect.any(String),
+                progress: expect.any(Number),
+                _id: expect.any(String),
+              });
+            });
+          });
+      });
+      test("should return 404 when given a valid but non-existent club_id", () => {
+        return request(app)
+          .get("/api/comments/club_id=30")
+          .expect(404)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Not found");
+          });
+      });
+    });
+    describe("POST api/comments/club_id=:_id", () => {
+      test("should be able to POST a comment to club_id endpoint", () => {
+        return request(app)
+          .post("/api/comments/club_id=1")
+          .send({
+            username: "testUser",
+            body: "testBody",
+            book: "testBook",
+            progress: 100,
+          })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.comment).toMatchObject({
+              username: "testUser",
+              body: "testBody",
+              club_id: "1",
+              clubName: "Blurble Club",
+              book: "testBook",
+              progress: 100,
+              votes: 0,
+              __v: 0,
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+              _id: expect.any(String),
+            });
+          });
+      });
+    });
+  });
+});
+describe("api/comments/clubName=:clubName", () => {
+  describe("GET api/comments/clubName=:clubName", () => {
+    test("should return 4 comments belonging to Test 1, all matching the schema and sorted by progress", () => {
+      return request(app)
+        .get("/api/comments/clubName=Test%201")
+        .expect(200)
+        .then((res) => {
+          expect(res.body.comments.length).toBe(4);
+          expect(res.body.comments).toBeSortedBy("progress", {
+            ascending: true,
+          });
+          res.body.comments.forEach((comment) => {
+            expect(comment).toMatchObject({
+              username: expect.any(String),
+
+              body: expect.any(String),
+              club_id: expect.any(String),
+              clubName: expect.any(String),
+              book: expect.any(String),
+              progress: expect.any(Number),
+              _id: expect.any(String),
+            });
+          });
+        });
+    });
+
+    test("should return 404 when given a valid but non-existent clubName", () => {
+      return request(app)
+        .get("/api/comments/clubName=not_a_club")
+        .expect(404)
+        .then((res) => {
+          expect(res.body.msg).toEqual("Not found");
+        });
+    });
+  });
+  describe("POST api/comments/clubName=:clubName", () => {
+    test("should be able to POST a comment to clubName endpoint", () => {
+      return request(app)
+        .post("/api/comments/clubName=Blurble%20Club")
+        .send({
+          username: "testUser",
+          body: "testBody",
+          book: "testBook",
+          progress: 100,
+        })
+        .expect(201)
+        .then((res) => {
+          expect(res.body.comment).toMatchObject({
+            username: "testUser",
+            body: "testBody",
+            club_id: "1",
+            clubName: "Blurble Club",
+            book: "testBook",
+            progress: 100,
+            votes: 0,
+            __v: 0,
+            created_at: expect.any(String),
+            updatedAt: expect.any(String),
+            _id: expect.any(String),
+          });
+        });
+    });
+  });
+
   describe("Clubs", () => {
     describe("GET api/clubs", () => {
       test("Status: 200 - should return all clubs", () => {

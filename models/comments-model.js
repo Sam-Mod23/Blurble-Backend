@@ -1,4 +1,4 @@
-const { Comment, mongoose } = require("../database/db-connection");
+const { Comment, mongoose, User } = require("../database/db-connection");
 const { fetchClub } = require("./clubs-model");
 
 exports.fetchComments = ({ _id, club_id, clubName }) => {
@@ -50,4 +50,12 @@ exports.addComment = ({ club_id, clubName }, newComment) => {
       const comment = Comment.create(newComment);
       return comment;
     });
+};
+
+exports.removeComment = ({ _id }) => {
+  console.log(_id);
+  return Comment.deleteOne({ _id: _id }, (err) => {
+    if (err) return err;
+    return;
+  });
 };
