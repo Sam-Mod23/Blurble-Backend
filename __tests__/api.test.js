@@ -526,7 +526,7 @@ describe("/api", () => {
   });
   describe("Clubs", () => {
     describe("GET api/clubs", () => {
-      test("Status: 200 - should return all clubs", () => {
+      test("status: 200 - should return all clubs", () => {
         return request(app)
           .get("/api/clubs")
           .expect(200)
@@ -588,7 +588,7 @@ describe("/api", () => {
       });
     });
     describe("GET api/clubs/_id=:_id", () => {
-      test("Status: 200 - returns correct club for declared _id", () => {
+      test("status: 200 - returns correct club for declared _id", () => {
         return request(app)
           .get("/api/clubs/_id=1")
           .expect(200)
@@ -609,7 +609,7 @@ describe("/api", () => {
             });
           });
       });
-      test("Status: 404 - given valid but non-existent _id", () => {
+      test("status: 404 - given valid but non-existent _id", () => {
         return request(app)
           .get("/api/clubs/_id=6")
           .expect(404)
@@ -619,7 +619,7 @@ describe("/api", () => {
       });
     });
     describe("GET api/clubs/clubName=:clubName", () => {
-      test("Status: 200 - returns correct club for declared clubName", () => {
+      test("status: 200 - returns correct club for declared clubName", () => {
         return request(app)
           .get("/api/clubs/clubName=Blurble%20Club")
           .expect(200)
@@ -640,7 +640,7 @@ describe("/api", () => {
             });
           });
       });
-      test("Status: 404 - given valid but non-existent clubName", () => {
+      test("status: 404 - given valid but non-existent clubName", () => {
         return request(app)
           .get("/api/clubs/clubName=6")
           .expect(404)
@@ -650,7 +650,7 @@ describe("/api", () => {
       });
     });
     describe("POST api/clubs", () => {
-      test("Status: 201 - successful post returns new club", () => {
+      test("status: 201 - successful post returns new club", () => {
         return request(app)
           .post("/api/clubs")
           .send({
@@ -679,7 +679,7 @@ describe("/api", () => {
             });
           });
       });
-      test("Status: 201 - should only include valid props in new club", () => {
+      test("status: 201 - should only include valid props in new club", () => {
         return request(app)
           .post("/api/clubs")
           .send({
@@ -720,10 +720,10 @@ describe("/api", () => {
       });
     });
     describe("PATCH api/clubs/_id=:_id", () => {
-      test("Status: 201 - PATCH successful, currentBook changed", () => {
+      test("status: 201 - PATCH successful, currentBook changed", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
-          .send({ currentBook: "www.newBook.com" })
+          .send({ newBook: "www.newBook.com" })
           .expect(201)
           .then((res) => {
             expect(res.body.club.currentBook).toEqual("www.newBook.com");
@@ -792,7 +792,24 @@ describe("/api", () => {
             expect(res.body.club.adminIds).toEqual([]);
           });
       });
-      test("status: 201 - PATCH, archivedBooks updated with current book before current book is replaced", () => {});
+      test("status: 201 - PATCH, archivedBooks can be updated", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ bookToArchive: "archivedBook" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.archivedBooks).toEqual(["archivedBook"]);
+          });
+      });
+      test("status: 201 - PATCH, archivedBooks updated with current book before current book is replaced", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ archive: true, newBook: "www.newBook2.com" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.archivedBooks).toEqual(["test"]);
+          });
+      });
     });
     describe("DELETE api/clubs/_id=:_id", () => {
       test("should return 204 for successful deletion of club for _id", () => {
