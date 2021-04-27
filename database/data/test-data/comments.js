@@ -8,6 +8,7 @@ const commentData = [
     book: "book",
     progress: 1,
     _id: 1,
+    votes: 0,
   },
   {
     username: "Test 2",
@@ -18,6 +19,7 @@ const commentData = [
     book: "book",
     progress: 2,
     _id: 2,
+    votes: 0,
   },
   {
     username: "Test 3",
@@ -28,6 +30,7 @@ const commentData = [
     book: "book",
     progress: 7,
     _id: 3,
+    votes: 0,
   },
   {
     username: "Test 4",
@@ -38,6 +41,7 @@ const commentData = [
     book: "book",
     progress: 4,
     _id: 4,
+    votes: 0,
   },
   {
     username: "Test 5",
@@ -48,6 +52,7 @@ const commentData = [
     book: "book",
     progress: 2,
     _id: 5,
+    votes: 0,
   },
   {
     username: "Test 6",
@@ -58,6 +63,7 @@ const commentData = [
     book: "book",
     progress: 7,
     _id: 6,
+    votes: 0,
   },
   {
     username: "Test 7",
@@ -68,6 +74,7 @@ const commentData = [
     book: "book",
     progress: 4,
     _id: 7,
+    votes: 0,
   },
 ];
 

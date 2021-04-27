@@ -542,30 +542,53 @@ describe("/api", () => {
       });
     });
     describe("api/comments/_id=:_id", () => {
-      test("should return expected comment when called with _id=1", () => {
-        return request(app)
-          .get("/api/comments/_id=1")
-          .expect(200)
-          .then((res) => {
-            expect(res.body.comments[0]).toMatchObject({
-              username: "Test 1",
-              user_id: "1",
-              body: "Test Comment",
-              club_id: "1",
-              clubName: "Test 1",
-              book: "book",
-              progress: 1,
-              _id: "1",
+      describe("GET api/comments/_id=:_id", () => {
+        test("should return expected comment when called with _id=1", () => {
+          return request(app)
+            .get("/api/comments/_id=1")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments[0]).toMatchObject({
+                username: "Test 1",
+                user_id: "1",
+                body: "Test Comment",
+                club_id: "1",
+                clubName: "Test 1",
+                book: "book",
+                progress: 1,
+                _id: "1",
+              });
             });
-          });
+        });
+        test("should return 404 when called with valid but non-existent _id", () => {
+          return request(app)
+            .get("/api/comments/_id=9999")
+            .expect(404)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Not found");
+            });
+        });
       });
-      test("should return 404 when called with valid but non-existent _id", () => {
-        return request(app)
-          .get("/api/comments/_id=9999")
-          .expect(404)
-          .then((res) => {
-            expect(res.body.msg).toEqual("Not found");
-          });
+      describe("PATCH api/comments/_id=_id", () => {
+        test("should return 201 and comments object with votes increased", () => {
+          return request(app)
+            .patch("/api/comments/_id=1")
+            .send({ voteInc: 1 })
+            .expect(201)
+            .then((res) => {
+              expect(res.body.comment).toMatchObject({
+                username: "Test 1",
+                user_id: "1",
+                body: "Test Comment",
+                club_id: "1",
+                clubName: "Test 1",
+                book: "book",
+                progress: 1,
+                _id: "1",
+                votes: 1,
+              });
+            });
+        });
       });
     });
   });

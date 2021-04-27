@@ -1,5 +1,4 @@
 const { Comment } = require("../database/db-connection");
-const commentsSchema = require("../database/schema/comments-schema");
 
 exports.fetchComments = ({ _id, club_id, clubName }) => {
   let searchObject = {};
@@ -7,7 +6,6 @@ exports.fetchComments = ({ _id, club_id, clubName }) => {
   if (clubName) searchObject = { clubName };
   if (_id) searchObject = { _id };
   return Comment.find(searchObject).then((comments) => {
-    console.log(comments);
     if (!comments.length) {
       return Promise.reject({ status: 404, msg: "Not found" });
     } else {
@@ -15,5 +13,19 @@ exports.fetchComments = ({ _id, club_id, clubName }) => {
         return a.progress - b.progress;
       });
     }
+  });
+};
+
+exports.amendComment = ({ _id }, { voteInc }) => {
+  const searchObject = { _id };
+
+  return Comment.findOneAndUpdate(
+    searchObject,
+    { $inc: { votes: voteInc } },
+    {
+      new: true,
+    }
+  ).then((doc) => {
+    return doc;
   });
 };
