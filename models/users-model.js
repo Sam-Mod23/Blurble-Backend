@@ -32,7 +32,7 @@ exports.amendUserByDetails = (
   if (blurblesInc) updateObj = { $inc: { blurbles: blurblesInc } };
   if (club_id) {
     updateObj = {
-      $push: { clubs: { club_id, progress: 0, hasNominated: false } }
+      $push: { clubs: { club_id, progress: 0, hasNominated: false } },
     };
   }
   if (newBadge) updateObj = { $push: { badges: newBadge } };
@@ -80,6 +80,7 @@ exports.removeUserByDetails = ({ _id, username }) => {
   if (_id) searchObject = { _id };
   if (username) searchObject = { username };
   return User.deleteOne(searchObject, (err) => {
+    if (err) return err;
     return;
   });
 };
