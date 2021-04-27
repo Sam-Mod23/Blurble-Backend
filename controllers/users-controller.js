@@ -22,10 +22,7 @@ exports.getUser = (req, res, next) => {
     .then((user) => {
       res.status(200).send({ user });
     })
-    .catch(({ status, msg }) => {
-      console.log(status, msg);
-      res.status(status).send({ msg });
-    });
+    .catch(next);
 };
 
 exports.patchUserByDetails = (req, res, next) => {
