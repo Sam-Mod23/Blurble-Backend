@@ -498,7 +498,7 @@ describe("/api", () => {
     });
     describe("api/comments/club_name=:club_name", () => {
       describe("GET api/comments/club_name=:club_name", () => {
-        test.only("should return 4 comments belonging to Blurble Club, all matching the schema and sorted by progress", () => {
+        test("should return 4 comments belonging to Blurble Club, all matching the schema and sorted by progress", () => {
           return request(app)
             .get("/api/comments/club_name=Test%201")
             .expect(200)
@@ -563,7 +563,7 @@ describe("/api", () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.clubs[0]).toMatchObject({
-              nominatedBooks: [1, 2, 3],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               comments: [],
@@ -594,7 +594,7 @@ describe("/api", () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.club).toMatchObject({
-              nominatedBooks: [1, 2, 3],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               comments: [],
@@ -625,7 +625,7 @@ describe("/api", () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.club).toMatchObject({
-              nominatedBooks: [1, 2, 3],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               comments: [],
@@ -667,7 +667,7 @@ describe("/api", () => {
               clubName: "New Club",
               description: "Test",
               currentBook: "www.newClubsBook.com",
-              nominatedBooks: [],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               _id: "5",
@@ -697,7 +697,7 @@ describe("/api", () => {
               clubName: "New Club",
               description: "Test",
               currentBook: "www.newClubsBook.com",
-              nominatedBooks: [],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               _id: "5",
@@ -720,7 +720,7 @@ describe("/api", () => {
       });
     });
     describe("PATCH api/clubs/_id=:_id", () => {
-      test("Status: 201 - PATCH successful currentBook changed", () => {
+      test("Status: 201 - PATCH successful, currentBook changed", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
           .send({ currentBook: "www.newBook.com" })
@@ -729,6 +729,70 @@ describe("/api", () => {
             expect(res.body.club.currentBook).toEqual("www.newBook.com");
           });
       });
+      test("status: 201 - PATCH successful, nominatedBook votes incremented", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ selfLink: "1", incVotes: 1 })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.nominatedBooks).toEqual([
+              { selfLink: "1", votes: 2 },
+              { selfLink: "2", votes: 2 },
+              { selfLink: "3", votes: 3 }
+            ]);
+          });
+      });
+      test("status: 201 - PATCH successful, nominatedBook added to club", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ selfLink: "www.nominatedBook.com" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.nominatedBooks).toEqual([
+              { selfLink: "1", votes: 1 },
+              { selfLink: "2", votes: 2 },
+              { selfLink: "3", votes: 3 },
+              { selfLink: "www.nominatedBook.com", votes: 0 }
+            ]);
+          });
+      });
+      test("status: 201 - PATCH successful, addMember added to clubs memberIds", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ addMember: "user 1" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.memberIds).toEqual([1, "user 1"]);
+          });
+      });
+      test("status: 201 - PATCH successful, addAdmin added to clubs adminIds", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ addAdmin: "user 1" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.adminIds).toEqual([1, "user 1"]);
+          });
+      });
+      test("status: 201 - PATCH successful, removeMember removed from club memberIds", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ removeMember: 1 })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.memberIds).toEqual([]);
+          });
+      });
+      test("status: 201 - PATCH successful, removeAdmin removed from club adminIds", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ removeAdmin: 1 })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.adminIds).toEqual([]);
+          });
+      });
+      test("status: 201 - PATCH, archivedBooks updated with current book before current book is replaced", () => {});
     });
     describe("DELETE api/clubs/_id=:_id", () => {
       test("should return 204 for successful deletion of club for _id", () => {
