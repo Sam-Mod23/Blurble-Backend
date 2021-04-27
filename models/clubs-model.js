@@ -1,4 +1,4 @@
-const { Club } = require("../database/db-connection");
+const { Club, mongoose } = require("../database/db-connection");
 
 exports.fetchClubs = () => {
   return Club.find({}, (err, clubs) => {
@@ -17,6 +17,13 @@ exports.fetchClub = ({ _id, clubName }) => {
     } else {
       return club[0];
     }
+  });
+};
+
+exports.addClub = (newClub) => {
+  if (!newClub._id) newClub._id = mongoose.Types.ObjectId();
+  return Club.create(newClub).then((postedClub) => {
+    return postedClub;
   });
 };
 
