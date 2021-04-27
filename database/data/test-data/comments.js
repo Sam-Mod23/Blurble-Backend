@@ -7,7 +7,7 @@ const commentData = [
     clubName: "Test 1",
     book: "book",
     progress: 1,
-    _id: 1,
+    _id: "1",
     votes: 0,
   },
   {

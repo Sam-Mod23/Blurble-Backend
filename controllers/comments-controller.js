@@ -1,4 +1,8 @@
-const { fetchComments, amendComment } = require("../models/comments-model");
+const {
+  fetchComments,
+  amendComment,
+  addComment,
+} = require("../models/comments-model");
 
 exports.getComments = (req, res, next) => {
   fetchComments(req.params)
@@ -12,6 +16,16 @@ exports.getComments = (req, res, next) => {
 
 exports.patchComment = (req, res, next) => {
   amendComment(req.params, req.body)
+    .then((comment) => {
+      res.status(201).send({ comment });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+exports.postComment = (req, res, next) => {
+  addComment(req.params, req.body)
     .then((comment) => {
       res.status(201).send({ comment });
     })

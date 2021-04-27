@@ -484,7 +484,6 @@ describe("/api", () => {
               res.body.comments.forEach((comment) => {
                 expect(comment).toMatchObject({
                   username: expect.any(String),
-                  user_id: expect.any(String),
                   body: expect.any(String),
                   club_id: expect.any(String),
                   clubName: expect.any(String),
@@ -504,6 +503,62 @@ describe("/api", () => {
             });
         });
       });
+      describe("POST api/comments/_id=:_id", () => {
+        test("should be able to POST a comment to club_id endpoint", () => {
+          return request(app)
+            .post("/api/comments/club_id=1")
+            .send({
+              username: "testUser",
+              body: "testBody",
+              book: "testBook",
+              progress: 100,
+            })
+            .expect(201)
+            .then((res) => {
+              expect(res.body.comment).toMatchObject({
+                username: "testUser",
+                body: "testBody",
+                club_id: "1",
+                clubName: "Blurble Club",
+                book: "testBook",
+                progress: 100,
+                votes: 0,
+                __v: 0,
+                created_at: expect.any(String),
+                updatedAt: expect.any(String),
+                _id: expect.any(String),
+              });
+            });
+        });
+      });
+      describe("POST api/comments/clubName=:clubName", () => {
+        test("should be able to POST a comment to clubName endpoint", () => {
+          return request(app)
+            .post("/api/comments/clubName=Blurble%20Club")
+            .send({
+              username: "testUser",
+              body: "testBody",
+              book: "testBook",
+              progress: 100,
+            })
+            .expect(201)
+            .then((res) => {
+              expect(res.body.comment).toMatchObject({
+                username: "testUser",
+                body: "testBody",
+                club_id: "1",
+                clubName: "Blurble Club",
+                book: "testBook",
+                progress: 100,
+                votes: 0,
+                __v: 0,
+                created_at: expect.any(String),
+                updatedAt: expect.any(String),
+                _id: expect.any(String),
+              });
+            });
+        });
+      });
     });
     describe("api/comments/clubName=:clubName", () => {
       describe("GET api/comments/clubName=:clubName", () => {
@@ -519,7 +574,7 @@ describe("/api", () => {
               res.body.comments.forEach((comment) => {
                 expect(comment).toMatchObject({
                   username: expect.any(String),
-                  user_id: expect.any(String),
+
                   body: expect.any(String),
                   club_id: expect.any(String),
                   clubName: expect.any(String),
@@ -550,7 +605,7 @@ describe("/api", () => {
             .then((res) => {
               expect(res.body.comments[0]).toMatchObject({
                 username: "Test 1",
-                user_id: "1",
+
                 body: "Test Comment",
                 club_id: "1",
                 clubName: "Test 1",
@@ -569,7 +624,7 @@ describe("/api", () => {
             });
         });
       });
-      describe("PATCH api/comments/_id=_id", () => {
+      describe("PATCH api/comments/_id=:_id", () => {
         test("should return 201 and comments object with votes increased", () => {
           return request(app)
             .patch("/api/comments/_id=1")
@@ -578,7 +633,6 @@ describe("/api", () => {
             .then((res) => {
               expect(res.body.comment).toMatchObject({
                 username: "Test 1",
-                user_id: "1",
                 body: "Test Comment",
                 club_id: "1",
                 clubName: "Test 1",

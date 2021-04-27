@@ -6,7 +6,7 @@ const CommentSchema = {
   test: new Schema(
     {
       username: String,
-      user_id: String,
+
       body: String,
       club_id: String,
       clubName: String,
@@ -21,7 +21,7 @@ const CommentSchema = {
   development: new Schema(
     {
       username: String,
-      user_id: String,
+
       body: String,
       club_id: String,
       clubName: String,
@@ -36,7 +36,7 @@ const CommentSchema = {
   production: new Schema(
     {
       username: String,
-      user_id: String,
+
       body: String,
       club_id: String,
       clubName: String,
