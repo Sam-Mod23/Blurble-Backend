@@ -71,7 +71,7 @@ describe("/api", () => {
                   clubs: expect.any(Array),
                   __v: expect.any(Number),
                   created_at: expect.any(String),
-                  updatedAt: expect.any(String)
+                  updatedAt: expect.any(String),
                 });
               });
             });
@@ -92,7 +92,7 @@ describe("/api", () => {
                 clubs: [{ club_id: 1, progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
         });
@@ -114,7 +114,7 @@ describe("/api", () => {
               name: "user 6",
               isOver18: false,
               email: "email 6",
-              _id: "6"
+              _id: "6",
             })
             .expect(201)
             .then((res) => {
@@ -129,7 +129,7 @@ describe("/api", () => {
                 clubs: [{ club_id: 1, progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
         });
@@ -141,7 +141,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email new",
-              _id: "6"
+              _id: "6",
             })
             .expect(409)
             .then((res) => {
@@ -156,7 +156,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email new",
-              _id: "5"
+              _id: "5",
             })
             .expect(409)
             .then((res) => {
@@ -171,7 +171,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email 5",
-              _id: " 6"
+              _id: " 6",
             })
             .expect(409)
             .then((res) => {
@@ -187,7 +187,7 @@ describe("/api", () => {
               isOver18: false,
               email: "email 6",
               _id: "6",
-              invalid_prop: "This is invalid"
+              invalid_prop: "This is invalid",
             })
             .expect(201)
             .then((res) => {
@@ -202,7 +202,7 @@ describe("/api", () => {
                 _id: "6",
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
-                __v: 0
+                __v: 0,
               });
             });
         });
@@ -245,7 +245,7 @@ describe("/api", () => {
                 clubs: [{ club_id: 1, progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
         });
@@ -276,7 +276,7 @@ describe("/api", () => {
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
                 { club_id: 1, progress: 0, hasNominated: false },
-                { club_id: 2, progress: 0, hasNominated: false }
+                { club_id: 2, progress: 0, hasNominated: false },
               ]);
             });
         });
@@ -287,7 +287,7 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 100, hasNominated: false }
+                { club_id: 1, progress: 100, hasNominated: false },
               ]);
             });
         });
@@ -298,7 +298,7 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 0, hasNominated: true }
+                { club_id: 1, progress: 0, hasNominated: true },
               ]);
             });
         });
@@ -365,7 +365,7 @@ describe("/api", () => {
                 clubs: [{ club_id: 1, progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
         });
@@ -396,7 +396,7 @@ describe("/api", () => {
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
                 { club_id: 1, progress: 0, hasNominated: false },
-                { club_id: 2, progress: 0, hasNominated: false }
+                { club_id: 2, progress: 0, hasNominated: false },
               ]);
             });
         });
@@ -407,7 +407,7 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 100, hasNominated: false }
+                { club_id: 1, progress: 100, hasNominated: false },
               ]);
             });
         });
@@ -418,7 +418,7 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 0, hasNominated: true }
+                { club_id: 1, progress: 0, hasNominated: true },
               ]);
             });
         });
@@ -469,7 +469,7 @@ describe("/api", () => {
     });
   });
 
-  describe("Comments", () => {
+  describe.only("Comments", () => {
     describe("api/comments/club_id=:club_id", () => {
       describe("GET api/comments/club_id=:club_id", () => {
         test("should return 4 comments belonging to club_id 1, all matching the schema and sorted by progress", () => {
@@ -479,7 +479,7 @@ describe("/api", () => {
             .then((res) => {
               expect(res.body.comments.length).toBe(4);
               expect(res.body.comments).toBeSortedBy("progress", {
-                ascending: true
+                ascending: true,
               });
               res.body.comments.forEach((comment) => {
                 expect(comment).toMatchObject({
@@ -490,9 +490,17 @@ describe("/api", () => {
                   club_name: expect.any(String),
                   book: expect.any(String),
                   progress: expect.any(Number),
-                  _id: expect.any(String)
+                  _id: expect.any(String),
                 });
               });
+            });
+        });
+        test("should return 404 when given a valid but non-existent club_id", () => {
+          return request(app)
+            .get("/api/club_id=30")
+            .expect(404)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Not found");
             });
         });
       });
@@ -506,7 +514,7 @@ describe("/api", () => {
             .then((res) => {
               expect(res.body.comments.length).toBe(4);
               expect(res.body.comments).toBeSortedBy("progress", {
-                ascending: true
+                ascending: true,
               });
               res.body.comments.forEach((comment) => {
                 expect(comment).toMatchObject({
@@ -517,167 +525,167 @@ describe("/api", () => {
                   club_name: expect.any(String),
                   book: expect.any(String),
                   progress: expect.any(Number),
-                  _id: expect.any(String)
+                  _id: expect.any(String),
                 });
               });
             });
         });
       });
     });
-    describe("Clubs", () => {
-      describe("GET api/clubs", () => {
-        test("Status: 200 - should return all clubs", () => {
-          return request(app)
-            .get("/api/clubs")
-            .expect(200)
-            .then((res) => {
-              expect(res.body.clubs.length).toEqual(4);
-            });
-        });
-        test("each object should match expected schema", () => {
-          return request(app)
-            .get("/api/clubs")
-            .expect(200)
-            .then(({ body }) => {
-              body.clubs.forEach((club) => {
-                expect(club).toMatchObject({
-                  nominatedBooks: expect.any(Array),
-                  memberIds: expect.any(Array),
-                  adminIds: expect.any(Array),
-                  comments: expect.any(Array),
-                  archivedBooks: expect.any(Array),
-                  _id: expect.any(Number),
-                  clubName: expect.any(String),
-                  description: expect.any(String),
-                  currentBook: expect.any(String),
-                  __v: expect.any(Number),
-                  created_at: expect.any(String),
-                  updatedAt: expect.any(String)
-                });
-              });
-            });
-        });
-        test("first club should match Club 1 object", () => {
-          return request(app)
-            .get("/api/clubs")
-            .expect(200)
-            .then(({ body }) => {
-              expect(body.clubs[0]).toMatchObject({
-                nominatedBooks: [1, 2, 3],
-                memberIds: [1],
-                adminIds: [1],
-                comments: [],
-                archivedBooks: [],
-                _id: 1,
-                clubName: "Blurble Club",
-                description: "test",
-                currentBook: "test",
+  });
+  describe("Clubs", () => {
+    describe("GET api/clubs", () => {
+      test("Status: 200 - should return all clubs", () => {
+        return request(app)
+          .get("/api/clubs")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.clubs.length).toEqual(4);
+          });
+      });
+      test("each object should match expected schema", () => {
+        return request(app)
+          .get("/api/clubs")
+          .expect(200)
+          .then(({ body }) => {
+            body.clubs.forEach((club) => {
+              expect(club).toMatchObject({
+                nominatedBooks: expect.any(Array),
+                memberIds: expect.any(Array),
+                adminIds: expect.any(Array),
+                comments: expect.any(Array),
+                archivedBooks: expect.any(Array),
+                _id: expect.any(Number),
+                clubName: expect.any(String),
+                description: expect.any(String),
+                currentBook: expect.any(String),
                 __v: expect.any(Number),
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
-        });
-        test("status 405 - DELETE not allowed", () => {
-          return request(app)
-            .delete("/api/clubs")
-            .expect(405)
-            .then((res) => {
-              expect(res.body.msg).toEqual("Method not allowed");
-            });
-        });
+          });
       });
-      describe.skip("POST api/clubs", () => {
-        test("Status: 201 - successful post returns new club", () => {
-          return request(app)
-            .post("/api/clubs")
-            .send({
+      test("first club should match Club 1 object", () => {
+        return request(app)
+          .get("/api/clubs")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.clubs[0]).toMatchObject({
+              nominatedBooks: [1, 2, 3],
+              memberIds: [1],
+              adminIds: [1],
+              comments: [],
+              archivedBooks: [],
+              _id: 1,
+              clubName: "Blurble Club",
+              description: "test",
+              currentBook: "test",
+              __v: expect.any(Number),
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+            });
+          });
+      });
+      test("status 405 - DELETE not allowed", () => {
+        return request(app)
+          .delete("/api/clubs")
+          .expect(405)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Method not allowed");
+          });
+      });
+    });
+    describe.skip("POST api/clubs", () => {
+      test("Status: 201 - successful post returns new club", () => {
+        return request(app)
+          .post("/api/clubs")
+          .send({
+            clubName: "New Club",
+            description: "Test",
+            currentBook: "www.newClubsBook.com",
+            memberIds: [1],
+            adminIds: [1],
+            _id: 5,
+          })
+          .expect(201)
+          .then((res) => {
+            expect(res.body).toMatchObject({
               clubName: "New Club",
               description: "Test",
               currentBook: "www.newClubsBook.com",
               memberIds: [1],
               adminIds: [1],
-              _id: 5
-            })
-            .expect(201)
-            .then((res) => {
-              expect(res.body).toMatchObject({
-                clubName: "New Club",
-                description: "Test",
-                currentBook: "www.newClubsBook.com",
-                memberIds: [1],
-                adminIds: [1],
-                _id: 5,
-                comments: [],
-                archivedBooks: [],
-                created_at: expect.any(String),
-                updatedAt: expect.any(String),
-                __v: 0
-              });
+              _id: 5,
+              comments: [],
+              archivedBooks: [],
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+              __v: 0,
             });
-        });
+          });
       });
-      describe("GET api/clubs/_id=:_id", () => {
-        test("Status: 200 - returns correct club for declared _id", () => {
-          return request(app)
-            .get("/api/clubs/_id=1")
-            .expect(200)
-            .then(({ body }) => {
-              expect(body.club).toMatchObject({
-                nominatedBooks: [1, 2, 3],
-                memberIds: [1],
-                adminIds: [1],
-                comments: [],
-                archivedBooks: [],
-                _id: 1,
-                clubName: "Blurble Club",
-                description: "test",
-                currentBook: "test",
-                __v: expect.any(Number),
-                created_at: expect.any(String),
-                updatedAt: expect.any(String)
-              });
+    });
+    describe("GET api/clubs/_id=:_id", () => {
+      test("Status: 200 - returns correct club for declared _id", () => {
+        return request(app)
+          .get("/api/clubs/_id=1")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.club).toMatchObject({
+              nominatedBooks: [1, 2, 3],
+              memberIds: [1],
+              adminIds: [1],
+              comments: [],
+              archivedBooks: [],
+              _id: 1,
+              clubName: "Blurble Club",
+              description: "test",
+              currentBook: "test",
+              __v: expect.any(Number),
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
             });
-        });
-        test("Status: 404 - given valid but non-existent _id", () => {
-          return request(app)
-            .get("/api/clubs/_id=6")
-            .expect(404)
-            .then((res) => {
-              expect(res.body.msg).toEqual("Not found");
-            });
-        });
+          });
       });
-      describe("GET api/clubs/clubName=:clubName", () => {
-        test("Status: 200 - returns correct club for declared clubName", () => {
-          return request(app)
-            .get("/api/clubs/clubName=Blurble%20Club")
-            .expect(200)
-            .then(({ body }) => {
-              expect(body.club).toMatchObject({
-                nominatedBooks: [1, 2, 3],
-                memberIds: [1],
-                adminIds: [1],
-                comments: [],
-                archivedBooks: [],
-                _id: 1,
-                clubName: "Blurble Club",
-                description: "test",
-                currentBook: "test",
-                __v: expect.any(Number),
-                created_at: expect.any(String),
-                updatedAt: expect.any(String)
-              });
+      test("Status: 404 - given valid but non-existent _id", () => {
+        return request(app)
+          .get("/api/clubs/_id=6")
+          .expect(404)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Not found");
+          });
+      });
+    });
+    describe("GET api/clubs/clubName=:clubName", () => {
+      test("Status: 200 - returns correct club for declared clubName", () => {
+        return request(app)
+          .get("/api/clubs/clubName=Blurble%20Club")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.club).toMatchObject({
+              nominatedBooks: [1, 2, 3],
+              memberIds: [1],
+              adminIds: [1],
+              comments: [],
+              archivedBooks: [],
+              _id: 1,
+              clubName: "Blurble Club",
+              description: "test",
+              currentBook: "test",
+              __v: expect.any(Number),
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
             });
-        });
-        test("Status: 404 - given valid but non-existent clubName", () => {
-          return request(app)
-            .get("/api/clubs/clubName=6")
-            .expect(404)
-            .then((res) => {
-              expect(res.body.msg).toEqual("Not found");
-            });
-        });
+          });
+      });
+      test("Status: 404 - given valid but non-existent clubName", () => {
+        return request(app)
+          .get("/api/clubs/clubName=6")
+          .expect(404)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Not found");
+          });
       });
     });
   });
