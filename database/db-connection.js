@@ -26,4 +26,4 @@ const User = mongoose.model("User", UserSchema);
 const Club = mongoose.model("Club", ClubSchema);
 const Comment = mongoose.model("Comment", CommentSchema);
 
-module.exports = { db, User, Club, Comment };
+module.exports = { db, User, Club, Comment, mongoose };
