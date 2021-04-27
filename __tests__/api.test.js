@@ -622,6 +622,34 @@ describe("/api", () => {
               expect(res.body.msg).toBe("Not found");
             });
         });
+        test("should only allow valid props when posting comment", () => {
+          return request(app)
+            .post("/api/comments/club_id=1")
+            .send({
+              username: "testUser",
+              body: "testBody",
+              book: "testBook",
+              progress: 100,
+              notAProp: "not a prop",
+            })
+            .expect(201)
+            .then((res) => {
+              expect(res.body.comment).toMatchObject({
+                username: "testUser",
+                body: "testBody",
+                club_id: "1",
+                clubName: "Blurble Club",
+                book: "testBook",
+                progress: 100,
+                votes: 0,
+                __v: 0,
+                created_at: expect.any(String),
+                updatedAt: expect.any(String),
+                _id: expect.any(String),
+              });
+              expect(res.body.notAProp).toEqual(undefined);
+            });
+        });
       });
       describe("DELETE not allowed", () => {
         test("status 405 - DELETE not allowed", () => {
@@ -724,6 +752,35 @@ describe("/api", () => {
           .expect(404)
           .then((res) => {
             expect(res.body.msg).toBe("Not found");
+          });
+      });
+      test("should only allow valid props when posting comment", () => {
+        return request(app)
+          .post("/api/comments/club_id=1")
+          .send({
+            username: "testUser",
+            body: "testBody",
+            book: "testBook",
+            progress: 100,
+            notAProp: "not a prop",
+          })
+          .expect(201)
+          .then((res) => {
+            console.log(res.body);
+            expect(res.body.comment).toMatchObject({
+              username: "testUser",
+              body: "testBody",
+              club_id: "1",
+              clubName: "Blurble Club",
+              book: "testBook",
+              progress: 100,
+              votes: 0,
+              __v: 0,
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+              _id: expect.any(String),
+            });
+            expect(res.body.notAProp).toEqual(undefined);
           });
       });
     });
