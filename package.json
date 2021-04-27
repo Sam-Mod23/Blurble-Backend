@@ -34,11 +34,20 @@
     "jest-sorted": "^1.0.12",
     "supertest": "^6.1.3"
   },
-  "description": "",
   "jest": {
+
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "jest-sorted"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sam-Mod23/Blurble-Backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sam-Mod23/Blurble-Backend/issues"
+  },
+  "homepage": "https://github.com/Sam-Mod23/Blurble-Backend#readme",
+  "description": ""
 }

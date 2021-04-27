@@ -5,7 +5,7 @@ const CommentSchema = require("./schema/comments-schema");
 
 const { seedFunction } = require("./seed");
 
-const dbConnectionUrl = `mongodb+srv://james:JGSJN@cluster0.tl0ym.mongodb.net/blurble?retryWrites=true&w=majority`;
+const dbConnectionUrl = `mongodb+srv://${process.env.atlasuser}:${process.env.atlaspass}@cluster0.tl0ym.mongodb.net/blurble?retryWrites=true&w=majority`;
 
 const localConnection = "mongodb://localhost:27017/blurble";
 
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "test") {
 
 mongoose.connect(connection, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
 
 const db = mongoose.connection;

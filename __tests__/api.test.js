@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "test";
+
 const mongoose = require("mongoose");
 
 const app = require("../app");
@@ -44,7 +46,7 @@ describe("/api", () => {
   describe("Users", () => {
     describe("/api/users", () => {
       describe("GET /api/users", () => {
-        test("should return all 5 users", () => {
+        test("should return all users", () => {
           return request(app)
             .get("/api/users")
             .expect(200)
@@ -61,7 +63,7 @@ describe("/api", () => {
                 expect(user).toMatchObject({
                   blurbles: expect.any(Number),
                   badges: expect.any(Array),
-                  _id: expect.any(Number),
+                  _id: expect.any(String),
                   username: expect.any(String),
                   name: expect.any(String),
                   isOver18: expect.any(Boolean),
@@ -82,7 +84,7 @@ describe("/api", () => {
               expect(body.users[0]).toMatchObject({
                 blurbles: 0,
                 badges: [],
-                _id: 1,
+                _id: "1",
                 username: "username 1",
                 name: "user 1",
                 isOver18: false,
@@ -112,14 +114,14 @@ describe("/api", () => {
               name: "user 6",
               isOver18: false,
               email: "email 6",
-              _id: 6,
+              _id: "6",
             })
             .expect(201)
             .then((res) => {
               expect(res.body).toMatchObject({
                 blurbles: 0,
                 badges: [],
-                _id: 6,
+                _id: "6",
                 username: "username 6",
                 name: "user 6",
                 isOver18: false,
@@ -139,7 +141,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email new",
-              _id: 6,
+              _id: "6",
             })
             .expect(409)
             .then((res) => {
@@ -154,7 +156,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email new",
-              _id: 5,
+              _id: "5",
             })
             .expect(409)
             .then((res) => {
@@ -169,7 +171,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email 5",
-              _id: 6,
+              _id: " 6",
             })
             .expect(409)
             .then((res) => {
@@ -184,7 +186,7 @@ describe("/api", () => {
               name: "user 6",
               isOver18: false,
               email: "email 6",
-              _id: 6,
+              _id: "6",
               invalid_prop: "This is invalid",
             })
             .expect(201)
@@ -197,7 +199,7 @@ describe("/api", () => {
                 name: "user 6",
                 isOver18: false,
                 email: "email 6",
-                _id: 6,
+                _id: "6",
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
                 __v: 0,
@@ -235,7 +237,7 @@ describe("/api", () => {
               expect(body.user).toMatchObject({
                 blurbles: 0,
                 badges: [],
-                _id: 1,
+                _id: "1",
                 username: "username 1",
                 name: "user 1",
                 isOver18: false,
@@ -355,7 +357,7 @@ describe("/api", () => {
               expect(body.user).toMatchObject({
                 blurbles: 0,
                 badges: [],
-                _id: 1,
+                _id: "1",
                 username: "username 1",
                 name: "user 1",
                 isOver18: false,
@@ -466,6 +468,7 @@ describe("/api", () => {
       });
     });
   });
+
   describe("Comments", () => {
     describe("api/comments/club_id=:club_id", () => {
       describe("GET api/comments/club_id=:club_id", () => {
@@ -519,6 +522,161 @@ describe("/api", () => {
               });
             });
         });
+
+  describe("Clubs", () => {
+    describe("GET api/clubs", () => {
+      test("Status: 200 - should return all clubs", () => {
+        return request(app)
+          .get("/api/clubs")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.clubs.length).toEqual(4);
+          });
+      });
+      test("each object should match expected schema", () => {
+        return request(app)
+          .get("/api/clubs")
+          .expect(200)
+          .then(({ body }) => {
+            body.clubs.forEach((club) => {
+              expect(club).toMatchObject({
+                nominatedBooks: expect.any(Array),
+                memberIds: expect.any(Array),
+                adminIds: expect.any(Array),
+                comments: expect.any(Array),
+                archivedBooks: expect.any(Array),
+                _id: expect.any(Number),
+                clubName: expect.any(String),
+                description: expect.any(String),
+                currentBook: expect.any(String),
+                __v: expect.any(Number),
+                created_at: expect.any(String),
+                updatedAt: expect.any(String),
+              });
+            });
+          });
+      });
+      test("first club should match Club 1 object", () => {
+        return request(app)
+          .get("/api/clubs")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.clubs[0]).toMatchObject({
+              nominatedBooks: [1, 2, 3],
+              memberIds: [1],
+              adminIds: [1],
+              comments: [],
+              archivedBooks: [],
+              _id: 1,
+              clubName: "Blurble Club",
+              description: "test",
+              currentBook: "test",
+              __v: expect.any(Number),
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+            });
+          });
+      });
+      test("status 405 - DELETE not allowed", () => {
+        return request(app)
+          .delete("/api/clubs")
+          .expect(405)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Method not allowed");
+          });
+      });
+    });
+    describe.skip("POST api/clubs", () => {
+      test("Status: 201 - successful post returns new club", () => {
+        return request(app)
+          .post("/api/clubs")
+          .send({
+            clubName: "New Club",
+            description: "Test",
+            currentBook: "www.newClubsBook.com",
+            memberIds: [1],
+            adminIds: [1],
+            _id: 5,
+          })
+          .expect(201)
+          .then((res) => {
+            expect(res.body).toMatchObject({
+              clubName: "New Club",
+              description: "Test",
+              currentBook: "www.newClubsBook.com",
+              memberIds: [1],
+              adminIds: [1],
+              _id: 5,
+              comments: [],
+              archivedBooks: [],
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+              __v: 0,
+            });
+          });
+      });
+    });
+    describe("GET api/clubs/_id=:_id", () => {
+      test("Status: 200 - returns correct club for declared _id", () => {
+        return request(app)
+          .get("/api/clubs/_id=1")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.club).toMatchObject({
+              nominatedBooks: [1, 2, 3],
+              memberIds: [1],
+              adminIds: [1],
+              comments: [],
+              archivedBooks: [],
+              _id: 1,
+              clubName: "Blurble Club",
+              description: "test",
+              currentBook: "test",
+              __v: expect.any(Number),
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+            });
+          });
+      });
+      test("Status: 404 - given valid but non-existent _id", () => {
+        return request(app)
+          .get("/api/clubs/_id=6")
+          .expect(404)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Not found");
+          });
+      });
+    });
+    describe("GET api/clubs/clubName=:clubName", () => {
+      test("Status: 200 - returns correct club for declared clubName", () => {
+        return request(app)
+          .get("/api/clubs/clubName=Blurble%20Club")
+          .expect(200)
+          .then(({ body }) => {
+            expect(body.club).toMatchObject({
+              nominatedBooks: [1, 2, 3],
+              memberIds: [1],
+              adminIds: [1],
+              comments: [],
+              archivedBooks: [],
+              _id: 1,
+              clubName: "Blurble Club",
+              description: "test",
+              currentBook: "test",
+              __v: expect.any(Number),
+              created_at: expect.any(String),
+              updatedAt: expect.any(String),
+            });
+          });
+      });
+      test("Status: 404 - given valid but non-existent clubName", () => {
+        return request(app)
+          .get("/api/clubs/clubName=6")
+          .expect(404)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Not found");
+          });
+
       });
     });
   });
