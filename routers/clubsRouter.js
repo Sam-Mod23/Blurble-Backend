@@ -1,5 +1,9 @@
 const clubsRouter = require("express").Router();
-const { getClubs, getClub } = require("../controllers/clubs-controller");
+const {
+  getClubs,
+  getClub,
+  postClub,
+} = require("../controllers/clubs-controller");
 const { error405 } = require("../errors");
 
 clubsRouter.route("/").get(getClubs).post(postClub).all(error405);
