@@ -169,57 +169,61 @@
   "GET /api/clubs": {
     "description": "serves an object with clubs key linked to an array of all clubs",
     "queries": [],
-    "exampleResponse": { "Clubs": [{
-      "_id": "1",
-      "username": "'Test 1'",
-      "user_id": "1",
-      "body": "Test Comment",
-      "group_id": "1",
-      "group_name": "Test 1",
-      "current_book_ISBN": 1,
-      "progress": 1,
-      "__v": 0,
-      "created_at": "2021-04-23T09:19:08.859Z",
-      "updatedAt": "2021-04-23T09:19:08.859Z"
-    },
-    {
-      "_id": "2",
-      "username": "Test 2",
-      "user_id": "2",
-      "body": "Test Comment",
-      "group_id": "2",
-      "group_name": "Test 2",
-      "current_book_ISBN": 2,
-      "progress": 2,
-      "__v": 0,
-      "created_at": "2021-04-23T09:19:08.860Z",
-      "updatedAt": "2021-04-23T09:19:08.860Z"
-    },
-    {
-      "_id": "3",
-      "username": "Test 3",
-      "user_id": "3",
-      "body": "Test Comment",
-      "group_id": "3",
-      "group_name": "Test 3",
-      "current_book_ISBN": 3,
-      "progress": 3,
-      "__v": 0,
-      "created_at": "2021-04-23T09:19:08.860Z",
-      "updatedAt": "2021-04-23T09:19:08.860Z"
-    },
-    {
-      "_id": "4",
-      "username": "Test 4",
-      "user_id": "4",
-      "body": "Test Comment",
-      "group_id": "4",
-      "group_name": "Test 4",
-      "current_book_ISBN": 4,
-      "progress": 4,
-      "__v": 0,
-      "created_at": "2021-04-23T09:19:08.861Z",
-      "updatedAt": "2021-04-23T09:19:08.861Z"
-    }]
+    "exampleResponse": {
+      "Clubs": [
+        {
+          "_id": "1",
+          "username": "'Test 1'",
+          "user_id": "1",
+          "body": "Test Comment",
+          "group_id": "1",
+          "group_name": "Test 1",
+          "current_book_ISBN": 1,
+          "progress": 1,
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.859Z",
+          "updatedAt": "2021-04-23T09:19:08.859Z"
+        },
+        {
+          "_id": "2",
+          "username": "Test 2",
+          "user_id": "2",
+          "body": "Test Comment",
+          "group_id": "2",
+          "group_name": "Test 2",
+          "current_book_ISBN": 2,
+          "progress": 2,
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.860Z",
+          "updatedAt": "2021-04-23T09:19:08.860Z"
+        },
+        {
+          "_id": "3",
+          "username": "Test 3",
+          "user_id": "3",
+          "body": "Test Comment",
+          "group_id": "3",
+          "group_name": "Test 3",
+          "current_book_ISBN": 3,
+          "progress": 3,
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.860Z",
+          "updatedAt": "2021-04-23T09:19:08.860Z"
+        },
+        {
+          "_id": "4",
+          "username": "Test 4",
+          "user_id": "4",
+          "body": "Test Comment",
+          "group_id": "4",
+          "group_name": "Test 4",
+          "current_book_ISBN": 4,
+          "progress": 4,
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.861Z",
+          "updatedAt": "2021-04-23T09:19:08.861Z"
+        }
+      ]
+    }
   }
 }
