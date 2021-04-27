@@ -13,6 +13,8 @@ const CommentSchema = {
       book: String,
       progress: Number,
       // photo: {data: Buffer, contentType: String}
+      _id: String,
+      votes: { type: Number, default: 0 }
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -26,6 +28,8 @@ const CommentSchema = {
       book: String,
       progress: Number,
       // photo: {data: Buffer, contentType: String}
+      _id: String,
+      votes: { type: Number, default: 0 }
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -39,8 +43,10 @@ const CommentSchema = {
       book: String,
       progress: Number,
       // photo: {data: Buffer, contentType: String}
+      _id: String,
+      votes: { type: Number, default: 0 }
     },
     { timestamps: { createdAt: "created_at" } }
-  ),
+  )
 };
 module.exports = CommentSchema[ENV];

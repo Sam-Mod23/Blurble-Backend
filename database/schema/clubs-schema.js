@@ -14,7 +14,7 @@ const ClubSchema = {
       thumbnail: String,
       comments: Array,
       archivedBooks: Array,
-      _id: Number
+      _id: String
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -30,8 +30,7 @@ const ClubSchema = {
       comments: Array,
 
       archivedBooks: Array,
-      _id: String,
-
+      _id: String
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -45,7 +44,8 @@ const ClubSchema = {
       adminIds: { type: Array, required: true },
       thumbnail: String,
       comments: Array,
-      archivedBooks: Array
+      archivedBooks: Array,
+      _id: String
     },
     { timestamps: { createdAt: "created_at" } }
   )

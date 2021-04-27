@@ -14,9 +14,9 @@ const UserSchema = {
       avatar: String,
       clubs: {
         type: Array,
-        default: [{ club_id: 1, progress: 0, hasNominated: false }],
+        default: [{ club_id: 1, progress: 0, hasNominated: false }]
       },
-      _id: String,
+      _id: String
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -31,9 +31,9 @@ const UserSchema = {
       avatar: String,
       clubs: {
         type: Array,
-        default: [{ club_id: 1, progress: 0, hasNominated: false }],
+        default: [{ club_id: 1, progress: 0, hasNominated: false }]
       },
-      _id: String,
+      _id: String
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -48,11 +48,12 @@ const UserSchema = {
       avatar: String,
       clubs: {
         type: Array,
-        default: [{ club_id: 1, progress: 0, hasNominated: false }],
+        default: [{ club_id: 1, progress: 0, hasNominated: false }]
       },
+      _id: String
     },
     { timestamps: { createdAt: "created_at" } }
-  ),
+  )
 };
 
 module.exports = UserSchema[ENV];
