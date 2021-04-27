@@ -10,7 +10,7 @@
         {
           "blurbles": 10,
           "badges": [],
-          "_id": 1,
+          "_id": "1",
           "username": "username 1",
           "name": "user 1",
           "isOver18": false,
@@ -23,7 +23,7 @@
         {
           "blurbles": 0,
           "badges": [],
-          "_id": 1,
+          "_id": "1",
           "username": "username 2",
           "name": "user 2",
           "isOver18": false,
@@ -42,7 +42,7 @@
       "user": {
         "blurbles": 10,
         "badges": [],
-        "_id": 1,
+        "_id": "1",
         "username": "username 1",
         "name": "user 1",
         "isOver18": false,
@@ -56,34 +56,34 @@
   },
   "PATCH /api/users/_id=:_id & PATCH api/users/username=:username": {
     "description": "updates users book progress, nomination status, adds or removes club from users club memberships, updates blurbles or badges and serves updated user back",
-    "exampleBody1": { "club_id": 1, "progress": 100 },
+    "exampleBody1": { "club_id": "1", "progress": 100 },
     "exampleResponse1": {
       "user": {
         "blurbles": 10,
         "badges": [],
-        "_id": 1,
+        "_id": "1",
         "username": "username 1",
         "name": "user 1",
         "isOver18": false,
         "email": "email 1",
-        "clubs": [{ "club_id": 1, "progress": 100, "hasNominated": false }],
+        "clubs": [{ "club_id": "1", "progress": 100, "hasNominated": false }],
         "__v": 0,
         "created_at": "2021-04-23T09:19:08.864Z",
         "updatedAt": "2021-04-23T09:19:09.024Z"
       }
     },
 
-    "exampleBody2": { "club_id": 1, "hasNominated": true },
+    "exampleBody2": { "club_id": "1", "hasNominated": true },
     "exampleResponse2": {
       "user": {
         "blurbles": 10,
         "badges": [],
-        "_id": 1,
+        "_id": "1",
         "username": "username 1",
         "name": "user 1",
         "isOver18": false,
         "email": "email 1",
-        "clubs": [{ "club_id": 1, "progress": 0, "hasNominated": true }],
+        "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
         "__v": 0,
         "created_at": "2021-04-23T09:19:08.864Z",
         "updatedAt": "2021-04-23T09:19:09.024Z"
@@ -94,7 +94,7 @@
       "user": {
         "blurbles": 10,
         "badges": [],
-        "_id": 1,
+        "_id": "1",
         "username": "username 1",
         "name": "user 1",
         "isOver18": false,
@@ -110,12 +110,12 @@
       "user": {
         "blurbles": 10,
         "badges": [],
-        "_id": 1,
+        "_id": "1",
         "username": "username 1",
         "name": "user 1",
         "isOver18": false,
         "email": "email 1",
-        "clubs": [{ "club_id": 1, "progress": 0, "hasNominated": true }],
+        "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
         "__v": 0,
         "created_at": "2021-04-23T09:19:08.864Z",
         "updatedAt": "2021-04-23T09:19:09.024Z"
@@ -127,19 +127,152 @@
       "user": {
         "blurbles": 10,
         "badges": ["badge name example"],
-        "_id": 1,
+        "_id": "1",
         "username": "username 1",
         "name": "user 1",
         "isOver18": false,
         "email": "email 1",
-        "clubs": [{ "club_id": 1, "progress": 0, "hasNominated": true }],
+        "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
         "__v": 0,
         "created_at": "2021-04-23T09:19:08.864Z",
         "updatedAt": "2021-04-23T09:19:09.024Z"
       }
     }
   },
-  "DELETE /api/users/_id=:_id & GET /api/users/username=:username": {
+  "POST /api/users": {
+    "description": "posts new user and returns 201, {User: new user} with additional preset props, including default membership of global club (club_id: 1)",
+    "examplePostWithMinumumRequirements": {
+      "username": "username 6",
+      "name": "user 6",
+      "isOver18": false,
+      "email": "email 6"
+    },
+    "exampleResponse": {
+      "user": {
+        "blurbles": 0,
+        "badges": [],
+        "_id": "6",
+        "username": "username 6",
+        "name": "user 6",
+        "isOver18": false,
+        "email": "email 6",
+        "clubs": [{ "club_id": 1, "progress": 0 }],
+        "__v": 0,
+        "created_at": "2021-04-26T20:09:29.983Z",
+        "updatedAt": "2021-04-26T20:09:29.983Z"
+      }
+    }
+  },
+  "DELETE /api/users/_id=:_id & DELETE /api/users/username=:username": {
     "description": "deletes user matching _id or username provided, returns a 204 status"
+  },
+  "GET /api/clubs": {
+    "description": "serves an object with clubs key linked to an array of all clubs",
+    "queries": [],
+    "exampleResponse": {
+      "Clubs": [
+        {
+          "_id": "1",
+          "username": "'Test 1'",
+          "user_id": "1",
+          "body": "Test Comment",
+          "group_id": "1",
+          "group_name": "Test 1",
+          "current_book_ISBN": 1,
+          "progress": 1,
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.859Z",
+          "updatedAt": "2021-04-23T09:19:08.859Z"
+        },
+        {
+          "_id": "2",
+          "username": "Test 2",
+          "user_id": "2",
+          "body": "Test Comment",
+          "group_id": "2",
+          "group_name": "Test 2",
+          "current_book_ISBN": 2,
+          "progress": 2,
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.860Z",
+          "updatedAt": "2021-04-23T09:19:08.860Z"
+        },
+        {
+          "_id": "3",
+          "username": "Test 3",
+          "user_id": "3",
+          "body": "Test Comment",
+          "group_id": "3",
+          "group_name": "Test 3",
+          "current_book_ISBN": 3,
+          "progress": 3,
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.860Z",
+          "updatedAt": "2021-04-23T09:19:08.860Z"
+        },
+        {
+          "_id": "4",
+          "username": "Test 4",
+          "user_id": "4",
+          "body": "Test Comment",
+          "group_id": "4",
+          "group_name": "Test 4",
+          "current_book_ISBN": 4,
+          "progress": 4,
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.861Z",
+          "updatedAt": "2021-04-23T09:19:08.861Z"
+        }
+      ]
+    }
+  },
+  "POST /api/clubs": {
+    "description": "posts new club and returns 201, {club: new club} with additional preset props",
+    "examplePostWithMinumumRequirements": {
+      "clubName": "New Club",
+      "description": "Test",
+      "currentBook": "www.newClubsBook.com",
+      "memberIds": [1],
+      "adminIds": [1]
+    },
+    "exampleResponse": {
+      "club": {
+        "clubName": "New Club",
+        "description": "Test",
+        "currentBook": "www.newClubsBook.com",
+        "nominatedBooks": [],
+        "memberIds": [1],
+        "adminIds": [1],
+        "_id": "5",
+        "comments": [],
+        "archivedBooks": [],
+        "created_at": "2021-04-26T20:09:29.983Z",
+        "updatedAt": "2021-04-26T20:09:29.983Z",
+        "__v": 0
+      }
+    }
+  },
+  "PATCH /api/club/_id=:_id & PATCH /api/users/clubName=:clubName": {
+    "description": "updates club currentBook, nominated books, memberIds, adminIds, comments, archived books and serves back updated club",
+    "exampleCurrentBookPost": { "currentBook": "www.newBook.com" },
+    "exampleCurrentBookResponse": {
+      "club": {
+        "clubName": "New Club",
+        "description": "Test",
+        "currentBook": "www.newBook.com",
+        "nominatedBooks": [],
+        "memberIds": [1],
+        "adminIds": [1],
+        "_id": "5",
+        "comments": [],
+        "archivedBooks": [],
+        "created_at": "2021-04-26T20:09:29.983Z",
+        "updatedAt": "2021-04-26T20:09:29.983Z",
+        "__v": 0
+      }
+    }
+  },
+  "DELETE /api/club/_id=:_id & DELETE /api/users/clubName=:clubName": {
+    "description": "deletes club matching _id or username provided, returns a 204 status"
   }
 }
