@@ -1,6 +1,6 @@
 process.env.NODE_ENV = "test";
 
-const mongoose = require("mongoose");
+const { mongoose } = require("../database/db-connection");
 
 const app = require("../app");
 const db = require("../database/db-connection");
@@ -542,7 +542,9 @@ describe("/api", () => {
             .get("/api/comments/club_name=not_a_club")
             .expect(404)
             .then((res) => {
+
               expect(res.body.msg).toEqual("Not found");
+
             });
         });
 
@@ -741,9 +743,11 @@ describe("/api", () => {
               updatedAt: expect.any(String),
 
               __v: 0
+
             });
           });
       });
+
       test("Status: 201 - should only include valid props in new club", () => {
         return request(app)
           .post("/api/clubs")
@@ -806,9 +810,11 @@ describe("/api", () => {
               .expect(200)
               .then((res) => {
                 expect(res.body.clubs.length).toEqual(3);
+
               });
           });
       });
+
     });
     describe("DELETE api/clubs/clubName=:clubName", () => {
       test("should return 204 for successful deletion of club for clubName", () => {
@@ -821,6 +827,7 @@ describe("/api", () => {
               .expect(200)
               .then((res) => {
                 expect(res.body.clubs.length).toEqual(3);
+
               });
 
           });
