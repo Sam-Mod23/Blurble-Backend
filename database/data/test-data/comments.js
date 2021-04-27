@@ -7,6 +7,7 @@ const commentData = [
     clubName: "Test 1",
     book: "book",
     progress: 1,
+    _id: 1,
   },
   {
     username: "Test 2",
@@ -16,6 +17,7 @@ const commentData = [
     clubName: "Test 1",
     book: "book",
     progress: 2,
+    _id: 2,
   },
   {
     username: "Test 3",
@@ -25,6 +27,7 @@ const commentData = [
     clubName: "Test 1",
     book: "book",
     progress: 7,
+    _id: 3,
   },
   {
     username: "Test 4",
@@ -34,6 +37,7 @@ const commentData = [
     clubName: "Test 1",
     book: "book",
     progress: 4,
+    _id: 4,
   },
   {
     username: "Test 5",
@@ -43,6 +47,7 @@ const commentData = [
     clubName: "Test 2",
     book: "book",
     progress: 2,
+    _id: 5,
   },
   {
     username: "Test 6",
@@ -52,6 +57,7 @@ const commentData = [
     clubName: "Test 3",
     book: "book",
     progress: 7,
+    _id: 6,
   },
   {
     username: "Test 7",
@@ -61,6 +67,7 @@ const commentData = [
     clubName: "Test 4",
     book: "book",
     progress: 4,
+    _id: 7,
   },
 ];
 
