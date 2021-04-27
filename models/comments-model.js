@@ -45,8 +45,9 @@ exports.addComment = ({ club_id, clubName }, newComment) => {
       return newComment;
     })
     .then((newComment) => {
-      const comment = Comment.create(newComment);
-      return comment;
+      return Comment.create(newComment).then((comment) => {
+        return comment;
+      });
     });
 };
 

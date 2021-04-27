@@ -10,9 +10,7 @@ exports.getComments = (req, res, next) => {
     .then((comments) => {
       res.status(200).send({ comments });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 exports.patchComment = (req, res, next) => {
@@ -20,9 +18,7 @@ exports.patchComment = (req, res, next) => {
     .then((comment) => {
       res.status(201).send({ comment });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 exports.postComment = (req, res, next) => {
@@ -30,9 +26,7 @@ exports.postComment = (req, res, next) => {
     .then((comment) => {
       res.status(201).send({ comment });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 exports.deleteComment = (req, res, next) => {
@@ -40,7 +34,5 @@ exports.deleteComment = (req, res, next) => {
     .then(() => {
       res.sendStatus(204);
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };

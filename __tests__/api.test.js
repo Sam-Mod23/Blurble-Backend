@@ -650,6 +650,15 @@ describe("/api", () => {
               expect(res.body.notAProp).toEqual(undefined);
             });
         });
+        test("should reject POST request which does not contain required keys", () => {
+          return request(app)
+            .post("/api/comments/club_id=1")
+            .send({ body: "test" })
+            .expect(400)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Required information not provided");
+            });
+        });
       });
       describe("DELETE not allowed", () => {
         test("status 405 - DELETE not allowed", () => {
@@ -781,6 +790,15 @@ describe("/api", () => {
               _id: expect.any(String),
             });
             expect(res.body.notAProp).toEqual(undefined);
+          });
+      });
+      test("should reject POST request which does not contain required keys", () => {
+        return request(app)
+          .post("/api/comments/clubName=Blurble%20Club")
+          .send({ body: "test" })
+          .expect(400)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Required information not provided");
           });
       });
     });
