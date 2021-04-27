@@ -1,5 +1,4 @@
 const { User } = require("../database/db-connection");
-const usersRouter = require("../routers/usersRouter");
 
 exports.fetchUsers = () => {
   return User.find({}, (err, users) => {

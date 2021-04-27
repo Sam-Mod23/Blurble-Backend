@@ -14,7 +14,7 @@ const ClubSchema = {
       thumbnail: String,
       comments: Array,
       archivedBooks: Array,
-      _id: Number,
+      _id: Number
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -28,8 +28,10 @@ const ClubSchema = {
       adminIds: { type: Array, required: true },
       thumbnail: String,
       comments: Array,
+
       archivedBooks: Array,
       _id: String,
+
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -43,9 +45,9 @@ const ClubSchema = {
       adminIds: { type: Array, required: true },
       thumbnail: String,
       comments: Array,
-      archivedBooks: Array,
+      archivedBooks: Array
     },
     { timestamps: { createdAt: "created_at" } }
-  ),
+  )
 };
 module.exports = ClubSchema[ENV];
