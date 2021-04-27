@@ -495,7 +495,7 @@ describe("/api", () => {
               });
             });
         });
-        test.only("should return 404 when given a valid but non-existent club_id", () => {
+        test("should return 404 when given a valid but non-existent club_id", () => {
           return request(app)
             .get("/api/comments/club_id=30")
             .expect(404)
@@ -507,7 +507,7 @@ describe("/api", () => {
     });
     describe("api/comments/clubName=:clubName", () => {
       describe("GET api/comments/clubName=:clubName", () => {
-        test("should return 4 comments belonging to Blurble Club, all matching the schema and sorted by progress", () => {
+        test("should return 4 comments belonging to Test 1, all matching the schema and sorted by progress", () => {
           return request(app)
             .get("/api/comments/clubName=Test%201")
             .expect(200)
@@ -559,7 +559,7 @@ describe("/api", () => {
             });
           });
       });
-      test.only("should return 404 when called with valid but non-existent _id", () => {
+      test("should return 404 when called with valid but non-existent _id", () => {
         return request(app)
           .get("/api/comments/_id=9999")
           .expect(404)
