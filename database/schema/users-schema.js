@@ -16,7 +16,7 @@ const UserSchema = {
         type: Array,
         default: [{ club_id: 1, progress: 0, hasNominated: false }],
       },
-      _id: Number,
+      _id: String,
     },
     { timestamps: { createdAt: "created_at" } }
   ),
@@ -33,6 +33,7 @@ const UserSchema = {
         type: Array,
         default: [{ club_id: 1, progress: 0, hasNominated: false }],
       },
+      _id: String,
     },
     { timestamps: { createdAt: "created_at" } }
   ),

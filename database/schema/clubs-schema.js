@@ -28,7 +28,10 @@ const ClubSchema = {
       adminIds: { type: Array, required: true },
       thumbnail: String,
       comments: Array,
-      archivedBooks: Array
+
+      archivedBooks: Array,
+      _id: String,
+
     },
     { timestamps: { createdAt: "created_at" } }
   ),

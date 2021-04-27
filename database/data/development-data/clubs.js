@@ -44,12 +44,13 @@ const clubData = [
       },
     ],
     comments: [],
+    _id: 1,
   },
   {
     clubName: "Northcoders Book Club",
     description: "Northcoders Book Club",
     currentBook: "https://www.googleapis.com/books/v1/volumes/iptCAwAAQBAJ",
-    memberIds: [1, 2, 3, 4, 5],
+    memberIds: [1, 2, 3, 4, 5, 7, 12, 23],
     adminIds: [3, 5],
     nominatedBooks: [
       {
@@ -63,13 +64,14 @@ const clubData = [
     ],
     archivedBooks: ["https://www.googleapis.com/books/v1/volumes/ffYZDQAAQBAJ"],
     comments: [],
+    _id: 2,
   },
   {
     clubName: "Science Fiction Book Club",
     description: "A club for science fiction enthusiasts!",
     currentBook: "https://www.googleapis.com/books/v1/volumes/RBRXzgEACAAJ",
-    memberIds: [1, 2, 3, 4, 5],
-    adminIds: [3, 5],
+    memberIds: [8, 10, 13, 19, 20, 22, 25],
+    adminIds: [8, 10],
     nominatedBooks: [
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/8CHcJQzDPCkC",
@@ -86,23 +88,25 @@ const clubData = [
     ],
     archivedBooks: ["https://www.googleapis.com/books/v1/volumes/V5s14nks9I8C"],
     comments: [],
+    _id: 3,
   },
   {
     clubName: "Mystery Book Club",
     description: "Whodunnit? ",
-    memberIds: [2, 3, 12, 10, 22],
-    adminIds: [3, 12],
+    memberIds: [6, 11, 14, 15, 17, 24],
+    adminIds: [6],
     currentBook: "https://www.googleapis.com/books/v1/volumes/ZgfbDwAAQBAJ",
     nominatedBooks: {
       selfLink: "https://www.googleapis.com/books/v1/volumes/ZgfbDwAAQBAJ",
       votes: 1,
     },
     archivedBooks: [],
+    _id: 4,
   },
   {
     clubName: "Spooky books",
     description: "Books for haunted house fans",
-    memberIds: [20, 15, 1, 17, 18],
+    memberIds: [5, 6, 11, 14, 15, 17, 24],
     adminIds: [18],
     currentBook: "https://www.googleapis.com/books/v1/volumes/-6aSDwAAQBAJ",
     nominatedBooks: {
@@ -110,5 +114,8 @@ const clubData = [
       votes: 3,
     },
     archivedBooks: [],
+    _id: 5,
   },
 ];
+
+module.exports = clubData;

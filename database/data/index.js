@@ -9,4 +9,4 @@ const data = {
   production: devData
 };
 
-module.exports = data.test;
+module.exports = data[ENV];
