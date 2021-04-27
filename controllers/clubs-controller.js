@@ -1,4 +1,10 @@
-const { fetchClub, fetchClubs, amendClub } = require("../models/clubs-model");
+const {
+  fetchClub,
+  fetchClubs,
+  amendClub,
+  addClub,
+  removeClub
+} = require("../models/clubs-model");
 
 exports.getClubs = (req, res, next) => {
   fetchClubs()
@@ -23,7 +29,18 @@ exports.getClub = (req, res, next) => {
 exports.postClub = (req, res, next) => {
   addClub(req.body)
     .then((club) => {
-      res.status(200).send({ club });
+      res.status(201).send({ club });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+exports.deleteClub = (req, res, next) => {
+  const { _id, clubName } = req.params;
+  removeClub(req.params)
+    .then(() => {
+      res.sendStatus(204);
     })
     .catch((err) => {
       next(err);
@@ -31,5 +48,11 @@ exports.postClub = (req, res, next) => {
 };
 
 exports.patchClub = (req, res, next) => {
-  amendClub();
+  amendClub(req.params, req.body)
+    .then((club) => {
+      res.status(201).send({ club });
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
