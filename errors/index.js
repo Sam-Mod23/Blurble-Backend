@@ -21,7 +21,7 @@ exports.errorMongo = (err, req, res, next) => {
 
 exports.error500 = (err, req, res, next) => {
   console.log(err);
-  res.status(500).send({ msg: "Internal server error" });
+  res.status(500).send({ msg: err });
 };
 
 // error handling functions set by author
