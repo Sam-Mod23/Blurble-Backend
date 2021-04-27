@@ -198,6 +198,21 @@
         "updatedAt": "2021-04-26T20:09:29.958+00:00"
       }
     },
+    "PATCH /api/comments/_id=:_id": {
+      "description": "updates comment votes",
+      "exampleCurrentBookPost": { "voteInc": 1 },
+      "exampleCurrentBookResponse": {
+        "comment": {
+          "username": "Geocunn",
+          "body": "In eleifend quam a odio. In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem.",
+          "clubName": "'Blurble Book Club'",
+          "club_id": 1,
+          "book": "https://www.googleapis.com/books/v1/volumes/EPbnxXJC8toC",
+          "progress": 44,
+          "votes": 1
+        }
+      }
+    },
     "GET /api/clubs": {
       "description": "serves an object with clubs key linked to an array of all clubs",
       "queries": [],
