@@ -13,7 +13,7 @@ const clubData = [
   {
     clubName: "Blurble Club 2",
     description: "test",
-    currentBook: "test 2",
+    currentBook: "test",
     memberIds: [2],
     adminIds: [2],
     nominatedBooks: [4, 5, 6],

@@ -468,6 +468,61 @@ describe("/api", () => {
       });
     });
   });
+
+  describe("Comments", () => {
+    describe("api/comments/club_id=:club_id", () => {
+      describe("GET api/comments/club_id=:club_id", () => {
+        test("should return 4 comments belonging to club_id 1, all matching the schema and sorted by progress", () => {
+          return request(app)
+            .get("/api/comments/club_id=1")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments.length).toBe(4);
+              expect(res.body.comments).toBeSortedBy("progress", {
+                ascending: true,
+              });
+              res.body.comments.forEach((comment) => {
+                expect(comment).toMatchObject({
+                  username: expect.any(String),
+                  user_id: expect.any(String),
+                  body: expect.any(String),
+                  club_id: expect.any(String),
+                  club_name: expect.any(String),
+                  book: expect.any(String),
+                  progress: expect.any(Number),
+                  _id: expect.any(String),
+                });
+              });
+            });
+        });
+      });
+    });
+    describe("api/comments/club_name=:club_name", () => {
+      describe("GET api/comments/club_name=:club_name", () => {
+        test("should return 4 comments belonging to Blurble Club, all matching the schema and sorted by progress", () => {
+          return request(app)
+            .get("/api/comments/club_name=Test%201")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments.length).toBe(4);
+              expect(res.body.comments).toBeSortedBy("progress", {
+                ascending: true,
+              });
+              res.body.comments.forEach((comment) => {
+                expect(comment).toMatchObject({
+                  username: expect.any(String),
+                  user_id: expect.any(String),
+                  body: expect.any(String),
+                  club_id: expect.any(String),
+                  club_name: expect.any(String),
+                  book: expect.any(String),
+                  progress: expect.any(Number),
+                  _id: expect.any(String),
+                });
+              });
+            });
+        });
+
   describe("Clubs", () => {
     describe("GET api/clubs", () => {
       test("Status: 200 - should return all clubs", () => {
@@ -621,6 +676,7 @@ describe("/api", () => {
           .then((res) => {
             expect(res.body.msg).toEqual("Not found");
           });
+
       });
     });
   });
