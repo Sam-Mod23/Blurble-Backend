@@ -5,13 +5,13 @@ const ENV = process.env.NODE_ENV || "development";
 const CommentSchema = {
   test: new Schema(
     {
-      username: String,
+      username: { type: String, required: true },
 
-      body: String,
-      club_id: String,
-      clubName: String,
-      book: String,
-      progress: Number,
+      body: { type: String, required: true },
+      club_id: { type: String, required: true },
+      clubName: { type: String, required: true },
+      book: { type: String, required: true },
+      progress: { type: Number, required: true },
       // photo: {data: Buffer, contentType: String}
       _id: String,
       votes: { type: Number, default: 0 },
@@ -20,13 +20,13 @@ const CommentSchema = {
   ),
   development: new Schema(
     {
-      username: String,
+      username: { type: String, required: true },
 
-      body: String,
-      club_id: String,
-      clubName: String,
-      book: String,
-      progress: Number,
+      body: { type: String, required: true },
+      club_id: { type: String, required: true },
+      clubName: { type: String, required: true },
+      book: { type: String, required: true },
+      progress: { type: Number, required: true },
       // photo: {data: Buffer, contentType: String}
       _id: String,
       votes: { type: Number, default: 0 },
@@ -35,13 +35,13 @@ const CommentSchema = {
   ),
   production: new Schema(
     {
-      username: String,
+      username: { type: String, required: true },
 
-      body: String,
-      club_id: String,
-      clubName: String,
-      book: String,
-      progress: Number,
+      body: { type: String, required: true },
+      club_id: { type: String, required: true },
+      clubName: { type: String, required: true },
+      book: { type: String, required: true },
+      progress: { type: Number, required: true },
       // photo: {data: Buffer, contentType: String}
       _id: String,
       votes: { type: Number, default: 0 },
