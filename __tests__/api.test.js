@@ -530,6 +530,14 @@ describe("/api", () => {
               });
             });
         });
+        test("should return 404 when given a valid but non-existent club_name", () => {
+          return request(app)
+            .get("/api/club_name=not_a_club")
+            .expect(404)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Not found");
+            });
+        });
       });
     });
   });
