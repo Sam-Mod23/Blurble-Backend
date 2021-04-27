@@ -469,7 +469,7 @@ describe("/api", () => {
     });
   });
 
-  describe.only("Comments", () => {
+  describe("Comments", () => {
     describe("api/comments/club_id=:club_id", () => {
       describe("GET api/comments/club_id=:club_id", () => {
         test("should return 4 comments belonging to club_id 1, all matching the schema and sorted by progress", () => {
@@ -495,9 +495,9 @@ describe("/api", () => {
               });
             });
         });
-        test("should return 404 when given a valid but non-existent club_id", () => {
+        test.only("should return 404 when given a valid but non-existent club_id", () => {
           return request(app)
-            .get("/api/club_id=30")
+            .get("/api/comments/club_id=30")
             .expect(404)
             .then((res) => {
               expect(res.body.msg).toEqual("Not found");
@@ -530,14 +530,41 @@ describe("/api", () => {
               });
             });
         });
-        test("should return 404 when given a valid but non-existent club_name", () => {
+        test.only("should return 404 when given a valid but non-existent club_name", () => {
           return request(app)
-            .get("/api/club_name=not_a_club")
+            .get("/api/comments/club_name=not_a_club")
             .expect(404)
             .then((res) => {
               expect(res.body.msg).toEqual("Not found");
             });
         });
+      });
+    });
+    describe("api/comments/_id=:_id", () => {
+      test("should return expected comment when called with _id=1", () => {
+        return request(app)
+          .get("/api/comments/_id=1")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.comments[0]).toMatchObject({
+              username: "Test 1",
+              user_id: "1",
+              body: "Test Comment",
+              club_id: "1",
+              club_name: "Test 1",
+              book: "book",
+              progress: 1,
+              _id: "1",
+            });
+          });
+      });
+      test.only("should return 404 when called with valid but non-existent _id", () => {
+        return request(app)
+          .get("/api/comments/_id=9999")
+          .expect(404)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Not found");
+          });
       });
     });
   });
