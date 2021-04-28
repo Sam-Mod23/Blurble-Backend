@@ -73,10 +73,11 @@ exports.amendUserClubsByDetails = (
       });
     }
     return User.findOneAndUpdate(
-      searchObject,
+      _id ? { _id } : { username },
       { clubs: updatedClubs },
       { new: true }
     ).then((doc) => {
+      console.log(doc);
       return doc;
     });
   });

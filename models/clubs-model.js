@@ -48,7 +48,9 @@ exports.amendClub = (
 
   if (newBook) updateObj = { currentBook: newBook };
   if (selfLink) {
-    updateObj = { $push: { nominatedBooks: { selfLink, votes: 0 } } };
+    updateObj = {
+      $push: { nominatedBooks: { selfLink, votes: 0, votedIds: [] } }
+    };
   }
   if (addMember) {
     updateObj = { $push: { memberIds: addMember } };
@@ -65,8 +67,6 @@ exports.amendClub = (
     }
   );
 };
-
-// {incVotes, selfLink, user_id }
 
 exports.amendNestedClubInfo = (
   { _id, clubName },
@@ -137,12 +137,14 @@ exports.archiveBook = ({ _id, clubName }, { newBook }) => {
 
     return this.amendClub({ _id, clubName }, { bookToArchive })
       .then(() => {
-        return club.memberIds.forEach((userId) => {
-          amendUserClubsByDetails(
-            { _id: userId },
-            { club_id: _id, progress: 0, hasNominated: "no" }
-          );
-        });
+        return Promise.all(
+          club.memberIds.map((userId) => {
+            return amendUserClubsByDetails(
+              { _id: userId },
+              { club_id: _id, progress: 0, hasNominated: "no" }
+            );
+          })
+        );
       })
       .then(() => {
         return this.amendClub({ _id, clubName }, { newBook });

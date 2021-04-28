@@ -877,7 +877,7 @@ describe("/api", () => {
       });
     });
   });
-  describe("Clubs", () => {
+  describe.only("Clubs", () => {
     describe("GET api/clubs", () => {
       test("status: 200 - should return all clubs", () => {
         return request(app)
@@ -917,7 +917,7 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.clubs[0]).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: ["1"],
+              memberIds: ["1", "2", "3"],
               adminIds: ["1"],
               comments: [],
               archivedBooks: [],
@@ -949,7 +949,7 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.club).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: ["1"],
+              memberIds: ["1", "2", "3"],
               adminIds: ["1"],
               comments: [],
               archivedBooks: [],
@@ -980,7 +980,7 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.club).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: ["1"],
+              memberIds: ["1", "2", "3"],
               adminIds: ["1"],
               comments: [],
               archivedBooks: [],
@@ -1086,7 +1086,7 @@ describe("/api", () => {
             expect(res.body.club.currentBook).toEqual("www.newBook.com");
           });
       });
-      test.only("status: 201 - PATCH successful, nominatedBook votes incremented", () => {
+      test("status: 201 - PATCH successful, nominatedBook votes incremented", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
           .send({ selfLink: "1", incVotes: 1, member_id: "1" })
@@ -1095,7 +1095,7 @@ describe("/api", () => {
             expect(res.body.club.nominatedBooks[0].votes).toEqual(2);
           });
       });
-      test.only("status: 201 - PATCH, member_id added to votedIds array after vote", () => {
+      test("status: 201 - PATCH, member_id added to votedIds array after vote", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
           .send({ selfLink: "1", incVotes: 1, member_id: "1" })
@@ -1107,7 +1107,7 @@ describe("/api", () => {
             ]);
           });
       });
-      test.only("status: 201 - PATCH, if member_id already in votedIds, votedIds will not update", () => {
+      test("status: 201 - PATCH, if member_id already in votedIds, votedIds will not update", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
           .send({ selfLink: "1", incVotes: 1, member_id: "2" })
@@ -1125,10 +1125,10 @@ describe("/api", () => {
           .expect(201)
           .then((res) => {
             expect(res.body.club.nominatedBooks).toEqual([
-              { selfLink: "1", votes: 1 },
-              { selfLink: "2", votes: 2 },
-              { selfLink: "3", votes: 3 },
-              { selfLink: "www.nominatedBook.com", votes: 0 }
+              { selfLink: "1", votes: 1, votedIds: ["2"] },
+              { selfLink: "2", votes: 2, votedIds: [] },
+              { selfLink: "3", votes: 3, votedIds: [] },
+              { selfLink: "www.nominatedBook.com", votes: 0, votedIds: [] }
             ]);
           });
       });
@@ -1138,7 +1138,7 @@ describe("/api", () => {
           .send({ addMember: "user 1" })
           .expect(201)
           .then((res) => {
-            expect(res.body.club.memberIds).toEqual(["1", "user 1"]);
+            expect(res.body.club.memberIds).toEqual(["1", "2", "3", "user 1"]);
           });
       });
       test("status: 201 - PATCH successful, addAdmin added to clubs adminIds", () => {
@@ -1156,7 +1156,7 @@ describe("/api", () => {
           .send({ removeMember: "1" })
           .expect(201)
           .then((res) => {
-            expect(res.body.club.memberIds).toEqual([]);
+            expect(res.body.club.memberIds).toEqual(["2", "3"]);
           });
       });
       test("status: 201 - PATCH successful, removeAdmin removed from club adminIds", () => {
@@ -1186,9 +1186,9 @@ describe("/api", () => {
             expect(res.body.club.archivedBooks).toEqual(["test"]);
           });
       });
-      test("status: 201 - PATCH, archivedBooks updates members user data to reset progress to 0 and hasNominated to false", () => {
+      test.only("status: 201 - PATCH, archivedBooks updates members user data to reset progress to 0 and hasNominated to false", () => {
         return request(app)
-          .patch("/api/users/_id=1")
+          .patch("/api/users/username=username%201")
           .send({ club_id: "1", progress: 110, hasNominated: "yes" })
           .then(() => {
             return request(app)
@@ -1201,7 +1201,7 @@ describe("/api", () => {
           })
           .then(() => {
             return request(app)
-              .get("/api/users/_id=1")
+              .get("/api/users/username=username%201")
               .expect(200)
               .then((res) => {
                 expect(res.body.user.clubs[0]).toEqual({
