@@ -89,7 +89,7 @@ describe("/api", () => {
                 name: "user 1",
                 isOver18: false,
                 email: "email 1",
-                clubs: [{ club_id: 1, progress: 0 }],
+                clubs: [{ club_id: "1", progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
@@ -126,7 +126,7 @@ describe("/api", () => {
                 name: "user 6",
                 isOver18: false,
                 email: "email 6",
-                clubs: [{ club_id: 1, progress: 0 }],
+                clubs: [{ club_id: "1", progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
@@ -194,7 +194,7 @@ describe("/api", () => {
               expect(res.body).toEqual({
                 blurbles: 0,
                 badges: [],
-                clubs: [{ club_id: 1, progress: 0, hasNominated: false }],
+                clubs: [{ club_id: "1", progress: 0, hasNominated: false }],
                 username: "username 6",
                 name: "user 6",
                 isOver18: false,
@@ -242,7 +242,7 @@ describe("/api", () => {
                 name: "user 1",
                 isOver18: false,
                 email: "email 1",
-                clubs: [{ club_id: 1, progress: 0 }],
+                clubs: [{ club_id: "1", progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
@@ -271,34 +271,40 @@ describe("/api", () => {
         test("should return 201 when PATCH successful and add new club to user's club array", () => {
           return request(app)
             .patch("/api/users/_id=1")
-            .send({ club_id: 2 })
+            .send({ club_id: "2" })
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 0, hasNominated: false },
-                { club_id: 2, progress: 0, hasNominated: false },
+
+                { club_id: "1", progress: 0, hasNominated: false },
+                { club_id: "2", progress: 0, hasNominated: false }
+
               ]);
             });
         });
         test("should return 201 when PATCH successful and update user's progress of specific club_id", () => {
           return request(app)
             .patch("/api/users/_id=1")
-            .send({ club_id: 1, progress: 100 })
+            .send({ club_id: "1", progress: 100 })
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 100, hasNominated: false },
+
+                { club_id: "1", progress: 100, hasNominated: false }
+
               ]);
             });
         });
         test("should return 201 when PATCH successful and update the hasNominated Boolean in a users clubs", () => {
           return request(app)
             .patch("/api/users/_id=1")
-            .send({ club_id: 1, hasNominated: true })
+            .send({ club_id: "1", hasNominated: "yes" })
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 0, hasNominated: true },
+
+                { club_id: "1", progress: 0, hasNominated: true }
+
               ]);
             });
         });
@@ -314,7 +320,7 @@ describe("/api", () => {
         test("should return 201 when PATCH successful and club removed from users club array", () => {
           return request(app)
             .patch("/api/users/_id=1")
-            .send({ clubToRemove: 1 })
+            .send({ clubToRemove: "1" })
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([]);
@@ -362,7 +368,7 @@ describe("/api", () => {
                 name: "user 1",
                 isOver18: false,
                 email: "email 1",
-                clubs: [{ club_id: 1, progress: 0 }],
+                clubs: [{ club_id: "1", progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
@@ -391,34 +397,40 @@ describe("/api", () => {
         test("should return 201 when PATCH successful and add new club to user's club array", () => {
           return request(app)
             .patch("/api/users/username=username%201")
-            .send({ club_id: 2 })
+            .send({ club_id: "2" })
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 0, hasNominated: false },
-                { club_id: 2, progress: 0, hasNominated: false },
+
+                { club_id: "1", progress: 0, hasNominated: false },
+                { club_id: "2", progress: 0, hasNominated: false }
+
               ]);
             });
         });
         test("should return 201 when PATCH successful and update user's progress of specific club_id", () => {
           return request(app)
             .patch("/api/users/username=username%201")
-            .send({ club_id: 1, progress: 100 })
+            .send({ club_id: "1", progress: 100 })
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 100, hasNominated: false },
+
+                { club_id: "1", progress: 100, hasNominated: false }
+
               ]);
             });
         });
         test("should return 201 when PATCH successful and update the hasNominated Boolean in a users clubs", () => {
           return request(app)
             .patch("/api/users/username=username%201")
-            .send({ club_id: 1, hasNominated: true })
+            .send({ club_id: "1", hasNominated: "yes" })
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
-                { club_id: 1, progress: 0, hasNominated: true },
+
+                { club_id: "1", progress: 0, hasNominated: true }
+
               ]);
             });
         });
@@ -434,7 +446,7 @@ describe("/api", () => {
         test("should return 201 when PATCH successful and club removed from users club array", () => {
           return request(app)
             .patch("/api/users/username=username%201")
-            .send({ clubToRemove: 1 })
+            .send({ clubToRemove: "1" })
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([]);
@@ -485,7 +497,7 @@ describe("/api", () => {
                 clubName: "Test 1",
                 book: "book",
                 progress: 1,
-                _id: "1",
+                _id: "1"
               });
             });
         });
@@ -513,7 +525,7 @@ describe("/api", () => {
                 book: "book",
                 progress: 1,
                 _id: "1",
-                votes: 1,
+                votes: 1
               });
             });
         });
@@ -568,7 +580,7 @@ describe("/api", () => {
                 clubName: expect.any(String),
                 book: expect.any(String),
                 progress: expect.any(Number),
-                _id: expect.any(String),
+                _id: expect.any(String)
               });
             });
         });
@@ -607,7 +619,7 @@ describe("/api", () => {
               user_id: "1",
               body: "testBody",
               book: "testBook",
-              progress: 100,
+              progress: 100
             })
             .expect(201)
             .then((res) => {
@@ -622,7 +634,7 @@ describe("/api", () => {
                 __v: 0,
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
-                _id: expect.any(String),
+                _id: expect.any(String)
               });
             });
         });
@@ -633,7 +645,7 @@ describe("/api", () => {
               user_id: "1",
               body: "testBody",
               book: "testBook",
-              progress: 100,
+              progress: 100
             })
             .expect(404)
             .then((res) => {
@@ -648,7 +660,7 @@ describe("/api", () => {
               body: "testBody",
               book: "testBook",
               progress: 100,
-              notAProp: "not a prop",
+              notAProp: "not a prop"
             })
             .expect(201)
             .then((res) => {
@@ -663,7 +675,7 @@ describe("/api", () => {
                 __v: 0,
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
-                _id: expect.any(String),
+                _id: expect.any(String)
               });
               expect(res.body.notAProp).toEqual(undefined);
             });
@@ -684,7 +696,7 @@ describe("/api", () => {
               user_id: "1",
               body: "testBody",
               book: "testBook",
-              progress: 100,
+              progress: 100
             })
             .expect(400)
             .then((res) => {
@@ -713,7 +725,7 @@ describe("/api", () => {
           .then((res) => {
             expect(res.body.comments.length).toBe(4);
             expect(res.body.comments).toBeSortedBy("progress", {
-              ascending: true,
+              ascending: true
             });
             res.body.comments.forEach((comment) => {
               expect(comment).toMatchObject({
@@ -724,7 +736,7 @@ describe("/api", () => {
                 clubName: expect.any(String),
                 book: expect.any(String),
                 progress: expect.any(Number),
-                _id: expect.any(String),
+                _id: expect.any(String)
               });
             });
           });
@@ -741,7 +753,7 @@ describe("/api", () => {
               clubName: expect.any(String),
               book: expect.any(String),
               progress: expect.any(Number),
-              _id: expect.any(String),
+              _id: expect.any(String)
             });
           });
       });
@@ -780,7 +792,7 @@ describe("/api", () => {
             user_id: "1",
             body: "testBody",
             book: "testBook",
-            progress: 100,
+            progress: 100
           })
           .expect(201)
           .then((res) => {
@@ -795,7 +807,7 @@ describe("/api", () => {
               __v: 0,
               created_at: expect.any(String),
               updatedAt: expect.any(String),
-              _id: expect.any(String),
+              _id: expect.any(String)
             });
           });
       });
@@ -806,7 +818,7 @@ describe("/api", () => {
             username: "testUser",
             body: "testBody",
             book: "testBook",
-            progress: 100,
+            progress: 100
           })
           .expect(404)
           .then((res) => {
@@ -821,11 +833,10 @@ describe("/api", () => {
             body: "testBody",
             book: "testBook",
             progress: 100,
-            notAProp: "not a prop",
+            notAProp: "not a prop"
           })
           .expect(201)
           .then((res) => {
-            console.log(res.body);
             expect(res.body.comment).toMatchObject({
               user_id: "1",
               body: "testBody",
@@ -837,7 +848,7 @@ describe("/api", () => {
               __v: 0,
               created_at: expect.any(String),
               updatedAt: expect.any(String),
-              _id: expect.any(String),
+              _id: expect.any(String)
             });
             expect(res.body.notAProp).toEqual(undefined);
           });
@@ -858,7 +869,7 @@ describe("/api", () => {
             user_id: "1",
             body: "testBody",
             book: "testBook",
-            progress: 100,
+            progress: 100
           })
           .expect(400)
           .then((res) => {
@@ -918,8 +929,8 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.clubs[0]).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               comments: [],
               archivedBooks: [],
               _id: "1",
@@ -930,6 +941,7 @@ describe("/api", () => {
               created_at: expect.any(String),
 
               updatedAt: expect.any(String),
+
             });
           });
       });
@@ -950,8 +962,8 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.club).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               comments: [],
               archivedBooks: [],
               _id: "1",
@@ -960,7 +972,7 @@ describe("/api", () => {
               currentBook: "test",
               __v: expect.any(Number),
               created_at: expect.any(String),
-              updatedAt: expect.any(String),
+              updatedAt: expect.any(String)
             });
           });
       });
@@ -981,8 +993,8 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.club).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               comments: [],
               archivedBooks: [],
               _id: "1",
@@ -991,7 +1003,7 @@ describe("/api", () => {
               currentBook: "test",
               __v: expect.any(Number),
               created_at: expect.any(String),
-              updatedAt: expect.any(String),
+              updatedAt: expect.any(String)
             });
           });
       });
@@ -1012,10 +1024,12 @@ describe("/api", () => {
             clubName: "New Club",
             description: "Test",
             currentBook: "www.newClubsBook.com",
-            memberIds: [1],
-            adminIds: [1],
 
-            _id: 5,
+            memberIds: ["1"],
+            adminIds: ["1"],
+
+            _id: 5
+
           })
           .expect(201)
           .then((res) => {
@@ -1024,15 +1038,17 @@ describe("/api", () => {
               description: "Test",
               currentBook: "www.newClubsBook.com",
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               _id: "5",
               comments: [],
               archivedBooks: [],
               created_at: expect.any(String),
               updatedAt: expect.any(String),
 
-              __v: 0,
+
+              __v: 0
+
             });
           });
       });
@@ -1043,10 +1059,10 @@ describe("/api", () => {
             clubName: "New Club",
             description: "Test",
             currentBook: "www.newClubsBook.com",
-            memberIds: [1],
-            adminIds: [1],
+            memberIds: ["1"],
+            adminIds: ["1"],
             _id: 5,
-            invalid_prop: "This is invalid",
+            invalid_prop: "This is invalid"
           })
           .expect(201)
           .then((res) => {
@@ -1055,14 +1071,14 @@ describe("/api", () => {
               description: "Test",
               currentBook: "www.newClubsBook.com",
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               _id: "5",
               comments: [],
               archivedBooks: [],
               created_at: expect.any(String),
               updatedAt: expect.any(String),
-              __v: 0,
+              __v: 0
             });
           });
       });
@@ -1119,7 +1135,7 @@ describe("/api", () => {
           .send({ addMember: "user 1" })
           .expect(201)
           .then((res) => {
-            expect(res.body.club.memberIds).toEqual([1, "user 1"]);
+            expect(res.body.club.memberIds).toEqual(["1", "user 1"]);
           });
       });
       test("status: 201 - PATCH successful, addAdmin added to clubs adminIds", () => {
@@ -1128,13 +1144,13 @@ describe("/api", () => {
           .send({ addAdmin: "user 1" })
           .expect(201)
           .then((res) => {
-            expect(res.body.club.adminIds).toEqual([1, "user 1"]);
+            expect(res.body.club.adminIds).toEqual(["1", "user 1"]);
           });
       });
       test("status: 201 - PATCH successful, removeMember removed from club memberIds", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
-          .send({ removeMember: 1 })
+          .send({ removeMember: "1" })
           .expect(201)
           .then((res) => {
             expect(res.body.club.memberIds).toEqual([]);
@@ -1143,7 +1159,7 @@ describe("/api", () => {
       test("status: 201 - PATCH successful, removeAdmin removed from club adminIds", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
-          .send({ removeAdmin: 1 })
+          .send({ removeAdmin: "1" })
           .expect(201)
           .then((res) => {
             expect(res.body.club.adminIds).toEqual([]);
@@ -1165,6 +1181,32 @@ describe("/api", () => {
           .expect(201)
           .then((res) => {
             expect(res.body.club.archivedBooks).toEqual(["test"]);
+          });
+      });
+      test("status: 201 - PATCH, archivedBooks updates members user data to reset progress to 0 and hasNominated to false", () => {
+        return request(app)
+          .patch("/api/users/_id=1")
+          .send({ club_id: "1", progress: 110, hasNominated: "yes" })
+          .then(() => {
+            return request(app)
+              .patch("/api/clubs/_id=1")
+              .send({ archive: true, newBook: "www.newBook2.com" })
+              .expect(201)
+              .then((res) => {
+                expect(res.body.club.archivedBooks).toEqual(["test"]);
+              });
+          })
+          .then(() => {
+            return request(app)
+              .get("/api/users/_id=1")
+              .expect(200)
+              .then((res) => {
+                expect(res.body.user.clubs[0]).toEqual({
+                  club_id: "1",
+                  progress: 0,
+                  hasNominated: false
+                });
+              });
           });
       });
     });

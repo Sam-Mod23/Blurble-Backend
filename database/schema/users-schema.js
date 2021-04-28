@@ -14,7 +14,15 @@ const UserSchema = {
       avatar: String,
       clubs: {
         type: Array,
-        default: [{ club_id: "1", progress: 0, hasNominated: false }],
+
+        default: [
+          {
+            club_id: "1",
+            progress: 0,
+            hasNominated: false
+          }
+        ]
+
       },
       _id: String,
     },
@@ -31,7 +39,15 @@ const UserSchema = {
       avatar: String,
       clubs: {
         type: Array,
-        default: [{ club_id: "1", progress: 0, hasNominated: false }],
+
+        default: [
+          {
+            club_id: "1",
+            progress: 0,
+            hasNominated: false
+          }
+        ]
+
       },
       _id: String,
     },
@@ -48,7 +64,15 @@ const UserSchema = {
       avatar: String,
       clubs: {
         type: Array,
-        default: [{ club_id: "1", progress: 0, hasNominated: false }],
+
+        default: [
+          {
+            club_id: "1",
+            progress: 0,
+            hasNominated: false
+          }
+        ]
+
       },
       _id: String,
     },

@@ -60,8 +60,14 @@ exports.amendUserClubsByDetails = (
     } else {
       updatedClubs = userInfo.clubs.map((club) => {
         if (club_id === club.club_id) {
-          if (progress) club.progress = progress;
-          if (hasNominated) club.hasNominated = hasNominated;
+          if (progress >= 0) {
+            club.progress = progress;
+          }
+          if (hasNominated) {
+            hasNominated === "yes"
+              ? (club.hasNominated = true)
+              : (club.hasNominated = false);
+          }
         }
         return club;
       });
