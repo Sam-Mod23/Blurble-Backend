@@ -56,7 +56,7 @@
   },
   "PATCH /api/users/_id=:_id & PATCH api/users/username=:username": {
     "description": "updates users book progress, nomination status, adds or removes club from users club memberships, updates blurbles or badges and serves updated user back",
-    "example_BODY_1": { "club_id": 1, "progress": 100 },
+    "example_BODY_1": { "club_id": "1", "progress": 100 },
     "example_RESPONSE_1": {
       "user": {
         "blurbles": 10,
@@ -89,7 +89,7 @@
         "updatedAt": "2021-04-23T09:19:09.024Z"
       }
     },
-    "example_BODY_3": { "clubToRemove": 1 },
+    "example_BODY_3": { "clubToRemove": "1" },
     "example_RESPONSE_3": {
       "user": {
         "blurbles": 10,
@@ -171,58 +171,54 @@
     "description": "serves an object with clubs key linked to an array of all clubs",
     "queries": [],
     "example_RESPONSE": {
-      "Clubs": [
+      "clubs": [
         {
-          "_id": "1",
-          "username": "'Test 1'",
-          "user_id": "1",
-          "body": "Test Comment",
-          "group_id": "1",
-          "group_name": "Test 1",
-          "current_book_ISBN": 1,
-          "progress": 1,
-          "__v": 0,
-          "created_at": "2021-04-23T09:19:08.859Z",
-          "updatedAt": "2021-04-23T09:19:08.859Z"
-        },
-        {
+          "nominatedBooks": [
+            { "selfLink": "www.nominatedBook1.com", "votes": 0 }
+          ],
+          "memberIds": ["2"],
+          "adminIds": ["2"],
+          "comments": [],
+          "archivedBooks": [],
           "_id": "2",
-          "username": "Test 2",
-          "user_id": "2",
-          "body": "Test Comment",
-          "group_id": "2",
-          "group_name": "Test 2",
-          "current_book_ISBN": 2,
-          "progress": 2,
+          "clubName": "Blurble Club 2",
+          "description": "test",
+          "currentBook": "test",
           "__v": 0,
-          "created_at": "2021-04-23T09:19:08.860Z",
-          "updatedAt": "2021-04-23T09:19:08.860Z"
+          "created_at": "2021-04-28T13:15:56.072Z",
+          "updatedAt": "2021-04-28T13:15:56.072Z"
         },
         {
+          "nominatedBooks": [
+            { "selfLink": "www.nominatedBook2.com", "votes": 0 }
+          ],
+          "memberIds": [3],
+          "adminIds": [3],
+          "comments": [],
+          "archivedBooks": [],
           "_id": "3",
-          "username": "Test 3",
-          "user_id": "3",
-          "body": "Test Comment",
-          "group_id": "3",
-          "group_name": "Test 3",
-          "current_book_ISBN": 3,
-          "progress": 3,
+          "clubName": "Blurble Club 3",
+          "description": "test",
+          "currentBook": "test",
           "__v": 0,
-          "created_at": "2021-04-23T09:19:08.860Z",
-          "updatedAt": "2021-04-23T09:19:08.860Z"
+          "created_at": "2021-04-28T13:15:56.072Z",
+          "updatedAt": "2021-04-28T13:15:56.072Z"
         },
         {
+          "nominatedBooks": [
+            { "selfLink": "www.nominatedBook3.com", "votes": 0 }
+          ],
+          "memberIds": [4],
+          "adminIds": [4],
+          "comments": [],
+          "archivedBooks": [],
           "_id": "4",
-          "username": "Test 4",
-          "user_id": "4",
-          "body": "Test Comment",
-          "group_id": "4",
-          "group_name": "Test 4",
-          "current_book_ISBN": 4,
-          "progress": 4,
+          "clubName": "Blurble Club 4",
+          "description": "test",
+          "currentBook": "test",
           "__v": 0,
-          "created_at": "2021-04-23T09:19:08.861Z",
-          "updatedAt": "2021-04-23T09:19:08.861Z"
+          "created_at": "2021-04-28T13:15:56.072Z",
+          "updatedAt": "2021-04-28T13:15:56.072Z"
         }
       ]
     }
@@ -388,7 +384,7 @@
         "username": "madolfm",
         "body": "Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
         "clubName": "Northcoders Book Club",
-        "club_id": 2,
+        "club_id": "2",
         "book": "https://www.googleapis.com/books/v1/volumes/iptCAwAAQBAJ",
         "progress": 29,
         "__v": 0,
@@ -405,7 +401,7 @@
         "username": "madolfm",
         "body": "Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
         "clubName": "Northcoders Book Club",
-        "club_id": 2,
+        "club_id": "2",
         "book": "https://www.googleapis.com/books/v1/volumes/iptCAwAAQBAJ",
         "progress": 29,
         "votes": 9,
@@ -425,7 +421,7 @@
         "username": "madolfm",
         "body": "Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
         "clubName": "Northcoders Book Club",
-        "club_id": 2,
+        "club_id": "2",
         "book": "https://www.googleapis.com/books/v1/volumes/iptCAwAAQBAJ",
         "progress": 29,
         "__v": 0,
@@ -438,7 +434,7 @@
     "description": "Posts new comment: returns 201 status code and serves back new comment object",
     "example body": {
       "username": "madolfm",
-      "user_id": 23,
+      "user_id": "23",
       "body": "Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
       "book": "https://www.googleapis.com/books/v1/volumes/iptCAwAAQBAJ",
       "progress": 29
@@ -452,7 +448,7 @@
         "progress": 29,
         "_id": "60892c4bf911df0015a18626",
         "clubName": "Northcoders Book Club",
-        "club_id": 2,
+        "club_id": "2",
         "__v": 0,
         "created_at": "2021-04-26T20:09:29.958+00:00",
         "updatedAt": "2021-04-26T20:09:29.958+00:00"

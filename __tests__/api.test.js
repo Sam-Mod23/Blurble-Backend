@@ -881,8 +881,8 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.clubs[0]).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               comments: [],
               archivedBooks: [],
               _id: "1",
@@ -913,8 +913,8 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.club).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               comments: [],
               archivedBooks: [],
               _id: "1",
@@ -944,8 +944,8 @@ describe("/api", () => {
           .then(({ body }) => {
             expect(body.club).toMatchObject({
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               comments: [],
               archivedBooks: [],
               _id: "1",
@@ -975,8 +975,8 @@ describe("/api", () => {
             clubName: "New Club",
             description: "Test",
             currentBook: "www.newClubsBook.com",
-            memberIds: [1],
-            adminIds: [1],
+            memberIds: ["1"],
+            adminIds: ["1"],
 
             _id: 5
           })
@@ -987,8 +987,8 @@ describe("/api", () => {
               description: "Test",
               currentBook: "www.newClubsBook.com",
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               _id: "5",
               comments: [],
               archivedBooks: [],
@@ -1006,8 +1006,8 @@ describe("/api", () => {
             clubName: "New Club",
             description: "Test",
             currentBook: "www.newClubsBook.com",
-            memberIds: [1],
-            adminIds: [1],
+            memberIds: ["1"],
+            adminIds: ["1"],
             _id: 5,
             invalid_prop: "This is invalid"
           })
@@ -1018,8 +1018,8 @@ describe("/api", () => {
               description: "Test",
               currentBook: "www.newClubsBook.com",
               nominatedBooks: expect.any(Array),
-              memberIds: [1],
-              adminIds: [1],
+              memberIds: ["1"],
+              adminIds: ["1"],
               _id: "5",
               comments: [],
               archivedBooks: [],
@@ -1082,7 +1082,7 @@ describe("/api", () => {
           .send({ addMember: "user 1" })
           .expect(201)
           .then((res) => {
-            expect(res.body.club.memberIds).toEqual([1, "user 1"]);
+            expect(res.body.club.memberIds).toEqual(["1", "user 1"]);
           });
       });
       test("status: 201 - PATCH successful, addAdmin added to clubs adminIds", () => {
@@ -1091,13 +1091,13 @@ describe("/api", () => {
           .send({ addAdmin: "user 1" })
           .expect(201)
           .then((res) => {
-            expect(res.body.club.adminIds).toEqual([1, "user 1"]);
+            expect(res.body.club.adminIds).toEqual(["1", "user 1"]);
           });
       });
       test("status: 201 - PATCH successful, removeMember removed from club memberIds", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
-          .send({ removeMember: 1 })
+          .send({ removeMember: "1" })
           .expect(201)
           .then((res) => {
             expect(res.body.club.memberIds).toEqual([]);
@@ -1106,7 +1106,7 @@ describe("/api", () => {
       test("status: 201 - PATCH successful, removeAdmin removed from club adminIds", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
-          .send({ removeAdmin: 1 })
+          .send({ removeAdmin: "1" })
           .expect(201)
           .then((res) => {
             expect(res.body.club.adminIds).toEqual([]);
