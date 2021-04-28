@@ -12,7 +12,7 @@ const clubData = [
     ],
     archivedBooks: [],
     comments: [],
-    _id: 1
+    _id: "1"
   },
   {
     clubName: "Blurble Club 2",
@@ -27,7 +27,7 @@ const clubData = [
     ],
     archivedBooks: [],
     comments: [],
-    _id: 2
+    _id: "2"
   },
   {
     clubName: "Blurble Club 3",
@@ -42,7 +42,7 @@ const clubData = [
     ],
     archivedBooks: [],
     comments: [],
-    _id: 3
+    _id: "3"
   },
   {
     clubName: "Blurble Club 4",
@@ -57,7 +57,7 @@ const clubData = [
     ],
     archivedBooks: [],
     comments: [],
-    _id: 4
+    _id: "4"
   }
 ];
 
