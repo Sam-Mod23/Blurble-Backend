@@ -34,16 +34,20 @@ const clubData = [
     nominatedBooks: [
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/5QRZ4z6A1WwC",
-        votes: 5
+        votes: 5,
+        votedIds: ["24", "1", "5", "21", "7"]
       },
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/kotPYEqx7kMC",
-        votes: 4
+        votes: 4,
+        votedIds: ["21", "22", "5", "9"]
       }
     ],
     archivedBooks: [
       {
-        selfLink: "https://www.googleapis.com/books/v1/volumes/EPbnxXJC8toC"
+        selfLink: "https://www.googleapis.com/books/v1/volumes/EPbnxXJC8toC",
+        votes: 0,
+        votedIds: []
       }
     ],
     comments: [],
@@ -58,11 +62,13 @@ const clubData = [
     nominatedBooks: [
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/8CHcJQzDPCkC",
-        votes: 2
+        votes: 2,
+        votedIds: ["1", "4"]
       },
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/-bK-DQAAQBAJ",
-        votes: 2
+        votes: 2,
+        votedIds: ["7", "23"]
       }
     ],
     archivedBooks: ["https://www.googleapis.com/books/v1/volumes/ffYZDQAAQBAJ"],
@@ -78,15 +84,18 @@ const clubData = [
     nominatedBooks: [
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/8CHcJQzDPCkC",
-        votes: 2
+        votes: 2,
+        votedIds: ["8", "10"]
       },
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/BHhCzgEACAAJ",
-        votes: 2
+        votes: 2,
+        votedIds: ["8", "10"]
       },
       {
         selfLink: "https://www.googleapis.com/books/v1/volumes/6PYDCwAAQBAJ",
-        votes: 1
+        votes: 1,
+        votedIds: ["8"]
       }
     ],
     archivedBooks: ["https://www.googleapis.com/books/v1/volumes/V5s14nks9I8C"],
@@ -101,7 +110,8 @@ const clubData = [
     currentBook: "https://www.googleapis.com/books/v1/volumes/ZgfbDwAAQBAJ",
     nominatedBooks: {
       selfLink: "https://www.googleapis.com/books/v1/volumes/ZgfbDwAAQBAJ",
-      votes: 1
+      votes: 1,
+      votedIds: ["6"]
     },
     archivedBooks: [],
     _id: 4
@@ -114,7 +124,8 @@ const clubData = [
     currentBook: "https://www.googleapis.com/books/v1/volumes/-6aSDwAAQBAJ",
     nominatedBooks: {
       selfLink: "https://www.googleapis.com/books/v1/volumes/zVq8BF_5vSUC",
-      votes: 3
+      votes: 3,
+      votedIds: ["6", "15", "17"]
     },
     archivedBooks: [],
     _id: 5
