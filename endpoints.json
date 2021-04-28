@@ -379,6 +379,7 @@
   },
   "GET /api/comments/_id=:_id": {
     "description": "serves an object with the key of comments and comment object matching the _id",
+    "queries": ["progress", { "orderBy": ["asc", "desc"] }],
     "example_RESPONSE": {
       "comments": {
         "username": "madolfm",
@@ -416,6 +417,7 @@
   },
   "GET /api/comments/club_id=:_id & GET /api/users/clubName=:clubName": {
     "description": "serves an object with the key of comments and comment objects belonging to the group",
+    "queries": ["progress", { "orderBy": ["asc", "desc"] }],
     "example response": {
       "comments": {
         "username": "madolfm",

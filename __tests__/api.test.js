@@ -71,7 +71,7 @@ describe("/api", () => {
                   clubs: expect.any(Array),
                   __v: expect.any(Number),
                   created_at: expect.any(String),
-                  updatedAt: expect.any(String)
+                  updatedAt: expect.any(String),
                 });
               });
             });
@@ -92,7 +92,7 @@ describe("/api", () => {
                 clubs: [{ club_id: "1", progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
         });
@@ -114,7 +114,7 @@ describe("/api", () => {
               name: "user 6",
               isOver18: false,
               email: "email 6",
-              _id: "6"
+              _id: "6",
             })
             .expect(201)
             .then((res) => {
@@ -129,7 +129,7 @@ describe("/api", () => {
                 clubs: [{ club_id: "1", progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
         });
@@ -141,7 +141,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email new",
-              _id: "6"
+              _id: "6",
             })
             .expect(409)
             .then((res) => {
@@ -156,7 +156,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email new",
-              _id: "5"
+              _id: "5",
             })
             .expect(409)
             .then((res) => {
@@ -171,7 +171,7 @@ describe("/api", () => {
               name: "user 5",
               isOver18: false,
               email: "email 5",
-              _id: " 6"
+              _id: " 6",
             })
             .expect(409)
             .then((res) => {
@@ -187,7 +187,7 @@ describe("/api", () => {
               isOver18: false,
               email: "email 6",
               _id: "6",
-              invalid_prop: "This is invalid"
+              invalid_prop: "This is invalid",
             })
             .expect(201)
             .then((res) => {
@@ -202,7 +202,7 @@ describe("/api", () => {
                 _id: "6",
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
-                __v: 0
+                __v: 0,
               });
             });
         });
@@ -245,7 +245,7 @@ describe("/api", () => {
                 clubs: [{ club_id: "1", progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
         });
@@ -275,8 +275,10 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
+
                 { club_id: "1", progress: 0, hasNominated: false },
                 { club_id: "2", progress: 0, hasNominated: false }
+
               ]);
             });
         });
@@ -287,7 +289,9 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
+
                 { club_id: "1", progress: 100, hasNominated: false }
+
               ]);
             });
         });
@@ -298,7 +302,9 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
+
                 { club_id: "1", progress: 0, hasNominated: true }
+
               ]);
             });
         });
@@ -365,7 +371,7 @@ describe("/api", () => {
                 clubs: [{ club_id: "1", progress: 0 }],
                 __v: 0,
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
         });
@@ -395,8 +401,10 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
+
                 { club_id: "1", progress: 0, hasNominated: false },
                 { club_id: "2", progress: 0, hasNominated: false }
+
               ]);
             });
         });
@@ -407,7 +415,9 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
+
                 { club_id: "1", progress: 100, hasNominated: false }
+
               ]);
             });
         });
@@ -418,7 +428,9 @@ describe("/api", () => {
             .expect(201)
             .then(({ body }) => {
               expect(body.user.clubs).toEqual([
+
                 { club_id: "1", progress: 0, hasNominated: true }
+
               ]);
             });
         });
@@ -541,7 +553,7 @@ describe("/api", () => {
             .then((res) => {
               expect(res.body.comments.length).toBe(4);
               expect(res.body.comments).toBeSortedBy("progress", {
-                ascending: true
+                ascending: true,
               });
               res.body.comments.forEach((comment) => {
                 expect(comment).toMatchObject({
@@ -551,7 +563,7 @@ describe("/api", () => {
                   clubName: expect.any(String),
                   book: expect.any(String),
                   progress: expect.any(Number),
-                  _id: expect.any(String)
+                  _id: expect.any(String),
                 });
               });
             });
@@ -569,6 +581,24 @@ describe("/api", () => {
                 book: expect.any(String),
                 progress: expect.any(Number),
                 _id: expect.any(String)
+              });
+            });
+        });
+        test("should take a query to limit the comments to users current progress", () => {
+          return request(app)
+            .get("/api/comments/club_id=1?progress=3")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments.length).toBe(2);
+            });
+        });
+        test("should take a query to change sort order", () => {
+          return request(app)
+            .get("/api/comments/club_id=1?orderBy=desc")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments).toBeSortedBy("progress", {
+                descending: true,
               });
             });
         });
@@ -727,6 +757,24 @@ describe("/api", () => {
             });
           });
       });
+      test("should take a query to limit the comments to users current progress", () => {
+        return request(app)
+          .get("/api/comments/clubName=Test%201?progress=3")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.comments.length).toBe(2);
+          });
+      });
+      test("should take a query to change sort order", () => {
+        return request(app)
+          .get("/api/comments/clubName=Test%201?orderBy=desc")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.comments).toBeSortedBy("progress", {
+              descending: true,
+            });
+          });
+      });
       test("should return 404 when given a valid but non-existent clubName", () => {
         return request(app)
           .get("/api/comments/clubName=not_a_club")
@@ -869,7 +917,7 @@ describe("/api", () => {
                 currentBook: expect.any(String),
                 __v: expect.any(Number),
                 created_at: expect.any(String),
-                updatedAt: expect.any(String)
+                updatedAt: expect.any(String),
               });
             });
           });
@@ -892,7 +940,8 @@ describe("/api", () => {
               __v: expect.any(Number),
               created_at: expect.any(String),
 
-              updatedAt: expect.any(String)
+              updatedAt: expect.any(String),
+
             });
           });
       });
@@ -975,10 +1024,12 @@ describe("/api", () => {
             clubName: "New Club",
             description: "Test",
             currentBook: "www.newClubsBook.com",
+
             memberIds: ["1"],
             adminIds: ["1"],
 
             _id: 5
+
           })
           .expect(201)
           .then((res) => {
@@ -995,7 +1046,9 @@ describe("/api", () => {
               created_at: expect.any(String),
               updatedAt: expect.any(String),
 
+
               __v: 0
+
             });
           });
       });
@@ -1058,7 +1111,7 @@ describe("/api", () => {
             expect(res.body.club.nominatedBooks).toEqual([
               { selfLink: "1", votes: 2 },
               { selfLink: "2", votes: 2 },
-              { selfLink: "3", votes: 3 }
+              { selfLink: "3", votes: 3 },
             ]);
           });
       });
@@ -1072,7 +1125,7 @@ describe("/api", () => {
               { selfLink: "1", votes: 1 },
               { selfLink: "2", votes: 2 },
               { selfLink: "3", votes: 3 },
-              { selfLink: "www.nominatedBook.com", votes: 0 }
+              { selfLink: "www.nominatedBook.com", votes: 0 },
             ]);
           });
       });
