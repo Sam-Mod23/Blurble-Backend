@@ -13,7 +13,7 @@ exports.getUsers = (req, res, next) => {
       res.status(200).send({ users });
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };
 
@@ -22,7 +22,9 @@ exports.getUser = (req, res, next) => {
     .then((user) => {
       res.status(200).send({ user });
     })
-    .catch(next);
+    .catch((err) => {
+      next(err);
+    });
 };
 
 exports.patchUserByDetails = (req, res, next) => {
@@ -34,7 +36,7 @@ exports.patchUserByDetails = (req, res, next) => {
         res.status(201).send({ user });
       })
       .catch((err) => {
-        console.log(err);
+        next(err);
       });
   } else {
     amendUserByDetails(req.params, req.body)
@@ -42,7 +44,7 @@ exports.patchUserByDetails = (req, res, next) => {
         res.status(201).send({ user });
       })
       .catch((err) => {
-        console.log(err);
+        next(err);
       });
   }
 };
@@ -54,7 +56,7 @@ exports.deleteUserByDetails = (req, res, next) => {
       res.sendStatus(204);
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };
 
@@ -63,5 +65,7 @@ exports.postUsers = (req, res, next) => {
     .then((user) => {
       res.status(201).send(user);
     })
-    .catch(next);
+    .catch((err) => {
+      next(err);
+    });
 };

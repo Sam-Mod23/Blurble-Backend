@@ -15,7 +15,7 @@ exports.getClubs = (req, res, next) => {
       res.status(200).send({ clubs });
     })
     .catch((err) => {
-      console.log(err);
+      next(err);
     });
 };
 

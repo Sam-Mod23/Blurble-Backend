@@ -2,7 +2,7 @@ const { Club, mongoose } = require("../database/db-connection");
 
 exports.fetchClubs = () => {
   return Club.find({}, (err, clubs) => {
-    if (err) return console.log(err);
+    if (err) return Promise.reject(err);
     return clubs;
   });
 };

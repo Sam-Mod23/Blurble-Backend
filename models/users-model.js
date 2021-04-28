@@ -2,7 +2,7 @@ const { User, mongoose } = require("../database/db-connection");
 
 exports.fetchUsers = () => {
   return User.find({}, (err, users) => {
-    if (err) return console.log(err);
+    if (err) return Promise.reject(err);
     return users;
   });
 };
@@ -32,7 +32,7 @@ exports.amendUserByDetails = (
   if (blurblesInc) updateObj = { $inc: { blurbles: blurblesInc } };
   if (club_id) {
     updateObj = {
-      $push: { clubs: { club_id, progress: 0, hasNominated: false } },
+      $push: { clubs: { club_id, progress: 0, hasNominated: false } }
     };
   }
   if (newBadge) updateObj = { $push: { badges: newBadge } };
