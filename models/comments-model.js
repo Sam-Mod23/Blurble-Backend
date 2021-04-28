@@ -1,11 +1,14 @@
+const { search } = require("../app");
 const { Comment, mongoose, User } = require("../database/db-connection");
 const { fetchClub } = require("./clubs-model");
 
-exports.fetchComments = ({ _id, club_id, clubName }) => {
+exports.fetchComments = ({ _id, club_id, clubName }, { progress }) => {
   let searchObject = {};
   if (club_id) searchObject = { club_id };
   if (clubName) searchObject = { clubName };
   if (_id) searchObject = { _id };
+  if (progress) searchObject.progress = { $lte: progress };
+
   return Comment.find(searchObject).then((comments) => {
     if (!comments.length) {
       return Promise.reject({ status: 404, msg: "Not found" });
@@ -24,7 +27,7 @@ exports.amendComment = ({ _id }, { voteInc }) => {
     searchObject,
     { $inc: { votes: voteInc } },
     {
-      new: true
+      new: true,
     }
   ).then((doc) => {
     return doc;
