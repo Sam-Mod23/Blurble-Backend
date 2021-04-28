@@ -558,7 +558,6 @@ describe("/api", () => {
               });
             });
         });
-
         test("first object should match comment 1 object", () => {
           return request(app)
             .get("/api/comments/club_id=1")
@@ -851,7 +850,7 @@ describe("/api", () => {
 
   describe("Clubs", () => {
     describe("GET api/clubs", () => {
-      test("Status: 200 - should return all clubs", () => {
+      test("status: 200 - should return all clubs", () => {
         return request(app)
           .get("/api/clubs")
           .expect(200)
@@ -888,7 +887,7 @@ describe("/api", () => {
           .expect(200)
           .then(({ body }) => {
             expect(body.clubs[0]).toMatchObject({
-              nominatedBooks: [1, 2, 3],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               comments: [],
@@ -916,13 +915,13 @@ describe("/api", () => {
       });
     });
     describe("GET api/clubs/_id=:_id", () => {
-      test("Status: 200 - returns correct club for declared _id", () => {
+      test("status: 200 - returns correct club for declared _id", () => {
         return request(app)
           .get("/api/clubs/_id=1")
           .expect(200)
           .then(({ body }) => {
             expect(body.club).toMatchObject({
-              nominatedBooks: [1, 2, 3],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               comments: [],
@@ -937,7 +936,7 @@ describe("/api", () => {
             });
           });
       });
-      test("Status: 404 - given valid but non-existent _id", () => {
+      test("status: 404 - given valid but non-existent _id", () => {
         return request(app)
           .get("/api/clubs/_id=6")
           .expect(404)
@@ -947,13 +946,13 @@ describe("/api", () => {
       });
     });
     describe("GET api/clubs/clubName=:clubName", () => {
-      test("Status: 200 - returns correct club for declared clubName", () => {
+      test("status: 200 - returns correct club for declared clubName", () => {
         return request(app)
           .get("/api/clubs/clubName=Blurble%20Club")
           .expect(200)
           .then(({ body }) => {
             expect(body.club).toMatchObject({
-              nominatedBooks: [1, 2, 3],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               comments: [],
@@ -968,7 +967,7 @@ describe("/api", () => {
             });
           });
       });
-      test("Status: 404 - given valid but non-existent clubName", () => {
+      test("status: 404 - given valid but non-existent clubName", () => {
         return request(app)
           .get("/api/clubs/clubName=6")
           .expect(404)
@@ -978,7 +977,7 @@ describe("/api", () => {
       });
     });
     describe("POST api/clubs", () => {
-      test("Status: 201 - successful post returns new club", () => {
+      test("status: 201 - successful post returns new club", () => {
         return request(app)
           .post("/api/clubs")
           .send({
@@ -998,7 +997,7 @@ describe("/api", () => {
               clubName: "New Club",
               description: "Test",
               currentBook: "www.newClubsBook.com",
-              nominatedBooks: [],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               _id: "5",
@@ -1012,7 +1011,7 @@ describe("/api", () => {
             });
           });
       });
-      test("Status: 201 - should only include valid props in new club", () => {
+      test("status: 201 - should only include valid props in new club", () => {
         return request(app)
           .post("/api/clubs")
           .send({
@@ -1030,7 +1029,7 @@ describe("/api", () => {
               clubName: "New Club",
               description: "Test",
               currentBook: "www.newClubsBook.com",
-              nominatedBooks: [],
+              nominatedBooks: expect.any(Array),
               memberIds: [1],
               adminIds: [1],
               _id: "5",
@@ -1053,13 +1052,94 @@ describe("/api", () => {
       });
     });
     describe("PATCH api/clubs/_id=:_id", () => {
-      test("Status: 201 - PATCH successful currentBook changed", () => {
+      test("status: 201 - PATCH successful, currentBook changed", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
-          .send({ currentBook: "www.newBook.com" })
+          .send({ newBook: "www.newBook.com" })
           .expect(201)
           .then((res) => {
             expect(res.body.club.currentBook).toEqual("www.newBook.com");
+          });
+      });
+      test("status: 201 - PATCH successful, nominatedBook votes incremented", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ selfLink: "1", incVotes: 1 })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.nominatedBooks).toEqual([
+              { selfLink: "1", votes: 2 },
+              { selfLink: "2", votes: 2 },
+              { selfLink: "3", votes: 3 }
+            ]);
+          });
+      });
+      test("status: 201 - PATCH successful, nominatedBook added to club", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ selfLink: "www.nominatedBook.com" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.nominatedBooks).toEqual([
+              { selfLink: "1", votes: 1 },
+              { selfLink: "2", votes: 2 },
+              { selfLink: "3", votes: 3 },
+              { selfLink: "www.nominatedBook.com", votes: 0 }
+            ]);
+          });
+      });
+      test("status: 201 - PATCH successful, addMember added to clubs memberIds", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ addMember: "user 1" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.memberIds).toEqual([1, "user 1"]);
+          });
+      });
+      test("status: 201 - PATCH successful, addAdmin added to clubs adminIds", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ addAdmin: "user 1" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.adminIds).toEqual([1, "user 1"]);
+          });
+      });
+      test("status: 201 - PATCH successful, removeMember removed from club memberIds", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ removeMember: 1 })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.memberIds).toEqual([]);
+          });
+      });
+      test("status: 201 - PATCH successful, removeAdmin removed from club adminIds", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ removeAdmin: 1 })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.adminIds).toEqual([]);
+          });
+      });
+      test("status: 201 - PATCH, archivedBooks can be updated", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ bookToArchive: "archivedBook" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.archivedBooks).toEqual(["archivedBook"]);
+          });
+      });
+      test("status: 201 - PATCH, archivedBooks updated with current book before current book is replaced", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ archive: true, newBook: "www.newBook2.com" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.archivedBooks).toEqual(["test"]);
           });
       });
     });

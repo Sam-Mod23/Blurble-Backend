@@ -5,7 +5,11 @@ const clubData = [
     currentBook: "test",
     memberIds: [1],
     adminIds: [1],
-    nominatedBooks: [1, 2, 3],
+    nominatedBooks: [
+      { selfLink: "1", votes: 1 },
+      { selfLink: "2", votes: 2 },
+      { selfLink: "3", votes: 3 }
+    ],
     archivedBooks: [],
     comments: [],
     _id: 1
@@ -16,7 +20,11 @@ const clubData = [
     currentBook: "test",
     memberIds: [2],
     adminIds: [2],
-    nominatedBooks: [4, 5, 6],
+    nominatedBooks: [
+      { selfLink: "4", votes: 1 },
+      { selfLink: "5", votes: 2 },
+      { selfLink: "6", votes: 3 }
+    ],
     archivedBooks: [],
     comments: [],
     _id: 2
@@ -27,7 +35,11 @@ const clubData = [
     currentBook: "test",
     memberIds: [3],
     adminIds: [3],
-    nominatedBooks: [7, 8, 9],
+    nominatedBooks: [
+      { selfLink: "7", votes: 1 },
+      { selfLink: "8", votes: 2 },
+      { selfLink: "9", votes: 3 }
+    ],
     archivedBooks: [],
     comments: [],
     _id: 3
@@ -38,7 +50,11 @@ const clubData = [
     currentBook: "test",
     memberIds: [4],
     adminIds: [4],
-    nominatedBooks: [10, 11, 12],
+    nominatedBooks: [
+      { selfLink: "10", votes: 1 },
+      { selfLink: "11", votes: 2 },
+      { selfLink: "12", votes: 3 }
+    ],
     archivedBooks: [],
     comments: [],
     _id: 4
