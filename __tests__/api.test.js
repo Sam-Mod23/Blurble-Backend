@@ -302,6 +302,28 @@ describe("/api", () => {
               ]);
             });
         });
+        test.only("should return 201 and will not add multiple clubs", () => {
+          return request(app)
+            .patch("/api/users/_id=1")
+            .send({ club_id: 1, hasNominated: "yes" })
+            .expect(201)
+            .then(({ body }) => {
+              expect(body.user.clubs).toEqual([
+                { club_id: 1, progress: 0, hasNominated: true }
+              ]);
+            })
+            .then(() => {
+              return request(app)
+                .patch("/api/users/_id=1")
+                .send({ club_id: 1, hasNominated: "no" })
+                .expect(201)
+                .then(({ body }) => {
+                  expect(body.user.clubs).toEqual([
+                    { club_id: 1, progress: 0, hasNominated: false }
+                  ]);
+                });
+            });
+        });
         test("should return 201 when PATCH successful and add additional badges to users badge array", () => {
           return request(app)
             .patch("/api/users/_id=1")
@@ -469,7 +491,6 @@ describe("/api", () => {
     });
   });
 
-
   describe("Comments", () => {
     describe("api/comments/_id=:_id", () => {
       describe("GET api/comments/_id=:_id", () => {
@@ -486,7 +507,7 @@ describe("/api", () => {
                 clubName: "Test 1",
                 book: "book",
                 progress: 1,
-                _id: "1",
+                _id: "1"
               });
             });
         });
@@ -514,7 +535,7 @@ describe("/api", () => {
                 book: "book",
                 progress: 1,
                 _id: "1",
-                votes: 1,
+                votes: 1
               });
             });
         });
@@ -532,7 +553,6 @@ describe("/api", () => {
         });
       });
     });
-
 
     describe("api/comments/club_id=:club_id", () => {
       describe("GET api/comments/club_id=:club_id", () => {
@@ -570,7 +590,7 @@ describe("/api", () => {
                 clubName: expect.any(String),
                 book: expect.any(String),
                 progress: expect.any(Number),
-                _id: expect.any(String),
+                _id: expect.any(String)
               });
             });
         });
@@ -585,19 +605,16 @@ describe("/api", () => {
       });
       describe("POST api/comments/club_id=:_id", () => {
         test("should be able to POST a comment to club_id endpoint", () => {
-          
-
           return request(app)
             .post("/api/comments/club_id=1")
             .send({
               user_id: "1",
               body: "testBody",
               book: "testBook",
-              progress: 100,
+              progress: 100
             })
             .expect(201)
             .then((res) => {
-
               expect(res.body.comment).toMatchObject({
                 user_id: "1",
                 body: "testBody",
@@ -609,7 +626,7 @@ describe("/api", () => {
                 __v: 0,
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
-                _id: expect.any(String),
+                _id: expect.any(String)
               });
             });
         });
@@ -620,7 +637,7 @@ describe("/api", () => {
               user_id: "1",
               body: "testBody",
               book: "testBook",
-              progress: 100,
+              progress: 100
             })
             .expect(404)
             .then((res) => {
@@ -635,7 +652,7 @@ describe("/api", () => {
               body: "testBody",
               book: "testBook",
               progress: 100,
-              notAProp: "not a prop",
+              notAProp: "not a prop"
             })
             .expect(201)
             .then((res) => {
@@ -650,7 +667,7 @@ describe("/api", () => {
                 __v: 0,
                 created_at: expect.any(String),
                 updatedAt: expect.any(String),
-                _id: expect.any(String),
+                _id: expect.any(String)
               });
               expect(res.body.notAProp).toEqual(undefined);
             });
@@ -671,7 +688,7 @@ describe("/api", () => {
               user_id: "1",
               body: "testBody",
               book: "testBook",
-              progress: 100,
+              progress: 100
             })
             .expect(400)
             .then((res) => {
@@ -700,7 +717,7 @@ describe("/api", () => {
           .then((res) => {
             expect(res.body.comments.length).toBe(4);
             expect(res.body.comments).toBeSortedBy("progress", {
-              ascending: true,
+              ascending: true
             });
             res.body.comments.forEach((comment) => {
               expect(comment).toMatchObject({
@@ -711,7 +728,7 @@ describe("/api", () => {
                 clubName: expect.any(String),
                 book: expect.any(String),
                 progress: expect.any(Number),
-                _id: expect.any(String),
+                _id: expect.any(String)
               });
             });
           });
@@ -728,7 +745,7 @@ describe("/api", () => {
               clubName: expect.any(String),
               book: expect.any(String),
               progress: expect.any(Number),
-              _id: expect.any(String),
+              _id: expect.any(String)
             });
           });
       });
@@ -749,7 +766,7 @@ describe("/api", () => {
             user_id: "1",
             body: "testBody",
             book: "testBook",
-            progress: 100,
+            progress: 100
           })
           .expect(201)
           .then((res) => {
@@ -764,7 +781,7 @@ describe("/api", () => {
               __v: 0,
               created_at: expect.any(String),
               updatedAt: expect.any(String),
-              _id: expect.any(String),
+              _id: expect.any(String)
             });
           });
       });
@@ -775,7 +792,7 @@ describe("/api", () => {
             username: "testUser",
             body: "testBody",
             book: "testBook",
-            progress: 100,
+            progress: 100
           })
           .expect(404)
           .then((res) => {
@@ -790,11 +807,10 @@ describe("/api", () => {
             body: "testBody",
             book: "testBook",
             progress: 100,
-            notAProp: "not a prop",
+            notAProp: "not a prop"
           })
           .expect(201)
           .then((res) => {
-            console.log(res.body);
             expect(res.body.comment).toMatchObject({
               user_id: "1",
               body: "testBody",
@@ -806,7 +822,7 @@ describe("/api", () => {
               __v: 0,
               created_at: expect.any(String),
               updatedAt: expect.any(String),
-              _id: expect.any(String),
+              _id: expect.any(String)
             });
             expect(res.body.notAProp).toEqual(undefined);
           });
@@ -827,7 +843,7 @@ describe("/api", () => {
             user_id: "1",
             body: "testBody",
             book: "testBook",
-            progress: 100,
+            progress: 100
           })
           .expect(400)
           .then((res) => {
@@ -843,7 +859,6 @@ describe("/api", () => {
           .then((res) => {
             expect(res.body.msg).toEqual("Method not allowed");
           });
-
       });
     });
   });
@@ -899,9 +914,7 @@ describe("/api", () => {
               __v: expect.any(Number),
               created_at: expect.any(String),
 
-
-              updatedAt: expect.any(String),
-
+              updatedAt: expect.any(String)
             });
           });
       });
@@ -932,7 +945,7 @@ describe("/api", () => {
               currentBook: "test",
               __v: expect.any(Number),
               created_at: expect.any(String),
-              updatedAt: expect.any(String),
+              updatedAt: expect.any(String)
             });
           });
       });
@@ -963,7 +976,7 @@ describe("/api", () => {
               currentBook: "test",
               __v: expect.any(Number),
               created_at: expect.any(String),
-              updatedAt: expect.any(String),
+              updatedAt: expect.any(String)
             });
           });
       });
@@ -987,9 +1000,7 @@ describe("/api", () => {
             memberIds: [1],
             adminIds: [1],
 
-
-            _id: 5,
-
+            _id: 5
           })
           .expect(201)
           .then((res) => {
@@ -1006,8 +1017,7 @@ describe("/api", () => {
               created_at: expect.any(String),
               updatedAt: expect.any(String),
 
-              __v: 0,
-
+              __v: 0
             });
           });
       });
@@ -1021,7 +1031,7 @@ describe("/api", () => {
             memberIds: [1],
             adminIds: [1],
             _id: 5,
-            invalid_prop: "This is invalid",
+            invalid_prop: "This is invalid"
           })
           .expect(201)
           .then((res) => {
@@ -1037,7 +1047,7 @@ describe("/api", () => {
               archivedBooks: [],
               created_at: expect.any(String),
               updatedAt: expect.any(String),
-              __v: 0,
+              __v: 0
             });
           });
       });
