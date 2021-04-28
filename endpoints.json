@@ -381,7 +381,7 @@
   "DELETE /api/club/_id=:_id & DELETE /api/users/clubName=:clubName": {
     "description": "deletes club matching _id or username provided, returns a 204 status"
   },
-    "GET /api/comments/_id=:_id": {
+  "GET /api/comments/_id=:_id": {
     "description": "serves an object with the key of comments and comment object matching the _id",
     "example_RESPONSE": {
       "comments": {
@@ -454,6 +454,6 @@
         "created_at": "2021-04-26T20:09:29.958+00:00",
         "updatedAt": "2021-04-26T20:09:29.958+00:00"
       }
-    },
+    }
   }
 }
