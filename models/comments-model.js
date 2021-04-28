@@ -40,9 +40,13 @@ exports.addComment = ({ club_id, clubName }, newComment) => {
 
   return fetchClub(searchObject)
     .then((res) => {
-      newComment.clubName = res.clubName;
-      newComment.club_id = res._id;
-      return newComment;
+      if (!res.memberIds.includes(newComment.user_id)) {
+        return Promise.reject({ status: 400, msg: "Bad request" });
+      } else {
+        newComment.clubName = res.clubName;
+        newComment.club_id = res._id;
+        return newComment;
+      }
     })
     .then((newComment) => {
       return Comment.create(newComment).then((comment) => {

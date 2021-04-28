@@ -5,8 +5,7 @@ const ENV = process.env.NODE_ENV || "development";
 const CommentSchema = {
   test: new Schema(
     {
-      username: { type: String, required: true },
-
+      user_id: { type: String, required: true },
       body: { type: String, required: true },
       club_id: { type: String, required: true },
       clubName: { type: String, required: true },
@@ -20,7 +19,7 @@ const CommentSchema = {
   ),
   development: new Schema(
     {
-      username: { type: String, required: true },
+      user_id: { type: String, required: true },
 
       body: { type: String, required: true },
       club_id: { type: String, required: true },
@@ -35,7 +34,7 @@ const CommentSchema = {
   ),
   production: new Schema(
     {
-      username: { type: String, required: true },
+      user_id: { type: String, required: true },
 
       body: { type: String, required: true },
       club_id: { type: String, required: true },

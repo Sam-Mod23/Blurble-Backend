@@ -478,7 +478,7 @@ describe("/api", () => {
             .expect(200)
             .then((res) => {
               expect(res.body.comments[0]).toMatchObject({
-                username: "Test 1",
+                user_id: "1",
 
                 body: "Test Comment",
                 club_id: "1",
@@ -506,7 +506,7 @@ describe("/api", () => {
             .expect(201)
             .then((res) => {
               expect(res.body.comment).toMatchObject({
-                username: "Test 1",
+                user_id: "1",
                 body: "Test Comment",
                 club_id: "1",
                 clubName: "Test 1",
@@ -545,7 +545,7 @@ describe("/api", () => {
               });
               res.body.comments.forEach((comment) => {
                 expect(comment).toMatchObject({
-                  username: expect.any(String),
+                  user_id: expect.any(String),
                   body: expect.any(String),
                   club_id: expect.any(String),
                   clubName: expect.any(String),
@@ -562,7 +562,7 @@ describe("/api", () => {
             .expect(200)
             .then((res) => {
               expect(res.body.comments[0]).toMatchObject({
-                username: expect.any(String),
+                user_id: expect.any(String),
                 body: expect.any(String),
                 club_id: expect.any(String),
                 clubName: expect.any(String),
@@ -586,7 +586,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/club_id=1")
             .send({
-              username: "testUser",
+              user_id: "1",
               body: "testBody",
               book: "testBook",
               progress: 100,
@@ -594,7 +594,7 @@ describe("/api", () => {
             .expect(201)
             .then((res) => {
               expect(res.body.comment).toMatchObject({
-                username: "testUser",
+                user_id: "1",
                 body: "testBody",
                 club_id: "1",
                 clubName: "Blurble Club",
@@ -612,7 +612,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/club_id=9999")
             .send({
-              username: "testUser",
+              user_id: "1",
               body: "testBody",
               book: "testBook",
               progress: 100,
@@ -626,7 +626,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/club_id=1")
             .send({
-              username: "testUser",
+              user_id: "1",
               body: "testBody",
               book: "testBook",
               progress: 100,
@@ -635,7 +635,7 @@ describe("/api", () => {
             .expect(201)
             .then((res) => {
               expect(res.body.comment).toMatchObject({
-                username: "testUser",
+                user_id: "1",
                 body: "testBody",
                 club_id: "1",
                 clubName: "Blurble Club",
@@ -656,7 +656,21 @@ describe("/api", () => {
             .send({ body: "test" })
             .expect(400)
             .then((res) => {
-              expect(res.body.msg).toEqual("Required information not provided");
+              expect(res.body.msg).toEqual("Bad request");
+            });
+        });
+        test("should reject POST request when user is not a member of the club", () => {
+          return request(app)
+            .post("/api/comments/club_id=2")
+            .send({
+              user_id: "1",
+              body: "testBody",
+              book: "testBook",
+              progress: 100,
+            })
+            .expect(400)
+            .then((res) => {
+              expect(res.body.msg).toBe("Bad request");
             });
         });
       });
@@ -685,7 +699,7 @@ describe("/api", () => {
             });
             res.body.comments.forEach((comment) => {
               expect(comment).toMatchObject({
-                username: expect.any(String),
+                user_id: expect.any(String),
 
                 body: expect.any(String),
                 club_id: expect.any(String),
@@ -703,7 +717,7 @@ describe("/api", () => {
           .expect(200)
           .then((res) => {
             expect(res.body.comments[0]).toMatchObject({
-              username: expect.any(String),
+              user_id: expect.any(String),
               body: expect.any(String),
               club_id: expect.any(String),
               clubName: expect.any(String),
@@ -727,7 +741,7 @@ describe("/api", () => {
         return request(app)
           .post("/api/comments/clubName=Blurble%20Club")
           .send({
-            username: "testUser",
+            user_id: "1",
             body: "testBody",
             book: "testBook",
             progress: 100,
@@ -735,7 +749,7 @@ describe("/api", () => {
           .expect(201)
           .then((res) => {
             expect(res.body.comment).toMatchObject({
-              username: "testUser",
+              user_id: "1",
               body: "testBody",
               club_id: "1",
               clubName: "Blurble Club",
@@ -767,7 +781,7 @@ describe("/api", () => {
         return request(app)
           .post("/api/comments/club_id=1")
           .send({
-            username: "testUser",
+            user_id: "1",
             body: "testBody",
             book: "testBook",
             progress: 100,
@@ -777,7 +791,7 @@ describe("/api", () => {
           .then((res) => {
             console.log(res.body);
             expect(res.body.comment).toMatchObject({
-              username: "testUser",
+              user_id: "1",
               body: "testBody",
               club_id: "1",
               clubName: "Blurble Club",
@@ -798,7 +812,21 @@ describe("/api", () => {
           .send({ body: "test" })
           .expect(400)
           .then((res) => {
-            expect(res.body.msg).toEqual("Required information not provided");
+            expect(res.body.msg).toEqual("Bad request");
+          });
+      });
+      test("should reject POST request when user is not a member of the club", () => {
+        return request(app)
+          .post("/api/comments/clubName=Blurble%20Club%202")
+          .send({
+            user_id: "1",
+            body: "testBody",
+            book: "testBook",
+            progress: 100,
+          })
+          .expect(400)
+          .then((res) => {
+            expect(res.body.msg).toBe("Bad request");
           });
       });
     });
