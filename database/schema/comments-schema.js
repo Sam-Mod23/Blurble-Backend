@@ -5,48 +5,47 @@ const ENV = process.env.NODE_ENV || "development";
 const CommentSchema = {
   test: new Schema(
     {
-      username: String,
-      user_id: String,
-      body: String,
-      club_id: String,
-      club_name: String,
-      book: String,
-      progress: Number,
+      user_id: { type: String, required: true },
+      body: { type: String, required: true },
+      club_id: { type: String, required: true },
+      clubName: { type: String, required: true },
+      book: { type: String, required: true },
+      progress: { type: Number, required: true },
       // photo: {data: Buffer, contentType: String}
       _id: String,
-      votes: { type: Number, default: 0 }
+      votes: { type: Number, default: 0 },
     },
     { timestamps: { createdAt: "created_at" } }
   ),
   development: new Schema(
     {
-      username: String,
-      user_id: String,
-      body: String,
-      club_id: String,
-      club_name: String,
-      book: String,
-      progress: Number,
+      user_id: { type: String, required: true },
+
+      body: { type: String, required: true },
+      club_id: { type: String, required: true },
+      clubName: { type: String, required: true },
+      book: { type: String, required: true },
+      progress: { type: Number, required: true },
       // photo: {data: Buffer, contentType: String}
       _id: String,
-      votes: { type: Number, default: 0 }
+      votes: { type: Number, default: 0 },
     },
     { timestamps: { createdAt: "created_at" } }
   ),
   production: new Schema(
     {
-      username: String,
-      user_id: String,
-      body: String,
-      club_id: String,
-      club_name: String,
-      book: String,
-      progress: Number,
+      user_id: { type: String, required: true },
+
+      body: { type: String, required: true },
+      club_id: { type: String, required: true },
+      clubName: { type: String, required: true },
+      book: { type: String, required: true },
+      progress: { type: Number, required: true },
       // photo: {data: Buffer, contentType: String}
       _id: String,
-      votes: { type: Number, default: 0 }
+      votes: { type: Number, default: 0 },
     },
     { timestamps: { createdAt: "created_at" } }
-  )
+  ),
 };
 module.exports = CommentSchema[ENV];

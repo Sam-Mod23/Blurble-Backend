@@ -1,12 +1,11 @@
-const { Comment } = require("../database/db-connection");
-const commentsSchema = require("../database/schema/comments-schema");
+const { Comment, mongoose, User } = require("../database/db-connection");
+const { fetchClub } = require("./clubs-model");
 
-exports.fetchComments = ({ _id, club_id, club_name }) => {
+exports.fetchComments = ({ _id, club_id, clubName }) => {
   let searchObject = {};
   if (club_id) searchObject = { club_id };
-  if (club_name) searchObject = { club_name };
+  if (clubName) searchObject = { clubName };
   if (_id) searchObject = { _id };
-
   return Comment.find(searchObject).then((comments) => {
     console.log(comments);
     if (!comments.length) {
@@ -16,5 +15,50 @@ exports.fetchComments = ({ _id, club_id, club_name }) => {
         return a.progress - b.progress;
       });
     }
+  });
+};
+
+exports.amendComment = ({ _id }, { voteInc }) => {
+  const searchObject = { _id };
+
+  return Comment.findOneAndUpdate(
+    searchObject,
+    { $inc: { votes: voteInc } },
+    {
+      new: true,
+    }
+  ).then((doc) => {
+    return doc;
+  });
+};
+
+exports.addComment = ({ club_id, clubName }, newComment) => {
+  let searchObject = {};
+  if (club_id) searchObject = { _id: club_id };
+  if (clubName) searchObject = { clubName };
+  newComment._id = mongoose.Types.ObjectId();
+
+  return fetchClub(searchObject)
+    .then((res) => {
+      if (!res.memberIds.includes(newComment.user_id)) {
+        return Promise.reject({ status: 400, msg: "Bad request" });
+      } else {
+        newComment.clubName = res.clubName;
+        newComment.club_id = res._id;
+        return newComment;
+      }
+    })
+    .then((newComment) => {
+      return Comment.create(newComment).then((comment) => {
+        return comment;
+      });
+    });
+};
+
+exports.removeComment = ({ _id }) => {
+  console.log(_id);
+  return Comment.deleteOne({ _id: _id }, (err) => {
+    if (err) return err;
+    return;
   });
 };
