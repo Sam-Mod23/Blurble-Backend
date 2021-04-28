@@ -77,7 +77,6 @@ exports.amendUserClubsByDetails = (
       { clubs: updatedClubs },
       { new: true }
     ).then((doc) => {
-      console.log(doc);
       return doc;
     });
   });
