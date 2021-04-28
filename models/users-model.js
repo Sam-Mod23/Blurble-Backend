@@ -60,7 +60,9 @@ exports.amendUserClubsByDetails = (
     } else {
       updatedClubs = userInfo.clubs.map((club) => {
         if (club_id === club.club_id) {
-          if (progress) club.progress = progress;
+          if (progress >= 0) {
+            club.progress = progress;
+          }
           if (hasNominated) {
             hasNominated === "yes"
               ? (club.hasNominated = true)
@@ -70,7 +72,6 @@ exports.amendUserClubsByDetails = (
         return club;
       });
     }
-    console.log(updatedClubs);
     return User.findOneAndUpdate(
       searchObject,
       { clubs: updatedClubs },

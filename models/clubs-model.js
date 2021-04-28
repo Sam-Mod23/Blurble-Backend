@@ -1,4 +1,5 @@
 const { Club, mongoose } = require("../database/db-connection");
+const { amendUserClubsByDetails } = require("./users-model");
 
 exports.fetchClubs = () => {
   return Club.find({}, (err, clubs) => {
@@ -124,6 +125,14 @@ exports.archiveBook = ({ _id, clubName }, { newBook }) => {
     let bookToArchive = club.currentBook;
 
     return this.amendClub({ _id, clubName }, { bookToArchive })
+      .then(() => {
+        return club.memberIds.forEach((userId) => {
+          amendUserClubsByDetails(
+            { _id: userId },
+            { club_id: _id, progress: 0, hasNominated: "no" }
+          );
+        });
+      })
       .then(() => {
         return this.amendClub({ _id, clubName }, { newBook });
       })
