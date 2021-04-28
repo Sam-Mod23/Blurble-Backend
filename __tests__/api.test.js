@@ -703,22 +703,39 @@ describe("/api", () => {
         });
       });
     });
-  });
-  describe("api/comments/clubName=:clubName", () => {
-    describe("GET api/comments/clubName=:clubName", () => {
-      test("should return 4 comments belonging to Test 1, all matching the schema and sorted by progress", () => {
-        return request(app)
-          .get("/api/comments/clubName=Test%201")
-          .expect(200)
-          .then((res) => {
-            expect(res.body.comments.length).toBe(4);
-            expect(res.body.comments).toBeSortedBy("progress", {
-              ascending: true
-            });
-            res.body.comments.forEach((comment) => {
-              expect(comment).toMatchObject({
-                user_id: expect.any(String),
 
+    describe("api/comments/clubName=:clubName", () => {
+      describe("GET api/comments/clubName=:clubName", () => {
+        test("should return 4 comments belonging to Test 1, all matching the schema and sorted by progress", () => {
+          return request(app)
+            .get("/api/comments/clubName=Test%201")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments.length).toBe(4);
+              expect(res.body.comments).toBeSortedBy("progress", {
+                ascending: true
+              });
+              res.body.comments.forEach((comment) => {
+                expect(comment).toMatchObject({
+                  user_id: expect.any(String),
+
+                  body: expect.any(String),
+                  club_id: expect.any(String),
+                  clubName: expect.any(String),
+                  book: expect.any(String),
+                  progress: expect.any(Number),
+                  _id: expect.any(String)
+                });
+              });
+            });
+        });
+        test("first object should match comment 1 object", () => {
+          return request(app)
+            .get("/api/comments/clubName=Test%201")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments[0]).toMatchObject({
+                user_id: expect.any(String),
                 body: expect.any(String),
                 club_id: expect.any(String),
                 clubName: expect.any(String),
@@ -727,156 +744,139 @@ describe("/api", () => {
                 _id: expect.any(String)
               });
             });
-          });
-      });
-      test("first object should match comment 1 object", () => {
-        return request(app)
-          .get("/api/comments/clubName=Test%201")
-          .expect(200)
-          .then((res) => {
-            expect(res.body.comments[0]).toMatchObject({
-              user_id: expect.any(String),
-              body: expect.any(String),
-              club_id: expect.any(String),
-              clubName: expect.any(String),
-              book: expect.any(String),
-              progress: expect.any(Number),
-              _id: expect.any(String)
+        });
+        test("should take a query to limit the comments to users current progress", () => {
+          return request(app)
+            .get("/api/comments/clubName=Test%201?progress=3")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments.length).toBe(2);
             });
-          });
-      });
-      test("should take a query to limit the comments to users current progress", () => {
-        return request(app)
-          .get("/api/comments/clubName=Test%201?progress=3")
-          .expect(200)
-          .then((res) => {
-            expect(res.body.comments.length).toBe(2);
-          });
-      });
-      test("should take a query to change sort order", () => {
-        return request(app)
-          .get("/api/comments/clubName=Test%201?orderBy=desc")
-          .expect(200)
-          .then((res) => {
-            expect(res.body.comments).toBeSortedBy("progress", {
-              descending: true
+        });
+        test("should take a query to change sort order", () => {
+          return request(app)
+            .get("/api/comments/clubName=Test%201?orderBy=desc")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments).toBeSortedBy("progress", {
+                descending: true
+              });
             });
-          });
+        });
+        test("should return 404 when given a valid but non-existent clubName", () => {
+          return request(app)
+            .get("/api/comments/clubName=not_a_club")
+            .expect(404)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Not found");
+            });
+        });
       });
-      test("should return 404 when given a valid but non-existent clubName", () => {
-        return request(app)
-          .get("/api/comments/clubName=not_a_club")
-          .expect(404)
-          .then((res) => {
-            expect(res.body.msg).toEqual("Not found");
-          });
-      });
-    });
-    describe("POST api/comments/clubName=:clubName", () => {
-      test("should be able to POST a comment to clubName endpoint", () => {
-        return request(app)
-          .post("/api/comments/clubName=Blurble%20Club")
-          .send({
-            user_id: "1",
-            body: "testBody",
-            book: "testBook",
-            progress: 100
-          })
-          .expect(201)
-          .then((res) => {
-            expect(res.body.comment).toMatchObject({
+      describe("POST api/comments/clubName=:clubName", () => {
+        test("should be able to POST a comment to clubName endpoint", () => {
+          return request(app)
+            .post("/api/comments/clubName=Blurble%20Club")
+            .send({
               user_id: "1",
               body: "testBody",
-              club_id: "1",
-              clubName: "Blurble Club",
               book: "testBook",
-              progress: 100,
-              votes: 0,
-              __v: 0,
-              created_at: expect.any(String),
-              updatedAt: expect.any(String),
-              _id: expect.any(String)
+              progress: 100
+            })
+            .expect(201)
+            .then((res) => {
+              expect(res.body.comment).toMatchObject({
+                user_id: "1",
+                body: "testBody",
+                club_id: "1",
+                clubName: "Blurble Club",
+                book: "testBook",
+                progress: 100,
+                votes: 0,
+                __v: 0,
+                created_at: expect.any(String),
+                updatedAt: expect.any(String),
+                _id: expect.any(String)
+              });
             });
-          });
-      });
-      test("should reject POST to club which doesnt exist and return 404", () => {
-        return request(app)
-          .post("/api/comments/clubName=NotAClub")
-          .send({
-            username: "testUser",
-            body: "testBody",
-            book: "testBook",
-            progress: 100
-          })
-          .expect(404)
-          .then((res) => {
-            expect(res.body.msg).toBe("Not found");
-          });
-      });
-      test("should only allow valid props when posting comment", () => {
-        return request(app)
-          .post("/api/comments/club_id=1")
-          .send({
-            user_id: "1",
-            body: "testBody",
-            book: "testBook",
-            progress: 100,
-            notAProp: "not a prop"
-          })
-          .expect(201)
-          .then((res) => {
-            expect(res.body.comment).toMatchObject({
+        });
+        test("should reject POST to club which doesnt exist and return 404", () => {
+          return request(app)
+            .post("/api/comments/clubName=NotAClub")
+            .send({
+              username: "testUser",
+              body: "testBody",
+              book: "testBook",
+              progress: 100
+            })
+            .expect(404)
+            .then((res) => {
+              expect(res.body.msg).toBe("Not found");
+            });
+        });
+        test("should only allow valid props when posting comment", () => {
+          return request(app)
+            .post("/api/comments/club_id=1")
+            .send({
               user_id: "1",
               body: "testBody",
-              club_id: "1",
-              clubName: "Blurble Club",
               book: "testBook",
               progress: 100,
-              votes: 0,
-              __v: 0,
-              created_at: expect.any(String),
-              updatedAt: expect.any(String),
-              _id: expect.any(String)
+              notAProp: "not a prop"
+            })
+            .expect(201)
+            .then((res) => {
+              expect(res.body.comment).toMatchObject({
+                user_id: "1",
+                body: "testBody",
+                club_id: "1",
+                clubName: "Blurble Club",
+                book: "testBook",
+                progress: 100,
+                votes: 0,
+                __v: 0,
+                created_at: expect.any(String),
+                updatedAt: expect.any(String),
+                _id: expect.any(String)
+              });
+              expect(res.body.notAProp).toEqual(undefined);
             });
-            expect(res.body.notAProp).toEqual(undefined);
-          });
+        });
+        test("should reject POST request which does not contain required keys", () => {
+          return request(app)
+            .post("/api/comments/clubName=Blurble%20Club")
+            .send({ body: "test" })
+            .expect(400)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Bad request");
+            });
+        });
+        test("should reject POST request when user is not a member of the club", () => {
+          return request(app)
+            .post("/api/comments/clubName=Blurble%20Club%202")
+            .send({
+              user_id: "1",
+              body: "testBody",
+              book: "testBook",
+              progress: 100
+            })
+            .expect(400)
+            .then((res) => {
+              expect(res.body.msg).toBe("Bad request");
+            });
+        });
       });
-      test("should reject POST request which does not contain required keys", () => {
-        return request(app)
-          .post("/api/comments/clubName=Blurble%20Club")
-          .send({ body: "test" })
-          .expect(400)
-          .then((res) => {
-            expect(res.body.msg).toEqual("Bad request");
-          });
-      });
-      test("should reject POST request when user is not a member of the club", () => {
-        return request(app)
-          .post("/api/comments/clubName=Blurble%20Club%202")
-          .send({
-            user_id: "1",
-            body: "testBody",
-            book: "testBook",
-            progress: 100
-          })
-          .expect(400)
-          .then((res) => {
-            expect(res.body.msg).toBe("Bad request");
-          });
-      });
-    });
-    describe("DELETE not allowed", () => {
-      test("status 405 - DELETE not allowed", () => {
-        return request(app)
-          .delete("/api/comments/clubName=Blurble%20Club")
-          .expect(405)
-          .then((res) => {
-            expect(res.body.msg).toEqual("Method not allowed");
-          });
+      describe("DELETE not allowed", () => {
+        test("status 405 - DELETE not allowed", () => {
+          return request(app)
+            .delete("/api/comments/clubName=Blurble%20Club")
+            .expect(405)
+            .then((res) => {
+              expect(res.body.msg).toEqual("Method not allowed");
+            });
+        });
       });
     });
   });
-
   describe("Clubs", () => {
     describe("GET api/clubs", () => {
       test("status: 200 - should return all clubs", () => {
@@ -1086,19 +1086,38 @@ describe("/api", () => {
             expect(res.body.club.currentBook).toEqual("www.newBook.com");
           });
       });
-      test("status: 201 - PATCH successful, nominatedBook votes incremented", () => {
+      test.only("status: 201 - PATCH successful, nominatedBook votes incremented", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
-          .send({ selfLink: "1", incVotes: 1 })
+          .send({ selfLink: "1", incVotes: 1, member_id: "1" })
           .expect(201)
           .then((res) => {
-            expect(res.body.club.nominatedBooks).toEqual([
-              { selfLink: "1", votes: 2 },
-              { selfLink: "2", votes: 2 },
-              { selfLink: "3", votes: 3 }
+            expect(res.body.club.nominatedBooks[0].votes).toEqual(2);
+          });
+      });
+      test.only("status: 201 - PATCH, member_id added to votedIds array after vote", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ selfLink: "1", incVotes: 1, member_id: "1" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.nominatedBooks[0].votedIds).toEqual([
+              "2",
+              "1"
             ]);
           });
       });
+      test.only("status: 201 - PATCH, if member_id already in votedIds, votedIds will not update", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ selfLink: "1", incVotes: 1, member_id: "2" })
+          .expect(201)
+          .then((res) => {
+            expect(res.body.club.nominatedBooks[0].votedIds).toEqual(["2"]);
+            expect(res.body.club.nominatedBooks[0].votes).toEqual(1);
+          });
+      });
+
       test("status: 201 - PATCH successful, nominatedBook added to club", () => {
         return request(app)
           .patch("/api/clubs/_id=1")

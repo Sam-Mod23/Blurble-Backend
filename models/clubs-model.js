@@ -66,7 +66,12 @@ exports.amendClub = (
   );
 };
 
-exports.amendNestedClubInfo = ({ _id, clubName }, { incVotes, selfLink }) => {
+// {incVotes, selfLink, user_id }
+
+exports.amendNestedClubInfo = (
+  { _id, clubName },
+  { incVotes, selfLink, member_id }
+) => {
   let searchObject = {};
   if (_id) searchObject = { _id };
   if (clubName) searchObject = { clubName };
@@ -74,7 +79,13 @@ exports.amendNestedClubInfo = ({ _id, clubName }, { incVotes, selfLink }) => {
     let updatedNominations;
     updatedNominations = clubInfo.nominatedBooks.map((book) => {
       if (selfLink === book.selfLink) {
-        book.votes = book.votes + incVotes;
+        const voted = book.votedIds.filter((votedId) => {
+          return votedId === member_id;
+        });
+        if (voted.length === 0) {
+          book.votedIds = [...book.votedIds, member_id];
+          book.votes = book.votes + incVotes;
+        }
       }
       return book;
     });
