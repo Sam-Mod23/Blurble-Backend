@@ -580,6 +580,16 @@ describe("/api", () => {
               expect(res.body.comments.length).toBe(2);
             });
         });
+        test("should take a query to change sort order", () => {
+          return request(app)
+            .get("/api/comments/club_id=1?orderBy=desc")
+            .expect(200)
+            .then((res) => {
+              expect(res.body.comments).toBeSortedBy("progress", {
+                descending: true,
+              });
+            });
+        });
         test("should return 404 when given a valid but non-existent club_id", () => {
           return request(app)
             .get("/api/comments/club_id=30")
@@ -741,6 +751,16 @@ describe("/api", () => {
           .expect(200)
           .then((res) => {
             expect(res.body.comments.length).toBe(2);
+          });
+      });
+      test("should take a query to change sort order", () => {
+        return request(app)
+          .get("/api/comments/clubName=Test%201?orderBy=desc")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.comments).toBeSortedBy("progress", {
+              descending: true,
+            });
           });
       });
       test("should return 404 when given a valid but non-existent clubName", () => {

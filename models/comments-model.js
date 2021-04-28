@@ -2,19 +2,22 @@ const { search } = require("../app");
 const { Comment, mongoose, User } = require("../database/db-connection");
 const { fetchClub } = require("./clubs-model");
 
-exports.fetchComments = ({ _id, club_id, clubName }, { progress }) => {
+exports.fetchComments = ({ _id, club_id, clubName }, { progress, orderBy }) => {
   let searchObject = {};
+
   if (club_id) searchObject = { club_id };
   if (clubName) searchObject = { clubName };
   if (_id) searchObject = { _id };
   if (progress) searchObject.progress = { $lte: progress };
-
+  console.log(orderBy);
   return Comment.find(searchObject).then((comments) => {
     if (!comments.length) {
       return Promise.reject({ status: 404, msg: "Not found" });
     } else {
       return comments.sort((a, b) => {
-        return a.progress - b.progress;
+        let sortOrder = a.progress - b.progress;
+        if (orderBy === "desc") sortOrder = b.progress - a.progress;
+        return sortOrder;
       });
     }
   });
