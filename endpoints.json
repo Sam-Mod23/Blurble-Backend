@@ -56,89 +56,98 @@
   },
   "PATCH /api/users/_id=:_id & PATCH api/users/username=:username": {
     "description": "updates users book progress, nomination status, adds or removes club from users club memberships, updates blurbles or badges and serves updated user back",
-    "example_BODY_1": { "club_id": "1", "progress": 100 },
-    "example_RESPONSE_1": {
-      "user": {
-        "blurbles": 10,
-        "badges": [],
-        "_id": "1",
-        "username": "username 1",
-        "name": "user 1",
-        "isOver18": false,
-        "email": "email 1",
-        "clubs": [{ "club_id": "1", "progress": 100, "hasNominated": false }],
-        "__v": 0,
-        "created_at": "2021-04-23T09:19:08.864Z",
-        "updatedAt": "2021-04-23T09:19:09.024Z"
+    "PATCH book progress": {
+      "example_BODY_1": { "club_id": "1", "progress": 100 },
+      "example_RESPONSE_1": {
+        "user": {
+          "blurbles": 10,
+          "badges": [],
+          "_id": "1",
+          "username": "username 1",
+          "name": "user 1",
+          "isOver18": false,
+          "email": "email 1",
+          "clubs": [{ "club_id": "1", "progress": 100, "hasNominated": false }],
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.864Z",
+          "updatedAt": "2021-04-23T09:19:09.024Z"
+        }
       }
     },
-
-    "example_BODY_2": { "club_id": "1", "hasNominated": "yes" },
-    "example_RESPONSE_2": {
-      "user": {
-        "blurbles": 10,
-        "badges": [],
-        "_id": "1",
-        "username": "username 1",
-        "name": "user 1",
-        "isOver18": false,
-        "email": "email 1",
-        "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
-        "__v": 0,
-        "created_at": "2021-04-23T09:19:08.864Z",
-        "updatedAt": "2021-04-23T09:19:09.024Z"
+    "PATCH hasNominated": {
+      "example_BODY_2": { "club_id": "1", "hasNominated": "yes" },
+      "example_RESPONSE_2": {
+        "user": {
+          "blurbles": 10,
+          "badges": [],
+          "_id": "1",
+          "username": "username 1",
+          "name": "user 1",
+          "isOver18": false,
+          "email": "email 1",
+          "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.864Z",
+          "updatedAt": "2021-04-23T09:19:09.024Z"
+        }
       }
     },
-    "example_BODY_3": { "clubToRemove": "1" },
-    "example_RESPONSE_3": {
-      "user": {
-        "blurbles": 10,
-        "badges": [],
-        "_id": "1",
-        "username": "username 1",
-        "name": "user 1",
-        "isOver18": false,
-        "email": "email 1",
-        "clubs": [],
-        "__v": 0,
-        "created_at": "2021-04-23T09:19:08.864Z",
-        "updatedAt": "2021-04-23T09:19:09.024Z"
+    "PATCH remove clubs": {
+      "example_BODY_3": { "clubToRemove": "1" },
+      "example_RESPONSE_3": {
+        "user": {
+          "blurbles": 10,
+          "badges": [],
+          "_id": "1",
+          "username": "username 1",
+          "name": "user 1",
+          "isOver18": false,
+          "email": "email 1",
+          "clubs": [],
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.864Z",
+          "updatedAt": "2021-04-23T09:19:09.024Z"
+        }
       }
     },
-    "example_BODY_4": { "blurblesInc": 10 },
-    "example_RESPONSE_4": {
-      "user": {
-        "blurbles": 10,
-        "badges": [],
-        "_id": "1",
-        "username": "username 1",
-        "name": "user 1",
-        "isOver18": false,
-        "email": "email 1",
-        "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
-        "__v": 0,
-        "created_at": "2021-04-23T09:19:08.864Z",
-        "updatedAt": "2021-04-23T09:19:09.024Z"
+    "PATCH increment Blurbles": {
+      "example_BODY_4": { "blurblesInc": 10 },
+      "example_RESPONSE_4": {
+        "user": {
+          "blurbles": 10,
+          "badges": [],
+          "_id": "1",
+          "username": "username 1",
+          "name": "user 1",
+          "isOver18": false,
+          "email": "email 1",
+          "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.864Z",
+          "updatedAt": "2021-04-23T09:19:09.024Z"
+        }
       }
     },
-
-    "example_BODY_5": { "newBadge": "badge name example" },
-    "example_RESPONSE_5": {
-      "user": {
-        "blurbles": 10,
-        "badges": ["badge name example"],
-        "_id": "1",
-        "username": "username 1",
-        "name": "user 1",
-        "isOver18": false,
-        "email": "email 1",
-        "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
-        "__v": 0,
-        "created_at": "2021-04-23T09:19:08.864Z",
-        "updatedAt": "2021-04-23T09:19:09.024Z"
+    "PATCH badges": {
+      "example_BODY_5": { "newBadge": "badge name example" },
+      "example_RESPONSE_5": {
+        "user": {
+          "blurbles": 10,
+          "badges": ["badge name example"],
+          "_id": "1",
+          "username": "username 1",
+          "name": "user 1",
+          "isOver18": false,
+          "email": "email 1",
+          "clubs": [{ "club_id": "1", "progress": 0, "hasNominated": true }],
+          "__v": 0,
+          "created_at": "2021-04-23T09:19:08.864Z",
+          "updatedAt": "2021-04-23T09:19:09.024Z"
+        }
       }
     }
   },
+
   "POST /api/users": {
     "description": "posts new user and returns 201, {User: new user} with additional preset props, including default membership of global club (club_id: 1)",
     "example_POST_WithMinumumRequirements": {
@@ -174,7 +183,7 @@
       "clubs": [
         {
           "nominatedBooks": [
-            { "selfLink": "www.nominatedBook1.com", "votes": 0 }
+            { "selfLink": "www.nominatedBook1.com", "votes": 0, "votedIds": [] }
           ],
           "memberIds": ["2"],
           "adminIds": ["2"],
@@ -190,7 +199,7 @@
         },
         {
           "nominatedBooks": [
-            { "selfLink": "www.nominatedBook2.com", "votes": 0 }
+            { "selfLink": "www.nominatedBook2.com", "votes": 0, "votedIds": [] }
           ],
           "memberIds": [3],
           "adminIds": [3],
@@ -206,7 +215,7 @@
         },
         {
           "nominatedBooks": [
-            { "selfLink": "www.nominatedBook3.com", "votes": 0 }
+            { "selfLink": "www.nominatedBook3.com", "votes": 0, "votedIds": [] }
           ],
           "memberIds": [4],
           "adminIds": [4],
@@ -251,126 +260,201 @@
   },
   "PATCH /api/club/_id=:_id & PATCH /api/users/clubName=:clubName": {
     "description": "updates club currentBook, nominatedBooks, memberIds, adminIds, comments, archived books and serves back updated club",
-    "example_NewCurrentBook_PATCH": { "newBook": "www.newBook.com" },
-    "example_NewCurrentBook_RESPONSE": {
-      "club": {
-        "clubName": "New Club",
-        "description": "Test",
-        "currentBook": "www.newBook.com",
-        "nominatedBooks": [],
-        "memberIds": ["user"],
-        "adminIds": ["user"],
-        "_id": "5",
-        "comments": [],
-        "archivedBooks": [],
-        "created_at": "2021-04-26T20:09:29.983Z",
-        "updatedAt": "2021-04-26T20:09:29.983Z",
-        "__v": 0
+    "PATCH current book": {
+      "example_NewCurrentBook_PATCH": { "newBook": "www.newBook.com" },
+      "example_NewCurrentBook_RESPONSE": {
+        "club": {
+          "clubName": "New Club",
+          "description": "Test",
+          "currentBook": "www.newBook.com",
+          "nominatedBooks": [],
+          "memberIds": ["user"],
+          "adminIds": ["user"],
+          "_id": "5",
+          "comments": [],
+          "archivedBooks": [],
+          "created_at": "2021-04-26T20:09:29.983Z",
+          "updatedAt": "2021-04-26T20:09:29.983Z",
+          "__v": 0
+        }
       }
     },
-    "example_NominatedBook_PATCH": { "selfLink": "www.nominatedBook.com" },
-    "example_NominiatedBook_RESPONSE": {
-      "club": {
-        "clubName": "New Club",
-        "description": "Test",
-        "currentBook": "www.newBook.com",
-        "nominatedBooks": [{ "selfLink": "www.nominatedBook.com", "votes": 0 }],
-        "memberIds": ["user"],
-        "adminIds": ["user"],
-        "_id": "5",
-        "comments": [],
-        "archivedBooks": [],
-        "created_at": "2021-04-26T20:09:29.983Z",
-        "updatedAt": "2021-04-26T20:09:29.983Z",
-        "__v": 0
+    "PATCH nominated book, adds a nomination to the nominatedBooks array": {
+      "example_NominatedBook_PATCH": { "selfLink": "www.nominatedBook.com" },
+      "example_NominiatedBook_RESPONSE": {
+        "club": {
+          "clubName": "New Club",
+          "description": "Test",
+          "currentBook": "www.newBook.com",
+          "nominatedBooks": [
+            { "selfLink": "www.nominatedBook.com", "votes": 0, "votedIds": [] }
+          ],
+          "memberIds": ["user"],
+          "adminIds": ["user"],
+          "_id": "5",
+          "comments": [],
+          "archivedBooks": [],
+          "created_at": "2021-04-26T20:09:29.983Z",
+          "updatedAt": "2021-04-26T20:09:29.983Z",
+          "__v": 0
+        }
       }
     },
-    "example_AddMemberToMemberIds_PATCH": { "addMember": "user 1" },
-    "example_AddMemberToMemberIds_RESPONSE": {
-      "club": {
-        "clubName": "New Club",
-        "description": "Test",
-        "currentBook": "www.newBook.com",
-        "nominatedBooks": [],
-        "memberIds": ["user", "user 1"],
-        "adminIds": ["user"],
-        "_id": "5",
-        "comments": [],
-        "archivedBooks": [],
-        "created_at": "2021-04-26T20:09:29.983Z",
-        "updatedAt": "2021-04-26T20:09:29.983Z",
-        "__v": 0
+    "PATCH add member to memberIds": {
+      "example_AddMemberToMemberIds_PATCH": { "addMember": "user 1" },
+      "example_AddMemberToMemberIds_RESPONSE": {
+        "club": {
+          "clubName": "New Club",
+          "description": "Test",
+          "currentBook": "www.newBook.com",
+          "nominatedBooks": [],
+          "memberIds": ["user", "user 1"],
+          "adminIds": ["user"],
+          "_id": "5",
+          "comments": [],
+          "archivedBooks": [],
+          "created_at": "2021-04-26T20:09:29.983Z",
+          "updatedAt": "2021-04-26T20:09:29.983Z",
+          "__v": 0
+        }
       }
     },
-    "example_AddAdminToAdminIds_PATCH": { "addAdmin": "user 1" },
-    "example_AddAdminToAdminIds_RESPONSE": {
-      "club": {
-        "clubName": "New Club",
-        "description": "Test",
-        "currentBook": "www.newBook.com",
-        "nominatedBooks": [],
-        "memberIds": ["user"],
-        "adminIds": ["user", "user 1"],
-        "_id": "5",
-        "comments": [],
-        "archivedBooks": [],
-        "created_at": "2021-04-26T20:09:29.983Z",
-        "updatedAt": "2021-04-26T20:09:29.983Z",
-        "__v": 0
+    "PATCH add admin to adminIds": {
+      "example_AddAdminToAdminIds_PATCH": { "addAdmin": "user 1" },
+      "example_AddAdminToAdminIds_RESPONSE": {
+        "club": {
+          "clubName": "New Club",
+          "description": "Test",
+          "currentBook": "www.newBook.com",
+          "nominatedBooks": [],
+          "memberIds": ["user"],
+          "adminIds": ["user", "user 1"],
+          "_id": "5",
+          "comments": [],
+          "archivedBooks": [],
+          "created_at": "2021-04-26T20:09:29.983Z",
+          "updatedAt": "2021-04-26T20:09:29.983Z",
+          "__v": 0
+        }
       }
     },
-    "example_RemoveMemberFromMemberIds_PATCH": { "removeMember": "user 1" },
-    "example_RemoveMemberFromMemberIds_RESPONSE": {
-      "club": {
-        "clubName": "New Club",
-        "description": "Test",
-        "currentBook": "www.newBook.com",
-        "nominatedBooks": [],
-        "memberIds": ["user"],
-        "adminIds": ["user"],
-        "_id": "5",
-        "comments": [],
-        "archivedBooks": [],
-        "created_at": "2021-04-26T20:09:29.983Z",
-        "updatedAt": "2021-04-26T20:09:29.983Z",
-        "__v": 0
+    "PATCH remove member from memberIds": {
+      "example_RemoveMemberFromMemberIds_PATCH": { "removeMember": "user 1" },
+      "example_RemoveMemberFromMemberIds_RESPONSE": {
+        "club": {
+          "clubName": "New Club",
+          "description": "Test",
+          "currentBook": "www.newBook.com",
+          "nominatedBooks": [],
+          "memberIds": ["user"],
+          "adminIds": ["user"],
+          "_id": "5",
+          "comments": [],
+          "archivedBooks": [],
+          "created_at": "2021-04-26T20:09:29.983Z",
+          "updatedAt": "2021-04-26T20:09:29.983Z",
+          "__v": 0
+        }
       }
     },
-    "example_RemoveAdminFromAdminIds_PATCH": { "removeAdmin": "user 1" },
-    "example_RemoveAdminFromAdminIds_RESPONSE": {
-      "club": {
-        "clubName": "New Club",
-        "description": "Test",
-        "currentBook": "www.newBook.com",
-        "nominatedBooks": [],
-        "memberIds": ["user"],
-        "adminIds": ["user"],
-        "_id": "5",
-        "comments": [],
-        "archivedBooks": [],
-        "created_at": "2021-04-26T20:09:29.983Z",
-        "updatedAt": "2021-04-26T20:09:29.983Z",
-        "__v": 0
+    "PATCH remove admin from adminIds": {
+      "example_RemoveAdminFromAdminIds_PATCH": { "removeAdmin": "user 1" },
+      "example_RemoveAdminFromAdminIds_RESPONSE": {
+        "club": {
+          "clubName": "New Club",
+          "description": "Test",
+          "currentBook": "www.newBook.com",
+          "nominatedBooks": [],
+          "memberIds": ["user"],
+          "adminIds": ["user"],
+          "_id": "5",
+          "comments": [],
+          "archivedBooks": [],
+          "created_at": "2021-04-26T20:09:29.983Z",
+          "updatedAt": "2021-04-26T20:09:29.983Z",
+          "__v": 0
+        }
       }
     },
-    "example_ReplaceCurrentBookAndArchive_PATCH": {
-      "archive": true,
-      "newBook": "www.newBook2.com"
+    "PATCH replace current book and archive, also empties nominatedBooks array": {
+      "example_ReplaceCurrentBookAndArchive_PATCH": {
+        "archive": true,
+        "newBook": "www.newBook2.com"
+      },
+      "example_ReplaceCurrentBookAndArchive_RESPONSE": {
+        "club": {
+          "clubName": "New Club",
+          "description": "Test",
+          "currentBook": "www.newBook2.com",
+          "nominatedBooks": [],
+          "memberIds": ["user"],
+          "adminIds": ["user"],
+          "_id": "5",
+          "comments": [],
+          "archivedBooks": ["www.newBook.com"],
+          "created_at": "2021-04-26T20:09:29.983Z",
+          "updatedAt": "2021-04-26T20:09:29.983Z",
+          "__v": 0
+        }
+      }
     },
-    "example_ReplaceCurrentBookAndArchive_RESPONSE": {
-      "club": {
-        "clubName": "New Club",
-        "description": "Test",
-        "currentBook": "www.newBook2.com",
-        "nominatedBooks": [],
-        "memberIds": ["user"],
-        "adminIds": ["user"],
-        "_id": "5",
-        "comments": [],
-        "archivedBooks": ["www.newBook.com"],
-        "created_at": "2021-04-26T20:09:29.983Z",
-        "updatedAt": "2021-04-26T20:09:29.983Z",
-        "__v": 0
+    "PATCH update a nominatedBook's vote and votedIds, will prevent any further votes by this club member": {
+      "example_vote_PATCH": {
+        "selfLink": "www.nominatedBook.com",
+        "incVotes": 1,
+        "member_id": "1"
+      },
+      "example_vote_RESPONSE": {
+        "club": {
+          "clubName": "New Club",
+          "description": "Test",
+          "currentBook": "www.newBook.com",
+          "nominatedBooks": [
+            {
+              "selfLink": "www.nominatedBook.com",
+              "votes": 1,
+              "votedIds": ["1"]
+            }
+          ],
+          "memberIds": ["user"],
+          "adminIds": ["user"],
+          "_id": "5",
+          "comments": [],
+          "archivedBooks": [],
+          "created_at": "2021-04-26T20:09:29.983Z",
+          "updatedAt": "2021-04-26T20:09:29.983Z",
+          "__v": 0
+        }
+      }
+    },
+    "PATCH confirm final vote. This will implement the archive vote functionality - moving winning book to current book key, resetting all member's vote statuses, emptying nominatedBooks": {
+      "example_completeVote_PATCH": { "completeVote": true },
+      "example_completeVote_RESPONSE": {
+        "results": {
+          "sortedNominations": [
+            {
+              "selfLink": "winning book",
+              "votes": 3,
+              "votedIds": ["1", "2", "3"]
+            },
+            { "selfLink": "2", "votes": 2, "votedIds": ["1", "2"] },
+            { "selfLink": "1", "votes": 1, "votedIds": ["1"] }
+          ],
+          "club": {
+            "nominatedBooks": [],
+            "memberIds": ["1", "'2'", "3"],
+            "adminIds": ["1"],
+            "comments": [],
+            "archivedBooks": ["test"],
+            "_id": "1",
+            "clubName": "Blurble Club",
+            "description": "test",
+            "currentBook": "winning book",
+            "__v": 0,
+            "created_at": "2021-04-28T19:53:17.372Z",
+            "updatedAt": "2021-04-28T19:53:17.450Z"
+          }
+        }
       }
     }
   },
