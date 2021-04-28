@@ -42,7 +42,7 @@ exports.amendClub = (
 ) => {
   let searchObject;
   if (_id) searchObject = { _id };
-  if (clubName) searchObject = { username };
+  if (clubName) searchObject = { clubName };
   let updateObj;
 
   if (newBook) updateObj = { currentBook: newBook };

@@ -73,7 +73,7 @@
       }
     },
 
-    "example_BODY_2": { "club_id": "1", "hasNominated": true },
+    "example_BODY_2": { "club_id": "1", "hasNominated": "yes" },
     "example_RESPONSE_2": {
       "user": {
         "blurbles": 10,
