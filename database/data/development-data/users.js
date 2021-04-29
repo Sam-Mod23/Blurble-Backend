@@ -338,3 +338,9 @@ const userData = [
 ];
 
 module.exports = userData;
+
+userData.forEach((user) => {
+  userRef = {};
+  userRef[user.username] = user._id;
+  console.log(userRef);
+});
