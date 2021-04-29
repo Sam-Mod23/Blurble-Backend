@@ -108,11 +108,13 @@ const clubData = [
     memberIds: ["6", "11", "14", "15", "17", "24"],
     adminIds: ["6"],
     currentBook: "https://www.googleapis.com/books/v1/volumes/ZgfbDwAAQBAJ",
-    nominatedBooks: {
-      selfLink: "https://www.googleapis.com/books/v1/volumes/ZgfbDwAAQBAJ",
-      votes: 1,
-      votedIds: ["6"]
-    },
+    nominatedBooks: [
+      {
+        selfLink: "https://www.googleapis.com/books/v1/volumes/ZgfbDwAAQBAJ",
+        votes: 1,
+        votedIds: ["6"]
+      }
+    ],
     archivedBooks: [],
     _id: 4
   },
@@ -122,11 +124,13 @@ const clubData = [
     memberIds: ["5", "6", "11", "14", "15", "17", "24"],
     adminIds: ["18"],
     currentBook: "https://www.googleapis.com/books/v1/volumes/-6aSDwAAQBAJ",
-    nominatedBooks: {
-      selfLink: "https://www.googleapis.com/books/v1/volumes/zVq8BF_5vSUC",
-      votes: 3,
-      votedIds: ["6", "15", "17"]
-    },
+    nominatedBooks: [
+      {
+        selfLink: "https://www.googleapis.com/books/v1/volumes/zVq8BF_5vSUC",
+        votes: 3,
+        votedIds: ["6", "15", "17"]
+      }
+    ],
     archivedBooks: [],
     _id: 5
   }
