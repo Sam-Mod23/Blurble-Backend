@@ -1,4 +1,5 @@
-const { Club, mongoose } = require("../database/db-connection");
+const { search } = require("../app");
+const { Club, mongoose, User } = require("../database/db-connection");
 const { amendUserClubsByDetails } = require("./users-model");
 
 exports.fetchClubs = () => {
@@ -48,7 +49,9 @@ exports.amendClub = (
 
   if (newBook) updateObj = { currentBook: newBook };
   if (selfLink) {
-    updateObj = { $push: { nominatedBooks: { selfLink, votes: 0 } } };
+    updateObj = {
+      $push: { nominatedBooks: { selfLink, votes: 0, votedIds: [] } }
+    };
   }
   if (addMember) {
     updateObj = { $push: { memberIds: addMember } };
@@ -65,8 +68,6 @@ exports.amendClub = (
     }
   );
 };
-
-// {incVotes, selfLink, user_id }
 
 exports.amendNestedClubInfo = (
   { _id, clubName },
@@ -134,21 +135,44 @@ exports.amendClubMembersAndAdmins = (
 exports.archiveBook = ({ _id, clubName }, { newBook }) => {
   return this.fetchClub({ _id, clubName }).then((club) => {
     let bookToArchive = club.currentBook;
-
     return this.amendClub({ _id, clubName }, { bookToArchive })
       .then(() => {
-        return club.memberIds.forEach((userId) => {
-          amendUserClubsByDetails(
-            { _id: userId },
-            { club_id: _id, progress: 0, hasNominated: "no" }
-          );
-        });
+        return Promise.all(
+          club.memberIds.map((userId) => {
+            return amendUserClubsByDetails(
+              { _id: userId },
+              { club_id: _id, progress: 0, hasNominated: "no" }
+            );
+          })
+        );
       })
       .then(() => {
         return this.amendClub({ _id, clubName }, { newBook });
       })
-      .then((club) => {
-        return club;
+      .then(() => {
+        return Club.findOneAndUpdate(
+          _id ? { _id } : { clubName },
+          { nominatedBooks: [] },
+          { new: true }
+        ).then((club) => {
+          return club;
+        });
       });
+  });
+};
+
+exports.voteTally = ({ _id, clubName }, { completeVote }) => {
+  if (_id) searchObject = { _id };
+  if (clubName) searchObject = { clubName };
+
+  return this.fetchClub(searchObject).then((club) => {
+    const sortedNominations = club.nominatedBooks.sort((a, b) => {
+      return b.votes - a.votes;
+    });
+    return this.archiveBook(searchObject, {
+      newBook: sortedNominations[0].selfLink
+    }).then((club) => {
+      return { sortedNominations, club };
+    });
   });
 };

@@ -6,7 +6,8 @@ const {
   removeClub,
   amendNestedClubInfo,
   amendClubMembersAndAdmins,
-  archiveBook
+  archiveBook,
+  voteTally
 } = require("../models/clubs-model");
 
 exports.getClubs = (req, res, next) => {
@@ -51,7 +52,14 @@ exports.deleteClub = (req, res, next) => {
 };
 
 exports.patchClub = (req, res, next) => {
-  const { incVotes, selfLink, removeAdmin, removeMember, archive } = req.body;
+  const {
+    incVotes,
+    selfLink,
+    removeAdmin,
+    removeMember,
+    archive,
+    completeVote
+  } = req.body;
   if (removeAdmin || removeMember) {
     amendClubMembersAndAdmins(req.params, req.body)
       .then((club) => {
@@ -72,6 +80,14 @@ exports.patchClub = (req, res, next) => {
     archiveBook(req.params, req.body)
       .then((club) => {
         res.status(201).send({ club });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  } else if (completeVote) {
+    voteTally(req.params, req.body)
+      .then((result) => {
+        res.status(201).send({ result });
       })
       .catch((err) => {
         next(err);
