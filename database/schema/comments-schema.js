@@ -6,6 +6,7 @@ const CommentSchema = {
   test: new Schema(
     {
       user_id: { type: String, required: true },
+      username: { type: String, required: true },
       body: { type: String, required: true },
       club_id: { type: String, required: true },
       clubName: { type: String, required: true },
@@ -20,7 +21,7 @@ const CommentSchema = {
   development: new Schema(
     {
       user_id: { type: String, required: true },
-
+      username: { type: String, required: true },
       body: { type: String, required: true },
       club_id: { type: String, required: true },
       clubName: { type: String, required: true },
@@ -35,7 +36,7 @@ const CommentSchema = {
   production: new Schema(
     {
       user_id: { type: String, required: true },
-
+      username: { type: String, required: true },
       body: { type: String, required: true },
       club_id: { type: String, required: true },
       clubName: { type: String, required: true },
