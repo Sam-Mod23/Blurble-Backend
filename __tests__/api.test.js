@@ -604,6 +604,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/club_id=1")
             .send({
+              username: "Test 1",
               user_id: "1",
               body: "testBody",
               book: "testBook",
@@ -630,6 +631,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/club_id=9999")
             .send({
+              username: "Test 1",
               user_id: "1",
               body: "testBody",
               book: "testBook",
@@ -644,6 +646,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/club_id=1")
             .send({
+              username: "Test 1",
               user_id: "1",
               body: "testBody",
               book: "testBook",
@@ -681,6 +684,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/club_id=2")
             .send({
+              username: "Test 1",
               user_id: "1",
               body: "testBody",
               book: "testBook",
@@ -777,6 +781,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/clubName=Blurble%20Club")
             .send({
+              username: "Test 1",
               user_id: "1",
               body: "testBody",
               book: "testBook",
@@ -817,6 +822,7 @@ describe("/api", () => {
           return request(app)
             .post("/api/comments/club_id=1")
             .send({
+              username: "Test 1",
               user_id: "1",
               body: "testBody",
               book: "testBook",
@@ -1095,6 +1101,15 @@ describe("/api", () => {
             expect(res.body.club.nominatedBooks[0].votes).toEqual(2);
           });
       });
+      test('"status: 400 - PATCH unsuccessful if incVotes is not a number"', () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ selfLink: "1", incVotes: "not a number", member_id: "1" })
+          .expect(400)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Increment must be a number");
+          });
+      });
       test("status: 201 - PATCH member_id added to votedIds array after vote", () => {
         return request(app)
           .patch("/api/clubs/_id=1")
@@ -1157,6 +1172,15 @@ describe("/api", () => {
           .expect(201)
           .then((res) => {
             expect(res.body.club.memberIds).toEqual(["2", "3"]);
+          });
+      });
+      test("status: 400 - PATCH removeMember unsuccessful if removeMember is not a string", () => {
+        return request(app)
+          .patch("/api/clubs/_id=1")
+          .send({ removeMember: 1 })
+          .expect(400)
+          .then((res) => {
+            expect(res.body.msg).toEqual("Member not found");
           });
       });
       test("status: 201 - PATCH removeAdmin removed from club adminIds", () => {
