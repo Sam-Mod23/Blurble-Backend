@@ -119,6 +119,11 @@ exports.amendClubMembersAndAdmins = (
   }
 
   return this.fetchClub(searchObject).then((clubInfo) => {
+    if(clubInfo[arrayToUpdate].filter((member) => {
+      return member === remove;
+    }).length ===0) {
+      return Promise.reject({status: 400, msg: "Member not found"})
+    }
     const updatedMembers = clubInfo[arrayToUpdate].filter((member) => {
       return member !== remove;
     });

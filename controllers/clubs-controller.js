@@ -69,13 +69,17 @@ exports.patchClub = (req, res, next) => {
         next(err);
       });
   } else if (incVotes) {
-    amendNestedClubInfo(req.params, req.body)
-      .then((club) => {
-        res.status(201).send({ club });
-      })
-      .catch((err) => {
-        next(err);
-      });
+    if (typeof incVotes !== "number") {
+      next({ status: 400, msg: "Increment must be a number" });
+    } else {
+      amendNestedClubInfo(req.params, req.body)
+        .then((club) => {
+          res.status(201).send({ club });
+        })
+        .catch((err) => {
+          next(err);
+        });
+    }
   } else if (archive) {
     archiveBook(req.params, req.body)
       .then((club) => {
