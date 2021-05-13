@@ -7,10 +7,10 @@ const userData = [
     blurbles: 310,
     clubs: [
       { club_id: "1", progress: 387, hasNominated: true },
-      { club_id: "2", progress: 387, hasNominated: true },
+      { club_id: "2", progress: 387, hasNominated: true }
     ],
     avatar: "https://robohash.org/nonaliquameveniet.png?size=50x50&set=set1",
-    _id: "1",
+    _id: "1"
   },
   {
     username: "jrickelton",
@@ -20,10 +20,10 @@ const userData = [
     blurbles: 280,
     clubs: [
       { club_id: "1", progress: 287, hasNominated: true },
-      { club_id: "2", progress: 387, hasNominated: true },
+      { club_id: "2", progress: 387, hasNominated: true }
     ],
     avatar: "https://robohash.org/rerumverodignissimos.png?size=50x50&set=set1",
-    _id: "2",
+    _id: "2"
   },
   {
     username: "joetilbybaxter",
@@ -33,11 +33,11 @@ const userData = [
     blurbles: 320,
     clubs: [
       { club_id: "1", progress: 295, hasNominated: true },
-      { club_id: "2", progress: 387, hasNominated: true },
+      { club_id: "2", progress: 387, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/repellatrepellenduslabore.png?size=50x50&set=set1",
-    _id: "3",
+    _id: "3"
   },
   {
     username: "N1ck-Benson",
@@ -47,10 +47,10 @@ const userData = [
     blurbles: 290,
     clubs: [
       { club_id: "1", progress: 328, hasNominated: true },
-      { club_id: "2", progress: 387, hasNominated: true },
+      { club_id: "2", progress: 387, hasNominated: true }
     ],
     avatar: "https://robohash.org/estnemoea.png?size=50x50&set=set1",
-    _id: "4",
+    _id: "4"
   },
   {
     username: "Sam-Mod23",
@@ -60,10 +60,10 @@ const userData = [
     blurbles: 300,
     clubs: [
       { club_id: "1", progress: 299, hasNominated: true },
-      { club_id: "2", progress: 66, hasNominated: true },
+      { club_id: "2", progress: 66, hasNominated: true }
     ],
     avatar: "https://robohash.org/sintdoloremeveniet.png?size=50x50&set=set1",
-    _id: "5",
+    _id: "5"
   },
 
   {
@@ -74,10 +74,10 @@ const userData = [
     blurbles: 445,
     clubs: [
       { club_id: "1", progress: 20, hasNominated: false },
-      { club_id: "4", progress: 66, hasNominated: true },
+      { club_id: "4", progress: 66, hasNominated: true }
     ],
     avatar: "https://robohash.org/fugiatdistinctioiure.png?size=50x50&set=set1",
-    _id: "6",
+    _id: "6"
   },
   {
     username: "sterrans6",
@@ -87,10 +87,10 @@ const userData = [
     blurbles: 55,
     clubs: [
       { club_id: "2", progress: 97, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/nonexpeditaid.png?size=50x50&set=set1",
-    _id: "7",
+    _id: "7"
   },
   {
     username: "plevane7",
@@ -100,10 +100,10 @@ const userData = [
     blurbles: 168,
     clubs: [
       { club_id: "3", progress: 45, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/quistemporibussit.png?size=50x50&set=set1",
-    _id: "8",
+    _id: "8"
   },
   {
     username: "tsealeaf8",
@@ -113,11 +113,11 @@ const userData = [
     blurbles: 372,
     clubs: [
       { club_id: "5", progress: 125, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/praesentiumdolorestempora.png?size=50x50&set=set1",
-    _id: "9",
+    _id: "9"
   },
   {
     username: "jatwel9",
@@ -127,10 +127,10 @@ const userData = [
     blurbles: 309,
     clubs: [
       { club_id: "3", progress: 128, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/eaqueundeid.png?size=50x50&set=set1",
-    _id: "10",
+    _id: "10"
   },
   {
     username: "cmingusa",
@@ -140,11 +140,11 @@ const userData = [
     blurbles: 333,
     clubs: [
       { club_id: "1", progress: 73, hasNominated: true },
-      { club_id: "4", progress: 66, hasNominated: true },
+      { club_id: "4", progress: 66, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/velitreprehenderitodio.png?size=50x50&set=set1",
-    _id: "11",
+    _id: "11"
   },
   {
     username: "mwhyborneb",
@@ -154,10 +154,10 @@ const userData = [
     blurbles: 118,
     clubs: [
       { club_id: "2", progress: 78, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/etbeataeofficia.png?size=50x50&set=set1",
-    _id: "12",
+    _id: "12"
   },
   {
     username: "asamsonsenc",
@@ -167,11 +167,11 @@ const userData = [
     blurbles: 451,
     clubs: [
       { club_id: "3", progress: 39, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/eareprehenderitdeleniti.png?size=50x50&set=set1",
-    _id: "13",
+    _id: "13"
   },
   {
     username: "cfilipczakd",
@@ -181,11 +181,11 @@ const userData = [
     blurbles: 132,
     clubs: [
       { club_id: "4", progress: 62, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/accusantiumexercitationemest.png?size=50x50&set=set1",
-    _id: "14",
+    _id: "14"
   },
   {
     username: "mwedgbrowe",
@@ -195,11 +195,11 @@ const userData = [
     blurbles: 324,
     clubs: [
       { club_id: "4", progress: 66, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/esseconsecteturdolorum.png?size=50x50&set=set1",
-    _id: "15",
+    _id: "15"
   },
   {
     username: "jfyndonf",
@@ -209,10 +209,10 @@ const userData = [
     blurbles: 272,
     clubs: [
       { club_id: "5", progress: 147, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/sitinventorequis.png?size=50x50&set=set1",
-    _id: "16",
+    _id: "16"
   },
   {
     username: "cweatherheadg",
@@ -222,10 +222,10 @@ const userData = [
     blurbles: 288,
     clubs: [
       { club_id: "1", progress: 4, hasNominated: false },
-      { club_id: "4", progress: 66, hasNominated: true },
+      { club_id: "4", progress: 66, hasNominated: true }
     ],
     avatar: "https://robohash.org/autsedet.png?size=50x50&set=set1",
-    _id: "17",
+    _id: "17"
   },
   {
     username: "vrawcliffeh",
@@ -235,10 +235,10 @@ const userData = [
     blurbles: 171,
     clubs: [
       { club_id: "5", progress: 75, hasNominated: false },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/veldoloreautem.png?size=50x50&set=set1",
-    _id: "18",
+    _id: "18"
   },
   {
     username: "iklyneri",
@@ -248,10 +248,10 @@ const userData = [
     blurbles: 433,
     clubs: [
       { club_id: "3", progress: 86, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/laborerationeerror.png?size=50x50&set=set1",
-    _id: "19",
+    _id: "19"
   },
   {
     username: "fyeldingj",
@@ -261,11 +261,11 @@ const userData = [
     blurbles: 497,
     clubs: [
       { club_id: "3", progress: 24, hasNominated: false },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/reprehenderitquiexercitationem.png?size=50x50&set=set1",
-    _id: "20",
+    _id: "20"
   },
   {
     username: "lorchartk",
@@ -275,11 +275,11 @@ const userData = [
     blurbles: 473,
     clubs: [
       { club_id: "5", progress: 74, hasNominated: false },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/etperspiciatisrepudiandae.png?size=50x50&set=set1",
-    _id: "21",
+    _id: "21"
   },
   {
     username: "nshuryl",
@@ -289,10 +289,10 @@ const userData = [
     blurbles: 66,
     clubs: [
       { club_id: "3", progress: 14, hasNominated: false },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/sedfacilisqui.png?size=50x50&set=set1",
-    _id: "22",
+    _id: "22"
   },
   {
     username: "madolfm",
@@ -302,11 +302,11 @@ const userData = [
     blurbles: 269,
     clubs: [
       { club_id: "2", progress: 111, hasNominated: true },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/magnivoluptatemfacilis.png?size=50x50&set=set1",
-    _id: "23",
+    _id: "23"
   },
   {
     username: "cbransgroven",
@@ -316,11 +316,11 @@ const userData = [
     blurbles: 149,
     clubs: [
       { club_id: "1", progress: 109, hasNominated: true },
-      { club_id: "4", progress: 66, hasNominated: true },
+      { club_id: "4", progress: 66, hasNominated: true }
     ],
     avatar:
       "https://robohash.org/sequidoloribusconsequatur.png?size=50x50&set=set1",
-    _id: "24",
+    _id: "24"
   },
   {
     username: "wricciardio",
@@ -330,17 +330,17 @@ const userData = [
     blurbles: 488,
     clubs: [
       { club_id: "3", progress: 81, hasNominated: false },
-      { club_id: "1", progress: 97, hasNominated: true },
+      { club_id: "1", progress: 97, hasNominated: true }
     ],
     avatar: "https://robohash.org/voluptatemetsed.png?size=50x50&set=set1",
-    _id: "25",
-  },
+    _id: "25"
+  }
 ];
 
 module.exports = userData;
 
-userData.forEach((user) => {
-  userRef = {};
-  userRef[user.username] = user._id;
-  console.log(userRef);
-});
+// userData.forEach((user) => {
+//   userRef = {};
+//   userRef[user.username] = user._id;
+//   console.log(userRef);
+// });
