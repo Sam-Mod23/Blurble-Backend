@@ -3,7 +3,6 @@ process.env.NODE_ENV = "test";
 const mongoose = require("mongoose");
 
 const app = require("../app");
-const db = require("../database/db-connection");
 const request = require("supertest");
 const { seedFunction } = require("../database/seed");
 const { beforeEach, expect } = require("@jest/globals");
@@ -19,7 +18,7 @@ afterAll(() => {
 });
 
 describe("/", () => {
-  it("status: 404 - given an invalid endpoint", () => {
+  test("status: 404 - given an invalid endpoint", () => {
     return request(app).get("/bananas").expect(404);
   });
 });
