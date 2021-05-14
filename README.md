@@ -71,7 +71,7 @@ Due to the differences in how MongoDB and Mongoose interact with each OS, differ
 
     "app-connect"
 
-This will connect to
+This will connect to the database without seeding.
 
 ### Seeding the database:
 
