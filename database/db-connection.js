@@ -2,11 +2,9 @@ const mongoose = require("mongoose");
 const UserSchema = require("./schema/users-schema");
 const ClubSchema = require("./schema/clubs-schema");
 const CommentSchema = require("./schema/comments-schema");
+const url = require("./utils/dbURL");
 
-const { seedFunction } = require("./seed");
-
-const dbConnectionUrl =
-  process.env.atlasURL || "mongodb://localhost:27017/blurble";
+const dbConnectionUrl = process.env.atlasURL || url;
 
 mongoose.connect(dbConnectionUrl, {
   useNewUrlParser: true,

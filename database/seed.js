@@ -4,9 +4,7 @@ const seedFunction = async () => {
   const { db, User, Club, Comment } = require("./db-connection.js");
 
   const { userData, commentData, clubData } = require("./data/index");
-
-  process.env.NODE_ENV = "test";
-
+  console.log(process.env.NODE_ENV);
   const seedDb = () => {
     return Promise.all([
       User.collection.deleteMany({}),
@@ -35,5 +33,7 @@ const seedFunction = async () => {
 
   return seedDb();
 };
+
+seedFunction();
 
 module.exports = { seedFunction };
