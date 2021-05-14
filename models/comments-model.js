@@ -9,7 +9,6 @@ exports.fetchComments = ({ _id, club_id, clubName }, { progress, orderBy }) => {
   if (clubName) searchObject = { clubName };
   if (_id) searchObject = { _id };
   if (progress) searchObject.progress = { $lte: progress };
-  console.log(orderBy);
   return Comment.find(searchObject).then((comments) => {
     if (!comments.length) {
       return Promise.reject({ status: 404, msg: "Not found" });
@@ -30,7 +29,7 @@ exports.amendComment = ({ _id }, { voteInc }) => {
     searchObject,
     { $inc: { votes: voteInc } },
     {
-      new: true,
+      new: true
     }
   ).then((doc) => {
     return doc;
