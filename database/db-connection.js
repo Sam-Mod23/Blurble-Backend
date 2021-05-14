@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 const UserSchema = require("./schema/users-schema");
 const ClubSchema = require("./schema/clubs-schema");
 const CommentSchema = require("./schema/comments-schema");
-const url = require("./utils/dbURL");
+
+let url;
+if (process.env.NODE_ENV !== "production") {
+  url = require("./utils/dbURL");
+}
 
 const dbConnectionUrl = process.env.atlasURL || url;
 
